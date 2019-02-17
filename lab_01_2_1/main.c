@@ -10,6 +10,7 @@ int main(void)
 {
     float pointa1, pointa2, pointb1, pointb2, pointc1, pointc2; /*!< Точки */
     float perimeter; /*!< Значение периметра заданного треугольника */
+	float firstside, secondside, thirdside; /*!< Длины сторон */
 
     /*!
      * Ввод значений переменных pointa1, pointa2, pointb1, pointb2,
@@ -26,11 +27,13 @@ int main(void)
     /*!
      * Вывод значения периметра заданного треугольника
      */
-    perimeter = sqrt((pointb1 - pointa1) * (pointb1 - pointa1) + (pointb2 -
-	pointa2) * (pointb2 - pointa2)) + sqrt((pointc1 - pointa1) * (pointc1 -
-	pointa1) + (pointc2 - pointa2) * (pointc2 - pointa2)) + sqrt((pointc1 -
-	pointb1) * (pointc1 - pointb1) + (pointc2 - pointb2) * (pointc2 -
-	pointb2));
+	firstside = sqrt((pointb1 - pointa1) * (pointb1 - pointa1) + (pointb2 -
+		pointa2) * (pointb2 - pointa2));
+	secondside = sqrt((pointc1 - pointa1) * (pointc1 - pointa1) + (pointc2 -
+		pointa2) * (pointc2 - pointa2));
+	thirdside = sqrt((pointc1 - pointb1) * (pointc1 - pointb1) + (pointc2 -
+		pointb2) * (pointc2 - pointb2));
+    perimeter = firstside + secondside + thirdside;
     printf("Perimeter of triangle = %.5f", perimeter);
 
     return 0;
