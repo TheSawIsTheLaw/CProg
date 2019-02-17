@@ -8,10 +8,10 @@ int main(void)
 {
     int res1, res2, res3; /*!< Сопротивление каждого резистора */
 
-    float Res; /*!< Общее сопротивление */
+    float res; /*!< Общее сопротивление */
 
     /*!
-     * Ввод значений переменных R1, R2, R3 пользователем
+     * Ввод значений переменных res1, res2, res3 пользователем
      */
     printf("Input R1: ");
     scanf("%d", &res1);
@@ -24,9 +24,9 @@ int main(void)
      * Расчёт общего сопротивления по формуле и вывод значения общего
      * сопротивления
      */
-    Res = (1/res1 + 1/res2 + 1/res3);
-    Res = 1 / Res;
-    printf("Total resistance = %.5f", Res);
+    res = (1/res1 + 1/res2 + 1/res3);
+    res = 1 / res;
+    printf("Total resistance = %.5f", res);
 
     return 0;
 }
