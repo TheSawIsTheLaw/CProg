@@ -8,7 +8,7 @@
 
 int main(void)
 {
-    int pointa1, pointa2, pointb1, pointb2, pointc1, pointc2; /*!< Точки */
+    float pointa1, pointa2, pointb1, pointb2, pointc1, pointc2; /*!< Точки */
     float perimeter; /*!< Значение периметра заданного треугольника */
 
     /*!
@@ -16,20 +16,21 @@ int main(void)
 	 * pointc1, pointc2 пользователем
      */
     printf("Please, input point A coordinates (separated by space): ");
-    scanf("%d %d", &pointa1, &pointa2);
+    scanf("%f %f", &pointa1, &pointa2);
     printf("Please, input point B coordinates (separated by space): ");
-    scanf("%d %d", &pointb1, &pointb2);
+    scanf("%f %f", &pointb1, &pointb2);
     printf("Please, input point C coordinates (separated by space): ");
-    scanf("%d %d", &pointc1, &pointc2);
+    scanf("%f %f", &pointc1, &pointc2);
 	
 
     /*!
      * Вывод значения периметра заданного треугольника
      */
-    perimeter = sqrt((pointb1-pointa1)*(pointb1-pointa1)+(pointb2-pointa2)*
-	(pointb2-pointa2)) + sqrt((pointc1-pointb1)*(pointc1-pointb1)+
-	(pointc2-pointb2)*(pointc2-pointb2)) + sqrt((pointa1-pointc1)*
-	(pointa1-pointc1)+(pointa2-pointc2)*(pointa2-pointc2));
+    perimeter = sqrt((pointb1 - pointa1) * (pointb1 - pointa1) + (pointb2 -
+	pointa2) * (pointb2 - pointa2)) + sqrt((pointc1 - pointa1) * (pointc1 -
+	pointa1) + (pointc2 - pointa2) * (pointc2 - pointa2)) + sqrt((pointc1 -
+	pointb1) * (pointc1 - pointb1) + (pointc2 - pointb2) * (pointc2 -
+	pointb2));
     printf("Perimeter of triangle = %.5f", perimeter);
 
     return 0;
