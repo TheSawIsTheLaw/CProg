@@ -24,7 +24,7 @@ int main(void)
      * Расчёт общего сопротивления по формуле и вывод значения общего
      * сопротивления
      */
-    res = (1/res1 + 1/res2 + 1/res3);
+    res = (1 / res1 + 1 / res2 + 1 / res3);
     res = 1 / res;
     printf("Total resistance = %.5f", res);
 
