@@ -22,10 +22,10 @@ int main(void)
      * Вычисление количества часов и минут
      */
     hours = tseconds / 3600;
-    tseconds -= 3600 * hours;
+    tseconds = tseconds - 3600 * hours;
 
     minutes = tseconds / 60;
-    tseconds -= 60 * minutes;
+    tseconds = tseconds - 60 * minutes;
 
     /*!
      * Вывод значений часов, минут и секунд
