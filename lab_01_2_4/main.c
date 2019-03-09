@@ -5,6 +5,9 @@
  */
 #include <stdio.h>
 
+#define HOUR 3600
+#define MINUTE 60
+
 int main(void)
 {
     int tseconds; //!< Общее количество секунд (сокр. totalseconds),
@@ -21,11 +24,11 @@ int main(void)
     /*!
      * Вычисление количества часов и минут
      */
-    hours = tseconds / 3600;
-    tseconds = tseconds - 3600 * hours;
+    hours = tseconds / HOUR;
+    tseconds = tseconds - HOUR * hours;
 
-    minutes = tseconds / 60;
-    tseconds = tseconds - 60 * minutes;
+    minutes = tseconds / MINUTE;
+    tseconds = tseconds - MINUTE * minutes;
 
     /*!
      * Вывод значений часов, минут и секунд
