@@ -8,7 +8,7 @@
 
 int main(void)
 {	
-    float pointa2, pointa2, pointb1, pointb2, pointc1, pointc2; /*!< Точки */
+    float pointa1, pointa2, pointb1, pointb2, pointc1, pointc2; /*!< Точки */
     float perimeter; /*!< Значение периметра заданного треугольника */
     float firstside, secondside, thirdside; /*!< Длины сторон */
 
