@@ -1,0 +1,15 @@
+Input: 4555
+
+Output: 4555
+
+
+Input: 10
+
+Output: 10
+
+
+Input: -20
+
+Output: Error
+
+

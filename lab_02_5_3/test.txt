@@ -1,0 +1,7 @@
+Input: 0.1  0.004
+
+Output: 1 ~0.995 ~0.005 ~0.005
+
+Input: a 0
+
+Output: Input error.

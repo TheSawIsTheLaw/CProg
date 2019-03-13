@@ -3,8 +3,3 @@
 *.o
 *.pch
 *.gch
-*.txt
-*.config
-*.includes
-*.files
-*.creator
