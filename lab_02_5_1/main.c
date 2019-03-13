@@ -6,8 +6,9 @@
 
 #define DIVIDER 10
 #define ONE 1
+#define ZERO 0
 
-int fullout(long long int n) // Функция вывода десятичной записи числа
+int fullout(long long int number) // Функция вывода десятичной записи числа
 {
     int presvar; // Вспомогательная переменная вывода десятичного значения
 
@@ -16,51 +17,52 @@ int fullout(long long int n) // Функция вывода десятичной
                               // наибольшего делителя для заданного числа
 
     div = ONE;
-    quest = n;
-    while (quest > 0) // Цикл высчитывания наибольшего делителя для n
+    quest = number;
+    while (quest > ZERO) // Цикл высчитывания наибольшего делителя для n
     {
         div = div * DIVIDER;
-        quest = n / div;
+        quest = number / div;
     }
     div = div / DIVIDER; // "Откат" лишнего начисления
 
-    presvar = n / div; // Нахождение самого первого десятичного числа
+    presvar = number / div; // Нахождение самого первого десятичного числа
     printf("%d", presvar);
     div = div / DIVIDER;
-    while (div != 0) // Цикл вывода последующих чисел
+    while (div != ZERO) // Цикл вывода последующих чисел
     {
-        presvar = n / div;
+        presvar = number / div;
         presvar = presvar % DIVIDER;
         div = div / DIVIDER;
         printf("%d", presvar);
     }
 	
-    return 0;
+    return ZERO;
 }
-
 
 int main(void) // Точка входа в приложение
 {
-    long long int n; // Задаваемое натуральное число
+    long long int number; // Задаваемое натуральное число
 
     int rc; // "Показательная" переменная ошибок ввода
 
-    rc = scanf("%I64d", &n);
+    rc = scanf("%I64d", &number);
     if (rc == ONE) // Проверка вводимого значения
-        if (n > 0)
-            fullout(n);
+    {
+        if (number > ZERO)
+            fullout(number);
         else
         {
             printf("Negative number or 0.");
 			
             return ONE;
         }
+    }
     else
     {
         printf("Input error.");
 		
         return ONE;
     }
-	
-    return 0;
+
+    return ZERO;
 }
