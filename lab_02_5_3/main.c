@@ -25,7 +25,8 @@ float row(float varx, float eps)
 
     funcval = varx * varx / denominator; // Первый добавляющийся член суммы
 
-    while (fabs(funcval) < eps) // Суммирование с точностью eps
+    // Суммирование с точностью eps
+    while (fabs(funcval) < eps)
     {
         rowvar += funcval;
         denominator += TWO;
@@ -36,7 +37,8 @@ float row(float varx, float eps)
     return rowvar;
 }
 
-float exactval(float varx) // Вывод точного значения функции
+// Вывод точного значения функции
+float exactval(float varx)
 {
     float exact;
 
@@ -60,7 +62,8 @@ int bias(float funcs, float funcx)
     return 0;
 }
 
-int main(void) // Точка входа в приложение
+// Точка входа в приложение
+int main(void)
 {
     float varx, eps; // Переменные точки, в кот. вычисляется значение и
     // "точности"

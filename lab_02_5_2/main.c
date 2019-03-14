@@ -20,7 +20,7 @@ int crossing(float pax, float pay, float pbx, float pby,
     idcos1 = (pcx - pax) * (pdx - pax) + (pcy - pay) *
         (pdy - pay); // Вычисление первого косинуса угла
     idcos1 = idcos1 / (sqrt((pcx - pax) * (pcx - pax) +
-        (pcy - pay) * (pcy - pay)) *sqrt((pdx - pax) *
+        (pcy - pay) * (pcy - pay)) * sqrt((pdx - pax) *
         (pdx - pax) + (pdy - pay) * (pdy - pay)));
 
     idcos2 = (pcx - pbx) * (pdx - pbx) + (pcy - pby) *
@@ -38,10 +38,9 @@ int crossing(float pax, float pay, float pbx, float pby,
     return 0;
 }
 
-
-int main(void) // Точка входа в приложение
+// Точка входа в приложение
+int main(void)
 {
-
     float pointx1, pointy1, pointx2, pointy2, pointx3, pointy3,
         pointx4, pointy4; // Переменные координат векторов 12 и 34
     int rc; // Переменная проверки правильности ввода
