@@ -11,7 +11,7 @@
 // Функция вывода десятичной записи числа
 int fullout(long long int number)
 {
-    long long int quest, div, presvar;
+    unsigned long long int quest, div, presvar;
     int i;
     // Переменная quest - переменная для нахождения div, которая в свою очередь
     // играет роль наибольшего делителя для заданного числа
@@ -47,7 +47,7 @@ int fullout(long long int number)
 // Точка входа в приложение
 int main(void)
 {
-    long long number; // Задаваемое натуральное число
+    long long int number; // Задаваемое натуральное число
 
     int rc; // "Показательная" переменная ошибок ввода
 
