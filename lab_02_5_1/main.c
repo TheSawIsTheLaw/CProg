@@ -12,6 +12,7 @@
 int fullout(long long int number)
 {
     long long int quest, div, presvar;
+    int presvarshow;
     // Переменная quest - переменная для нахождения div, которая в свою очередь
     // играет роль наибольшего делителя для заданного числа
     // presvar - переменная вывода настоящего значения
@@ -27,7 +28,8 @@ int fullout(long long int number)
     div = div / DIVIDER; // "Откат" лишнего начисления
 
     presvar = number / div; // Нахождение самого первого десятичного числа
-    printf("%I64d", presvar);
+    presvarshow = presvar;
+    printf("%d", presvarshow);
     div = div / DIVIDER;
     // Цикл вывода последующих чисел
     while (div != ZERO)
@@ -35,7 +37,8 @@ int fullout(long long int number)
         presvar = number / div;
         presvar = presvar % DIVIDER;
         div = div / DIVIDER;
-        printf("%I64d", presvar);
+        presvarshow = presvar;
+        printf("%d", presvarshow);
     }
 	
     return ZERO;

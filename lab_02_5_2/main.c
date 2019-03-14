@@ -29,6 +29,7 @@ int crossing(float pax, float pay, float pbx, float pby,
         (pcy - pby) * (pcy - pby)) * sqrt((pdx - pbx) *
         (pdx - pbx) + (pdy - pby) * (pdy - pby)));
 
+    printf("%f %f       ", idcos1, idcos2);
     // Проверка условия, одного ли знака вычисленные величины
     if ((idcos1 <= 0 && idcos2 >= 0) || (idcos1 >= 0 && idcos2 <= 0))
         printf("1"); // Случай пересечения
@@ -48,11 +49,22 @@ int main(void)
     rc = scanf("%f %f %f %f %f %f %f %f", &pointx1, &pointy1, &pointx2,
         &pointy2, &pointx3, &pointy3, &pointx4, &pointy4);
     if (rc == EIGHT)
+    {
+        if (pointx1 != pointx2 && pointy1 != pointy2 && pointx3 != pointx4 &&
+            pointy3 != pointy4)
         crossing(pointx1, pointy1, pointx2, pointy2, pointx3, pointy3,
             pointx4, pointy4);
+        else
+        {
+            printf("Input error.");
+
+            return ONE;
+        }
+    }
     else
     {
         printf("Input error.");
+
         return ONE;
     }
 
