@@ -11,11 +11,10 @@
 // Функция вывода десятичной записи числа
 int fullout(long long int number)
 {
-    int presvar; // Вспомогательная переменная вывода десятичного значения
-
-    long long int quest, div; // Переменная quest - переменная для нахождения
-                              // div, которая в свою очередь играет роль
-                              // наибольшего делителя для заданного числа
+    long long int quest, div, presvar;
+    // Переменная quest - переменная для нахождения div, которая в свою очередь
+    // играет роль наибольшего делителя для заданного числа
+    // presvar - переменная вывода настоящего значения
 
     div = ONE;
     quest = number;
@@ -28,7 +27,7 @@ int fullout(long long int number)
     div = div / DIVIDER; // "Откат" лишнего начисления
 
     presvar = number / div; // Нахождение самого первого десятичного числа
-    printf("%d", presvar);
+    printf("%I64d", presvar);
     div = div / DIVIDER;
     // Цикл вывода последующих чисел
     while (div != ZERO)
@@ -36,7 +35,7 @@ int fullout(long long int number)
         presvar = number / div;
         presvar = presvar % DIVIDER;
         div = div / DIVIDER;
-        printf("%d", presvar);
+        printf("%I64d", presvar);
     }
 	
     return ZERO;

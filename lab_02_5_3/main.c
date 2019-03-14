@@ -73,13 +73,22 @@ int main(void)
     rc = scanf("%f%f", &varx, &eps);
     if (rc == TWO)
     {
-        float funcs, funcx;
+        if (fabs(varx) < 1)
+        {
+            float funcs, funcx;
 
-        funcs = row(varx, eps);
-        funcx = exactval(varx);
-        printf("%f %f ", funcs, funcx);
+            funcs = row(varx, eps);
+            funcx = exactval(varx);
+            printf("%f %f ", funcs, funcx);
 
-        bias(funcs, funcx);
+            bias(funcs, funcx);
+        }
+        else
+        {
+            printf("Input error.");
+
+            return ONE;
+        }
     }
     else
     {
