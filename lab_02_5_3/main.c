@@ -73,7 +73,7 @@ int main(void)
     rc = scanf("%f%f", &varx, &eps);
     if (rc == TWO)
     {
-        if (fabs(varx) < 1 && eps > 1)
+        if (fabs(varx) < 1 && eps >= 0)
         {
             float funcs, funcx;
 
