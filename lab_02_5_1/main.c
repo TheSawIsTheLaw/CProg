@@ -47,11 +47,11 @@ int fullout(long long int number)
 // Точка входа в приложение
 int main(void)
 {
-    long long int number; // Задаваемое натуральное число
+    int number; // Задаваемое натуральное число
 
     int rc; // "Показательная" переменная ошибок ввода
 
-    rc = scanf("%I64d", &number);
+    rc = scanf("%d", &number);
     // Проверка вводимого значения
     if (rc == ONE)
     {
