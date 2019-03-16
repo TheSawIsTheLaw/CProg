@@ -30,18 +30,17 @@ int fullout(long long int number)
 
     presvar = number / div; // Нахождение самого первого десятичного числа
     i = presvar;
-    printf("%d", i);
     div = div / DIVIDER;
     // Цикл вывода последующих чисел
     while (div != ZERO)
     {
+        printf("%d", i);
         presvar = number / div;
         presvar = presvar % DIVIDER;
         div = div / DIVIDER;
         i = presvar;
-        printf("%d", i);
     }
-	
+    printf("%d", i);
     return 0;
 }
 
