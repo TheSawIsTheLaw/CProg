@@ -6,7 +6,7 @@
 
 #define DIVIDER 10
 #define ONE 1
-#define ZERO 0
+// #define ZERO 0 задал бы, да только тесты не пройдут
 
 // Функция вывода десятичной записи числа
 int fullout(long long int number)
@@ -42,7 +42,7 @@ int fullout(long long int number)
         printf("%d", i);
     }
 	
-    return ZERO;
+    return 0;
 }
 
 // Точка входа в приложение
@@ -72,5 +72,5 @@ int main(void)
         return ONE;
     }
 
-    return ZERO;
+    return 0;
 }
