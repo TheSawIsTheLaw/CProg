@@ -41,8 +41,6 @@ int crossing(float pax, float pay, float pbx, float pby,
         (pby - pcy) * (pby - pcy)) * sqrt((pax - pcx) *
         (pax - pcx) + (pay - pcy) * (pay - pcy)));
 
-    printf("%f %f %f %f", idcos1, idcos2, idcos3, idcos4);
-
     // Проверка условия, одного ли знака вычисленные величины
     if ((idcos1 * idcos2 <= 0 && idcos3 * idcos4 <= 0) || (idcos1 == 0 &&
         idcos2 == 0 && idcos3 == 0 && idcos4 == 0))

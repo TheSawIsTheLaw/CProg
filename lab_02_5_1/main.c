@@ -6,7 +6,7 @@
 
 #define DIVIDER 10
 #define ONE 1
-// #define ZERO 0 задал бы, да только тесты не пройдут
+#define ZERO 0
 
 // Функция вывода десятичной записи числа
 int fullout(long long int number)
