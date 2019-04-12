@@ -7,11 +7,24 @@
 #define DIVIDER 10
 #define ONE 1
 #define ZERO 0
+#define TWO 2
+
+/* Коды ошибок
+ * 1 - ошибка на этапе ввода. Не всем переменным удалось присвоить значения.
+ * 2 - ошибка на этапе работы функции fullout. Переданное ей значение меньше
+ * или равно нулю.
+ */
 
 // Функция вывода десятичной записи числа
-int fullout(long long int number)
+int fullout(int number)
 {
-    long long int quest, presvar, div;
+    if (number <= ZERO)
+    {
+        printf("Negative number or 0.");
+        return TWO;
+    }
+
+    int quest, presvar, div;
     int i;
     // Переменная quest - переменная для нахождения div, которая в свою очередь
     // играет роль наибольшего делителя для заданного числа
@@ -49,20 +62,13 @@ int main(void)
 {
     int number; // Задаваемое натуральное число
 
-    int rc; // "Показательная" переменная ошибок ввода
+    int rc, q; // "Показательные" переменные ошибок ввода и функции fullout
 
     rc = scanf("%d", &number);
     // Проверка вводимого значения
     if (rc == ONE)
     {
-        if (number > ZERO)
-            fullout(number);
-        else
-        {
-            printf("Negative number or 0.");
-			
-            return ONE;
-        }
+        q = fullout(number);
     }
     else
     {
@@ -70,6 +76,8 @@ int main(void)
 		
         return ONE;
     }
-
-    return 0;
+    if (q == ZERO)
+        return 0;
+    else
+        return q;
 }

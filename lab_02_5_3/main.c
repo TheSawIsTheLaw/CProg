@@ -10,10 +10,19 @@
 
 #define TWO 2
 #define ONE 1
+#define LEET 1337
+
+/* Коды ошибок
+ * 1 - ошибка на этапе ввода. Не всем переменным удалось присвоить значения.
+ * 1337 - ошибка на этапе выполнения функций. Заданы неверные значения.
+ */
 
 // Функция высчитывания суммы ряда с точностью eps
 float row(float varx, float eps)
 {
+    if (eps < 0)
+        return LEET;
+
     float funcval, rowvar; // Переменные настоящего члена и суммы ряда
 
     float denominator, numenator; // Переменные числителя и знаменателя
@@ -49,45 +58,52 @@ float exactval(float varx)
 }
 
 // Вывод абсолютной и относительной ошибки вычислений
-int bias(float funcs, float funcx)
+float bi(float funcs, float funcx)
 {
-    float absolute, relative;
+
+    float absolute;
 
     absolute = fabs(funcx - funcs); // На самом деле модуль здесь не требуется
+
+    return absolute;
+}
+float as(float absolute, float funcx)
+{
+    float relative;
     relative = fabs(absolute / funcx); // Оставил во имя возможности изменить
     // функцию, в которой возможно отрицательное значения
 
-    printf("%f %f", absolute, relative);
-
-    return 0;
+    return relative;
 }
 
 // Точка входа в приложение
 int main(void)
 {
-    float varx, eps; // Переменные точки, в кот. вычисляется значение и
-    // "точности"
+    float varx, eps; // Переменная х и точность
 
     int rc; // Переменная проверки правильности ввода
 
     rc = scanf("%f%f", &varx, &eps);
     if (rc == TWO)
     {
-        if (fabs(varx) < 1 && eps >= 0)
-        {
-            float funcs, funcx;
+        int funcs;
+        float funcx;
 
-            funcs = row(varx, eps);
-            funcx = exactval(varx);
-            printf("%f %f ", funcs, funcx);
+        funcs = row(varx, eps);
+        funcx = exactval(varx);
 
-            bias(funcs, funcx);
-        }
-        else
+        float absolute, relative;
+        absolute = bi(funcs, funcx);
+        relative = as(absolute, funcx);
+        if (funcs == LEET)
         {
             printf("Input error.");
 
-            return ONE;
+            return LEET;
+        }
+        else
+        {
+            printf("%d %f %f %f", funcs, funcx, absolute, relative);
         }
     }
     else

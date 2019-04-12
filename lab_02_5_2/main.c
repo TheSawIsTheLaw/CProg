@@ -9,46 +9,55 @@
 
 #define EIGHT 8
 #define ONE 1
+#define TWO 2
+
+/* Макрос для нахождения косинуса угла между векторами */
+#define COSVEC(x1, y1, x2, y2, x3, y3)\
+    (((x2 - x1) * (x3 - x1) + (y2 - y1) * (y3 - y1))/(sqrt((x2 - x1) *\
+    (x2 - x1) + (y2 - y1) * (y2 - y1)) * sqrt((x3 - x1) *(x3 - x1) + \
+    (y3 - y1) * (y3 - y1))))
+
+/* Коды ошибок
+ * 1 - ошибка на этапе ввода. Не всем переменным удалось присвоить значения.
+ * 2 = ошибка на этапе выполнения функции crossing. Вектора заданы неверно.
+ */
 
 // Функция, указывающая на то, пересекаются ли заданные векторы
 int crossing(float pax, float pay, float pbx, float pby,
     float pcx, float pcy, float pdx, float pdy)
 {
-    double idcos1, idcos2, idcos3, idcos4; // Переменные значения углов от
-    // одного вектора к другому
 
-    idcos1 = (pcx - pax) * (pdx - pax) + (pcy - pay) *
-        (pdy - pay); // Вычисление первого косинуса угла
-    idcos1 = idcos1 / (sqrt((pcx - pax) * (pcx - pax) +
-        (pcy - pay) * (pcy - pay)) * sqrt((pdx - pax) *
-        (pdx - pax) + (pdy - pay) * (pdy - pay)));
+    if ((pax != pbx || pay != pby) && (pcx != pdx || pcy != pdy))
+    {
+        double idcos1, idcos2, idcos3, idcos4; // Переменные значения углов от
+        // одного вектора к другому
 
-    idcos2 = (pcx - pbx) * (pdx - pbx) + (pcy - pby) *
-        (pdy - pby); // Вычисление второго косинуса угла
-    idcos2 = idcos2 / (sqrt((pcx - pbx) * (pcx - pbx) +
-        (pcy - pby) * (pcy - pby)) * sqrt((pdx - pbx) *
-        (pdx - pbx) + (pdy - pby) * (pdy - pby)));
+        idcos1 = COSVEC(pax, pay, pcx, pcy, pdx, pdy);
+        // Вычисление первого косинуса угла
 
-    idcos3 = (pbx - pdx) * (pax - pdx) + (pby - pdy) *
-        (pay - pdy); // Вычисление третьего косинуса угла
-    idcos3 = idcos2 / (sqrt((pbx - pdx) * (pbx - pdx) +
-        (pby - pdy) * (pby - pdy)) * sqrt((pax - pdx) *
-        (pax - pdx) + (pay - pdy) * (pay - pdy)));
+        idcos2 = COSVEC(pbx, pby, pcx, pcy, pdx, pdy);
+        // Вычисление второго косинуса угла
 
-    idcos4 = (pbx - pcx) * (pax - pcx) + (pby - pcy) *
-        (pay - pcy); // Вычисление четвёртого косинуса угла
-    idcos4 = idcos4 / (sqrt((pbx - pcx) * (pbx - pcx) +
-        (pby - pcy) * (pby - pcy)) * sqrt((pax - pcx) *
-        (pax - pcx) + (pay - pcy) * (pay - pcy)));
+        idcos3 = COSVEC(pdx, pdy, pbx, pby, pax, pay);
+        // Вычисление третьего косинуса угла
 
-    // Проверка условия, одного ли знака вычисленные величины
-    if ((idcos1 * idcos2 <= 0 && idcos3 * idcos4 <= 0) || (idcos1 == 0 &&
-        idcos2 == 0 && idcos3 == 0 && idcos4 == 0))
-        printf("1"); // Случай пересечения
+        idcos4 = COSVEC(pcx, pcy, pbx, pby, pax, pay);
+        // Вычисление четвёртого косинуса угла
+
+        // Проверка условия, одного ли знака вычисленные величины
+        if ((idcos1 * idcos2 <= 0 && idcos3 * idcos4 <= 0) || (idcos1 == 0 &&
+            idcos2 == 0 && idcos3 == 0 && idcos4 == 0))
+            return ONE; // Случай пересечения
+        else
+            return 0; // Случай непересечения
+
+    }
     else
-        printf("0"); // Случай непересечения
+    {
+        printf("Input error.");
 
-    return 0;
+        return TWO;
+    }
 }
 
 // Точка входа в приложение
@@ -62,16 +71,12 @@ int main(void)
         &pointy2, &pointx3, &pointy3, &pointx4, &pointy4);
     if (rc == EIGHT)
     {
-        if ((pointx1 != pointx2 || pointy1 != pointy2) && (pointx3 != pointx4 ||
-            pointy3 != pointy4))
-            crossing(pointx1, pointy1, pointx2, pointy2, pointx3, pointy3,
-                pointx4, pointy4);
+        int lol = crossing(pointx1, pointy1, pointx2, pointy2, pointx3,
+            pointy3, pointx4, pointy4);
+        if (lol != 2)
+            printf("%d", lol);
         else
-        {
-            printf("Input error.");
-
-            return ONE;
-        }
+            return lol;
     }
     else
     {
