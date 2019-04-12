@@ -24,7 +24,7 @@ int fullout(int number)
         return TWO;
     }
 
-    int quest, presvar, div;
+    long long int quest, presvar, div;
     int i;
     // Переменная quest - переменная для нахождения div, которая в свою очередь
     // играет роль наибольшего делителя для заданного числа

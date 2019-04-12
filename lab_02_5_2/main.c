@@ -26,7 +26,6 @@
 int crossing(float pax, float pay, float pbx, float pby,
     float pcx, float pcy, float pdx, float pdy)
 {
-
     if ((pax != pbx || pay != pby) && (pcx != pdx || pcy != pdy))
     {
         double idcos1, idcos2, idcos3, idcos4; // Переменные значения углов от
@@ -50,7 +49,6 @@ int crossing(float pax, float pay, float pbx, float pby,
             return ONE; // Случай пересечения
         else
             return 0; // Случай непересечения
-
     }
     else
     {

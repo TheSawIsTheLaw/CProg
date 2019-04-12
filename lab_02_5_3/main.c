@@ -20,7 +20,7 @@
 // Функция высчитывания суммы ряда с точностью eps
 float row(float varx, float eps)
 {
-    if (eps < 0)
+    if (eps < 0 || fabs(varx) >= 1)
         return LEET;
 
     float funcval, rowvar; // Переменные настоящего члена и суммы ряда
@@ -60,7 +60,6 @@ float exactval(float varx)
 // Вывод абсолютной и относительной ошибки вычислений
 float bi(float funcs, float funcx)
 {
-
     float absolute;
 
     absolute = fabs(funcx - funcs); // На самом деле модуль здесь не требуется
