@@ -20,7 +20,7 @@ int isprost(int numb)
     int deli = 2;
     while (numb % deli != 0)
     {
-        numb += 1;
+        deli += 1;
     }
     if (deli == numb)
         return 1;
@@ -32,7 +32,7 @@ int main(void)
 {
     printf("Inp number ");
     int number, max;
-    scanf("%d ", &number);
+    scanf("%d", &number);
     if (number < 0)
         number = number * -1;
     max = findmaxp(number);
@@ -41,7 +41,7 @@ int main(void)
     {
         rab = number / max;
         rab = rab % 100;
-        if (isprost(rab))
+        if (isprost(rab) == 1)
             printf("%d ", rab);
         max = max / 10;
     }
