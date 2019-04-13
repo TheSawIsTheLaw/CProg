@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.4.0, 2019-04-13T11:22:36. -->
+<!-- Written by QtCreator 4.4.0, 2019-04-13T11:33:09. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -163,6 +163,7 @@
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.CustomExecutableRunConfiguration.Arguments"></value>
     <value type="QString" key="ProjectExplorer.CustomExecutableRunConfiguration.Executable">C:/msys64/home/student/iu7-cprog-labs-2019-yakubadmitry/rk_01_02/main.exe</value>
+    <value type="bool" key="ProjectExplorer.CustomExecutableRunConfiguration.UseTerminal">true</value>
     <value type="QString" key="ProjectExplorer.CustomExecutableRunConfiguration.WorkingDirectory">%{buildDir}</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Запуск C:\msys64\home\student\iu7-cprog-labs-2019-yakubadmitry\rk_01_02\main.exe</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
