@@ -1,6 +1,7 @@
 /* Даны два числа записанные в массивах. Найти сумму двух чисел, поместить
  * в новый массив.
  */
+
 #include <stdio.h>
 
 int fin(int *p, int *a, int *b, int len)
@@ -42,4 +43,5 @@ int main(void)
     {
         printf("%d ", goty[i]);
     }
+    return 0;
 }
