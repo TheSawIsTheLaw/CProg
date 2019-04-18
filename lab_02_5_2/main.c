@@ -10,6 +10,11 @@
 #define EIGHT 8
 #define ONE 1
 #define TWO 2
+#define ZERO 0
+
+/* Макрос нахождения векторного произведения */
+#define VEC(x1, y1, x2, y2, x3 , y3) \
+    (x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1)
 
 /* Коды ошибок
  * 1 - ошибка на этапе ввода. Не всем переменным удалось присвоить значения.
@@ -22,13 +27,15 @@ int crossing(float pax, float pay, float pbx, float pby,
 {
     if ((pax != pbx || pay != pby) && (pcx != pdx || pcy != pdy))
     {
-        double comp; // Переменная векторного произведения
+        double comp1, comp2, comp3, comp4; // Векторное произведения
+        comp1 = VEC(pax, pay, pbx, pby, pcx, pcy);
+        comp2 = VEC(pax, pay, pbx, pby, pdx, pdy);
 
-        comp = (pbx - pax) * (pdy - pcy) - (pby - pay) * (pdx - pcx);
-        printf("%f ", comp);
+        comp3 = VEC(pcx, pcy, pdx, pdy, pax, pay);
+        comp4 = VEC(pcx, pcy, pdx, pdy, pbx, pby);
 
         // Проверка условия, одного ли знака вычисленные величины
-        if (comp > ONE)
+        if (comp1 * comp2 < 0 && comp3 * comp4 < 0)
             return ONE; // Случай пересечения
         else
             return 0; // Случай непересечения
