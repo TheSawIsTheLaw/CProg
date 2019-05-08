@@ -51,9 +51,14 @@ int issim(int const row, int const col, int matrix[row][col],
 {
     if (row < TWO || col < TWO || k - ONE < ZERO || k - ONE > col)
         return THREE;
-    for (int i = ZERO; i < (row - ONE) / TWO; i++)
+    int cown;
+    if (col % 2 == 1)
+        cown = (col - 1) / 2;
+    else
+        cown = col / 2;
+    for (int i = ZERO; i < cown; i++)
     {
-        if (matrix[k - ONE][i] != matrix[k - ONE][row - i - ONE])
+        if (matrix[k - ONE][i] != matrix[k - ONE][col - 1 - i])
             return ZERO;
     }
     return ONE;
@@ -119,7 +124,7 @@ int main(void)
         return ONE;
     else
     {
-        if (row <= TWO || col <= TWO)
+        if (row < TWO || col < TWO)
             return TWO;
         if (k < ONE || k > row)
             return THREE;

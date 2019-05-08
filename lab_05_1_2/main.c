@@ -64,6 +64,8 @@ int printmat(int const row, int const col, int mat[row][col])
 // Функция возвращает сумму цифр числа.
 int sumofnum(int const num)
 {
+    if (num == 0)
+        return ZERO;
     int numvar;
     if (num < 0)
         numvar = num * NONE;
@@ -133,14 +135,14 @@ int delrowandcol(int const drow, int const dcol, int const row, int const col,
     if (row < TWO || col < TWO || drow < ZERO || dcol < ZERO ||
         drow > row - ONE || dcol > col - ONE)
         return NTWO;
-    for (int i = drow; i < row - ONE; i++)
+    for (int i = drow; i < row; i++)
     {
         for (int j = 0; j < col; j++)
             mat[i][j] = mat[i + ONE][j];
     }
     for (int i = 0; i < row; i++)
     {
-        for (int j = dcol; j < col - ONE; j++)
+        for (int j = dcol; j < col; j++)
             mat[i][j] = mat[i][j + ONE];
     }
     return ZERO;
