@@ -46,7 +46,7 @@ int getmat(int const row, int const col, int matrix[row][col])
 /* Функция проверяет, расположены ли элементы k-ой строки матрицы симметрично.
  * 1 - да, 0 - нет, 3 - в функцию переданы неверные значения.
  */
-int issim(int const row, int const col, int const matrix[row][col],
+int issim(int const row, int const col, int matrix[row][col],
     int const k)
 {
     if (row < TWO || col < TWO || k - ONE < ZERO || k - ONE > col)
@@ -63,8 +63,8 @@ int issim(int const row, int const col, int const matrix[row][col],
  * 0 - всё свершилось без ошибок, 3 - в функцию переданы неверные значения.
  */
 int makemasfrommat(int const row, int const col,
-    int const matrix[row - ONE][col - ONE], int mas[])
-    {
+    int matrix[row - ONE][col - ONE], int mas[])
+{
     if (row < ONE || col < ONE)
         return THREE;
     int num = row * col;
@@ -130,11 +130,11 @@ int main(void)
         int insk = issim(row, col, matrix, k);
         if (insk == THREE)
             return insk;
-        int mas[row*col];
+        int mas[row * col];
         rc = makemasfrommat(row, col, matrix, mas);
         if (rc)
             return rc;
-        int num = row*col;
+        int num = row * col;
         rc = replace(num, mas, insk, k);
         if (rc)
             return rc;

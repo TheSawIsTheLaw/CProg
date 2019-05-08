@@ -49,7 +49,7 @@ int getmat(int const row, int const col, int matrix[row][col])
 /* Функция вывода массива, если передано неверное кол-во членов массива
  * возвращает 5, иначе возвращает 0
  */
-int printmat(int const row, int const col, int const mat[row][col])
+int printmat(int const row, int const col, int mat[row][col])
 {
     if (row < ZERO || col < ZERO)
         return FIVE;
@@ -62,7 +62,7 @@ int printmat(int const row, int const col, int const mat[row][col])
 }
 
 // Функция возвращает сумму цифр числа.
-int sumofnum (int const num)
+int sumofnum(int const num)
 {
     int numvar;
     if (num < 0)
@@ -84,7 +84,7 @@ int sumofnum (int const num)
  * Если в функцию переданы неверные значения количества строк или столбцов,
  * выдаёт минус единицу, иначе - 0
  */
-int racots (int const row, int const col, int const mat[row][col])
+int racots(int const row, int const col, int mat[row][col])
 {
     if (row < TWO || col < TWO)
         return NONE;
@@ -93,13 +93,13 @@ int racots (int const row, int const col, int const mat[row][col])
     {
         for (int j = 0; j < col - ONE; j++)
         {
-           now = sumofnum(mat[i][j]);
-           if (now < min)
-           {
-               min = now;
-               minr = i;
-           }
-       }
+            now = sumofnum(mat[i][j]);
+            if (now < min)
+            {
+                min = now;
+                minr = i;
+            }
+        }
     }
     return minr;
 }
@@ -109,20 +109,20 @@ int racots (int const row, int const col, int const mat[row][col])
  * Если в функцию переданы неверные значения количества строк или столбцов,
  * выдаёт минус единицу, иначе - 0
  */
-int smallestinrow (int const minr, int const row, int const col,
-    int const mat[row][col])
+int smallestinrow(int const minr, int const row, int const col,
+    int mat[row][col])
 {
     if (minr < 0 || col < TWO || row < TWO)
         return NONE;
     int min = sumofnum(mat[minr][ZERO]), minc = 0, now;
     for (int j = 0; j < col - ONE; j++)
     {
-       now = sumofnum(mat[minr][j]);
-       if (now < min)
-       {
-           min = now;
-           minc = j;
-       }
+        now = sumofnum(mat[minr][j]);
+        if (now < min)
+        {
+            min = now;
+            minc = j;
+        }
     }
     return minc;
 }
@@ -149,31 +149,31 @@ int delrowandcol(int const drow, int const dcol, int const row, int const col,
 int main(void)
 {
     int row, col, rc;
-        rc = scanf("%d%d", &row, &col);
-        if (rc != TWO)
-            return ONE;
-        else
-        {
-            if (row < TWO || col < TWO)
-                return TWO;
-            int matrix[row][col];
-            rc = getmat(row, col, matrix);
-            if (rc)
-                return rc;
-            int minrow = racots(row, col, matrix);
-            if (minrow < 0)
-                return minrow;
-            int mincol = smallestinrow(minrow, row, col, matrix);
-            if (mincol < 0)
-                return mincol;
-            rc = delrowandcol(minrow, mincol, row, col, matrix);
-            if (rc)
-                return rc;
-            row--;
-            col--;
-            rc = printmat(row, col, matrix);
-            if (rc)
-                return rc;
-        }
-        return 0;
+    rc = scanf("%d%d", &row, &col);
+    if (rc != TWO)
+        return ONE;
+    else
+    {
+        if (row < TWO || col < TWO)
+            return TWO;
+        int matrix[row][col];
+        rc = getmat(row, col, matrix);
+        if (rc)
+            return rc;
+        int minrow = racots(row, col, matrix);
+        if (minrow < 0)
+            return minrow;
+        int mincol = smallestinrow(minrow, row, col, matrix);
+        if (mincol < 0)
+            return mincol;
+        rc = delrowandcol(minrow, mincol, row, col, matrix);
+        if (rc)
+            return rc;
+        row--;
+        col--;
+        rc = printmat(row, col, matrix);
+        if (rc)
+            return rc;
+    }
+    return 0;
 }

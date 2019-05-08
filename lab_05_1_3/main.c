@@ -42,7 +42,7 @@ int getmat(int const row, int const col, int matrix[row][col])
 /* Функция вывода массива, если передано неверное кол-во членов массива
  * возвращает 5, иначе возвращает 0
  */
-int printmat(int const row, int const col, int const mat[row][col])
+int printmat(int const row, int const col, int mat[row][col])
 {
     if (row < ZERO || col < ZERO)
         return FIVE;
@@ -106,23 +106,23 @@ int sortmaxrows(int const row, int const col, int mat[row][col])
 int main(void)
 {
     int row, col, rc;
-        rc = scanf("%d%d", &row, &col);
-        if (rc != TWO)
-            return ONE;
-        else
-        {
-            if (row < TWO || col < TWO)
-                return TWO;
-            int matrix[row][col];
-            rc = getmat(row, col, matrix);
-            if (rc)
-                return rc;
-            rc = sortmaxrows(row, col, matrix);
-            if (rc)
-                return rc;
-            rc = printmat(row, col, matrix);
-            if (rc)
-                return rc;
-        }
-        return 0;
+    rc = scanf("%d%d", &row, &col);
+    if (rc != TWO)
+        return ONE;
+    else
+    {
+        if (row < TWO || col < TWO)
+            return TWO;
+        int matrix[row][col];
+        rc = getmat(row, col, matrix);
+        if (rc)
+            return rc;
+        rc = sortmaxrows(row, col, matrix);
+        if (rc)
+            return rc;
+        rc = printmat(row, col, matrix);
+        if (rc)
+            return rc;
+    }
+    return 0;
 }
