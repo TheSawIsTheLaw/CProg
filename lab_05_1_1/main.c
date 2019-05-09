@@ -66,26 +66,27 @@ int issim(int const row, int const col, int matrix[row][col],
     return ONE;
 }
 
-/* Функция сотворяет из матрицы массив.
- * 0 - всё свершилось без ошибок, 3 - в функцию переданы неверные значения.
+/* Функция сотворяет из матрицы массив, члены которого указывают на то,
+ * является ли строка матрицы симметричной или нет. 1 - строка сим., 2 - иначе.
+ * Возвращает значение 3, если получила на вход неправильные данные
  */
-int makemasfrommat(int const row, int const col,
+int makemasflagsim(int const row, int const col,
     int matrix[row][col], int mas[])
 {
+    int rc;
     if (row < ONE || col < ONE)
         return THREE;
-    int num = row * col;
-    int i = ZERO, j = ZERO, k = ZERO;
-    while (i < num)
+    int i = ZERO;
+    while (i < row)
     {
-        while (j < col)
-        {
-            mas[i] = matrix[k][j];
-            j++;
-            i++;
-        }
-        j = ZERO;
-        k++;
+        rc = issim(row, col, matrix, i);
+        if (rc == THREE)
+            return THREE;
+        if (rc)
+            mas[i] = ONE;
+        else
+            mas[i] = ZERO;
+        i++;
     }
     return ZERO;
 }
@@ -102,53 +103,28 @@ int printmas(int const mas[], const int number)
     return ZERO;
 }
 
-/* Функция заменяет k-ый элемент массива на значение insk.
- * 0 - всё завершилось без происшествий, 3 - в функцию были переданы неверные
- * значения количества членов массива или индекс заменяемого элемента, 4 -
- * значение, которым мы пытаемся заменить k-ый элемент не является 1 или 0
- */
-int replace(int const num, int mas[], int const insk, int const k)
-{
-    if (num < ONE || k < ZERO || k > num - ONE)
-        return THREE;
-    if (insk != ONE && insk != ZERO)
-        return FOUR;
-    mas[k] = insk;
-    return ZERO;
-}
-
 // Точка входа в программу
 int main(void)
 {
-    int row, col, k, rc;
-    rc = scanf("%d%d%d", &row, &col, &k);
-    if (rc != THREE)
+    int row, col, rc;
+    rc = scanf("%d%d", &row, &col);
+    if (rc != TWO)
         return ONE;
     else
     {
         if (row < ONE || col < ONE)
             return TWO;
-        if (k < ZERO || k > row)
-            return THREE;
         int matrix[row][col];
         rc = getmat(row, col, matrix);
         if (rc)
             return rc;
-        int insk = issim(row, col, matrix, k);
-        if (insk == THREE)
-            return insk;
-        int mas[row * col];
-        rc = makemasfrommat(row, col, matrix, mas);
+        int mas[row];
+        rc = makemasflagsim(row, col, matrix, mas);
         if (rc)
             return rc;
-        int num = row * col;
-        rc = replace(num, mas, insk, k);
-        if (rc)
-            return rc;
-        rc = printmas(mas, num);
+        rc = printmas(mas, row);
         if (rc)
             return rc;
     }
-
     return 0;
 }
