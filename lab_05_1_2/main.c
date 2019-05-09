@@ -58,7 +58,6 @@ int printmat(int const row, int const col, int const printrow,
     {
         for (int j = 0; j < printcol; j++)
             printf("%d ", mat[i][j]);
-        printf("\n");
     }
     return ZERO;
 }
@@ -169,7 +168,6 @@ int main(void)
         int mincol = smallestinrow(minrow, row, col, matrix);
         if (mincol < 0)
             return mincol;
-        printf("(%d %d)", minrow, mincol);
         rc = delrowandcol(minrow, mincol, row, col, matrix);
         if (rc)
             return rc;
