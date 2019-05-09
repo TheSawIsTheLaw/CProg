@@ -53,11 +53,7 @@ int issim(int const row, int const col, int matrix[row][col],
         return THREE;
     if (col == ONE)
         return ZERO;
-    int cown;
-    if (col % TWO == ONE)
-        cown = (col - ONE) / TWO;
-    else
-        cown = col / TWO;
+    int cown = col / TWO + ONE;
     for (int i = ZERO; i < cown; i++)
     {
         if (matrix[k][i] != matrix[k][col - ONE - i])
