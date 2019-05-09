@@ -10,19 +10,17 @@
 #define ZERO 0
 #define ONE 1
 #define TWO 2
-#define THREE 3
-#define FOUR 4
 #define FIVE 5
+#define TEN 10
 
 /* Коды ошибок:
- * -2 - в функцию удаления строки или столбца были переданы неверные данные
- * -1 - в функцию поиска столбца матрицы наименьшего по сумме цифр числа
- * или в функцию поиска того же числа в строке матрицы переданы
- * неверные данные
+ * -2 - в функцию delrowandcol переданы некорректные данные;
+ * -1 - в функцию racots или smallestinrow переданы некорректные данные;
  * 1 - не все введённые значения были присвоены переменным;
- * 2 - введено неверное количество строк и столбцов (< 2)
- * 5 - в функцию вывода массива было передано отрицательное значение строк или
- * (и) столбцов
+ * 2 - в функцию delrowandcol передано некорректное количество строк или
+ * столбцов;
+ * 5 - в функцию printmas было передано некорректное значение строк или
+ * столбцов;
  */
 
 /* Функция получает элементы матрицы и размещает их в... Матрице!
@@ -56,25 +54,25 @@ int printmat(int const row, int const col, int const printrow,
         return FIVE;
     for (int i = ZERO; i < printrow; i++)
     {
-        for (int j = 0; j < printcol; j++)
+        for (int j = ZERO; j < printcol; j++)
             printf("%d ", mat[i][j]);
     }
     return ZERO;
 }
 
-// Функция возвращает сумму цифр числа.
+// Функция возвращает сумму цифр числа
 int sumofnum(int const num)
 {
     int numvar;
-    if (num < 0)
+    if (num < ZERO)
         numvar = num * NONE;
     else
         numvar = num;
-    int i = 1, sum = 0;
-    while (numvar / i > 0)
+    int i = ONE, sum = ZERO;
+    while (numvar / i > ZERO)
     {
-        sum += (numvar / i) % 10;
-        i = i * 10;
+        sum += (numvar / i) % TEN;
+        i = i * TEN;
     }
     return sum;
 }
@@ -83,17 +81,17 @@ int sumofnum(int const num)
  * Функция нахождения в матрице строки с элементом, у которого сумма цифр по
  * всей матрице наименьшая
  * Если в функцию переданы неверные значения количества строк или столбцов,
- * выдаёт минус единицу, иначе - 0
+ * выдаёт -1, иначе - 0
  */
 int racots(int const row, int const col, int mat[row][col])
 {
     if (row < TWO || col < TWO)
         return NONE;
     int min = sumofnum(mat[ZERO][ZERO]);
-    int minr = 0, now;
-    for (int i = 0; i < row; i++)
+    int minr = ZERO, now;
+    for (int i = ZERO; i < row; i++)
     {
-        for (int j = 0; j < col; j++)
+        for (int j = ZERO; j < col; j++)
         {
             now = sumofnum(mat[i][j]);
             if (now < min)
@@ -114,10 +112,10 @@ int racots(int const row, int const col, int mat[row][col])
 int smallestinrow(int const minr, int const row, int const col,
     int mat[row][col])
 {
-    if (minr < 0 || col < TWO || row < TWO)
+    if (minr < ZERO || col < TWO || row < TWO)
         return NONE;
-    int min = sumofnum(mat[minr][ZERO]), minc = 0, now;
-    for (int j = 1; j < col; j++)
+    int min = sumofnum(mat[minr][ZERO]), minc = ZERO, now;
+    for (int j = ONE; j < col; j++)
     {
         now = sumofnum(mat[minr][j]);
         if (now < min)
@@ -129,6 +127,10 @@ int smallestinrow(int const minr, int const row, int const col,
     return minc;
 }
 
+/* Функция удаляет указанные строчку и столбец матрицы
+ * Возвращает -2, если в функцию переданы некорректные параметры, 0, когда всё
+ * прошло успешно
+ */
 int delrowandcol(int const drow, int const dcol, int const row, int const col,
     int mat[row][col])
 {
@@ -137,10 +139,10 @@ int delrowandcol(int const drow, int const dcol, int const row, int const col,
         return NTWO;
     for (int i = drow; i < row; i++)
     {
-        for (int j = 0; j < col; j++)
+        for (int j = ZERO; j < col; j++)
             mat[i][j] = mat[i + ONE][j];
     }
-    for (int i = 0; i < row; i++)
+    for (int i = ZERO; i < row; i++)
     {
         for (int j = dcol; j < col; j++)
             mat[i][j] = mat[i][j + ONE];
@@ -148,6 +150,7 @@ int delrowandcol(int const drow, int const dcol, int const row, int const col,
     return ZERO;
 }
 
+// Точка входа в программу
 int main(void)
 {
     int row, col, rc;
@@ -163,15 +166,15 @@ int main(void)
         if (rc)
             return rc;
         int minrow = racots(row, col, matrix);
-        if (minrow < 0)
+        if (minrow < ZERO)
             return minrow;
         int mincol = smallestinrow(minrow, row, col, matrix);
-        if (mincol < 0)
+        if (mincol < ZERO)
             return mincol;
         rc = delrowandcol(minrow, mincol, row, col, matrix);
         if (rc)
             return rc;
-        rc = printmat(row, col, row - 1, col - 1, matrix);
+        rc = printmat(row, col, row - ONE, col - ONE, matrix);
         if (rc)
             return rc;
     }

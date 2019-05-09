@@ -2,25 +2,27 @@
 
 #include <stdio.h>
 
-#define NTWO -2
-#define NONE -1
 #define ZERO 0
 #define ONE 1
 #define TWO 2
-#define THREE 3
-#define FOUR 4
 #define FIVE 5
+#define SIX 6
+#define DOUBLESATAN 666666
 
 /* Коды ошибок:
  * 1 - не все введённые значения были присвоены переменным;
- * 2 - введено неверное количество строк и столбцов (< 2)
- * 5 - в функцию вывода массива было передано отрицательное значение строк или
- * (и) столбцов
+ * 2 - введено некорректное количество строк и столбцов
+ * 5 - в функцию printmat было передано некорректное значение строк или
+ * столбцов
+ * 6 - в функцию sortmaxrows было передано некорректное количество строк или
+ * столбцов
+ * 666666 - в функцию findmaxinrow были переданы некорректные значения
+ * количества строк или столбцов
  */
 
 /* Функция получает элементы матрицы и размещает их в... Матрице!
  * Возвращает 2 при неверных параметрах, 1, если не все введённые значения были
- * присвоены переменным, 0, если всё прошло успешно.
+ * присвоены переменным, 0, если всё прошло успешно
  */
 int getmat(int const row, int const col, int matrix[row][col])
 {
@@ -48,21 +50,21 @@ int printmat(int const row, int const col, int mat[row][col])
         return FIVE;
     for (int i = ZERO; i < row; i++)
     {
-        for (int j = 0; j < col; j++)
+        for (int j = ZERO; j < col; j++)
             printf("%d ", mat[i][j]);
     }
     return ZERO;
 }
 
 /* Функция ищет максимальное значение в заданной строке матрицы
- * Если всё прошло успешно - рещультатом является указатель на максимальный
+ * Если всё прошло успешно - результатом является указатель на максимальный
  * элемент. Ошибка - NULL
  */
 int findmaxinrow(int const row, int const col, int const numrow,
     int mat[row][col])
 {
     if (row < TWO || col < TWO || numrow > row - ONE)
-        return 666666;
+        return DOUBLESATAN;
     int max = mat[numrow][ZERO];
     for (int i = ONE; i < col; i++)
     {
@@ -74,24 +76,28 @@ int findmaxinrow(int const row, int const col, int const numrow,
     return max;
 }
 
+/* Функция сортирует строки матрицы по убыванию их наибольших элементов
+ * Возвращает 6 при некорректных параметрах, 3 при ошибке в вызванной функции
+ * findmaxinrow, 0 при успехе операции
+ */
 int sortmaxrows(int const row, int const col, int mat[row][col])
 {
     if (row < TWO || col < TWO)
-        return 6;
+        return SIX;
     int maxnow, maxfund, mem;
-    for (int k = 0; k < row; k++)
+    for (int k = ZERO; k < row; k++)
     {
-        for (int i = 0; i < row - ONE; i++)
+        for (int i = ZERO; i < row - ONE; i++)
         {
             maxnow = findmaxinrow(row, col, i, mat);
-            if (maxnow == 666666)
-                return 3;
+            if (maxnow == DOUBLESATAN)
+                return maxnow;
             maxfund = findmaxinrow(row, col, i + ONE, mat);
-            if (maxfund == 666666)
-                return 3;
+            if (maxfund == DOUBLESATAN)
+                return maxfund;
             if (maxnow < maxfund)
             {
-                for (int j = 0; j < col; j++)
+                for (int j = ZERO; j < col; j++)
                 {
                     mem = mat[i][j];
                     mat[i][j] = mat[i + ONE][j];
@@ -103,6 +109,7 @@ int sortmaxrows(int const row, int const col, int mat[row][col])
     return ZERO;
 }
 
+// Точка входа в программу
 int main(void)
 {
     int row, col, rc;
