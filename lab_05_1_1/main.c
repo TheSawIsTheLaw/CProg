@@ -60,7 +60,7 @@ int issim(int const row, int const col, int matrix[row][col],
         cown = col / TWO;
     for (int i = ZERO; i < cown; i++)
     {
-        if (matrix[k - ONE][i] != matrix[k - ONE][col - ONE - i])
+        if (matrix[k][i] != matrix[k][col - ONE - i])
             return ZERO;
     }
     return ONE;
@@ -109,11 +109,11 @@ int printmas(int const mas[], const int number)
  */
 int replace(int const num, int mas[], int const insk, int const k)
 {
-    if (num < ONE || k < ONE || k > num)
+    if (num < ONE || k < ZERO || k > num)
         return THREE;
     if (insk != ONE && insk != ZERO)
         return FOUR;
-    mas[k - ONE] = insk;
+    mas[k] = insk;
     return ZERO;
 }
 
