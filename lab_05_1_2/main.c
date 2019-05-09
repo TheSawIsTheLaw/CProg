@@ -64,8 +64,6 @@ int printmat(int const row, int const col, int mat[row][col])
 // Функция возвращает сумму цифр числа.
 int sumofnum(int const num)
 {
-    if (num == 0)
-        return ZERO;
     int numvar;
     if (num < 0)
         numvar = num * NONE;
@@ -90,7 +88,8 @@ int racots(int const row, int const col, int mat[row][col])
 {
     if (row < TWO || col < TWO)
         return NONE;
-    int min = sumofnum(mat[ZERO][ZERO]), minr = 0, now;
+    static int min;
+    int minr = 0, now;
     for (int i = 0; i < row - ONE; i++)
     {
         for (int j = 0; j < col - ONE; j++)
@@ -117,7 +116,7 @@ int smallestinrow(int const minr, int const row, int const col,
     if (minr < 0 || col < TWO || row < TWO)
         return NONE;
     int min = sumofnum(mat[minr][ZERO]), minc = 0, now;
-    for (int j = 0; j < col - ONE; j++)
+    for (int j = 1; j < col; j++)
     {
         now = sumofnum(mat[minr][j]);
         if (now < min)

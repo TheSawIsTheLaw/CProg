@@ -49,7 +49,7 @@ int getmat(int const row, int const col, int matrix[row][col])
 int issim(int const row, int const col, int matrix[row][col],
     int const k)
 {
-    if (row < TWO || col < TWO || k - ONE < ZERO || k - ONE > col)
+    if (row < TWO || col < TWO || k < ZERO || k + ONE > col)
         return THREE;
     int cown;
     if (col % 2 == 1)
@@ -58,7 +58,7 @@ int issim(int const row, int const col, int matrix[row][col],
         cown = col / 2;
     for (int i = ZERO; i < cown; i++)
     {
-        if (matrix[k - ONE][i] != matrix[k - ONE][col - 1 - i])
+        if (matrix[k][i] != matrix[k][col - 1 - i])
             return ZERO;
     }
     return ONE;
@@ -107,11 +107,11 @@ int printmas(int const mas[], const int number)
  */
 int replace(int const num, int mas[], int const insk, int const k)
 {
-    if (num < ONE || k - ONE < ZERO || k > num)
+    if (num < ONE || k < ZERO || k > num)
         return THREE;
     if (insk != ONE && insk != ZERO)
         return FOUR;
-    mas[k - ONE] = insk;
+    mas[k] = insk;
     return ZERO;
 }
 
@@ -126,7 +126,7 @@ int main(void)
     {
         if (row < TWO || col < TWO)
             return TWO;
-        if (k < ONE || k > row)
+        if (k < ZERO || k > row)
             return THREE;
         int matrix[row][col];
         rc = getmat(row, col, matrix);
