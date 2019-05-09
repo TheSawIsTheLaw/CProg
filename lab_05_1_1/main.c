@@ -49,7 +49,7 @@ int getmat(int const row, int const col, int matrix[row][col])
 int issim(int const row, int const col, int matrix[row][col],
     int const k)
 {
-    if (row < ONE || col < ONE || k < ONE || k > row)
+    if (row < ONE || col < ONE || k < ZERO || k > row - ONE)
         return THREE;
     if (col == ONE)
         return ZERO;
@@ -109,7 +109,7 @@ int printmas(int const mas[], const int number)
  */
 int replace(int const num, int mas[], int const insk, int const k)
 {
-    if (num < ONE || k < ZERO || k > num)
+    if (num < ONE || k < ZERO || k > num - ONE)
         return THREE;
     if (insk != ONE && insk != ZERO)
         return FOUR;
