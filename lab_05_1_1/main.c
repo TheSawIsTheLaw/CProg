@@ -14,7 +14,7 @@
 
 /* Коды ошибок:
  * 1 - не все введённые значения были присвоены переменным;
- * 2 - введены неверные значения row или col (< 2)
+ * 2 - введены неверные значения row или col (< 1)
  * 3 - введено неверное значение k (или row, или col в функцию переданы
  * неверно, в данной программе этот момент не может быть задействован. Обидно.)
  * 4 - передан неверный элемент замены в функцию replace (только 1 или 0)
@@ -29,7 +29,7 @@
 int getmat(int const row, int const col, int matrix[row][col])
 {
     int rc = TWO;
-    if (row < TWO || col < TWO)
+    if (row <= ZERO || col <= ZERO)
         return rc;
     for (int i = ZERO; i < row; i++)
     {
@@ -49,16 +49,18 @@ int getmat(int const row, int const col, int matrix[row][col])
 int issim(int const row, int const col, int matrix[row][col],
     int const k)
 {
-    if (row < TWO || col < TWO || k < ONE || k > row)
+    if (row < ONE || col < ONE || k < ONE || k > row)
         return THREE;
+    if (col == ONE)
+        return ZERO;
     int cown;
-    if (col % 2 == 1)
-        cown = (col - 1) / 2;
+    if (col % TWO == ONE)
+        cown = (col - ONE) / TWO;
     else
-        cown = col / 2;
+        cown = col / TWO;
     for (int i = ZERO; i < cown; i++)
     {
-        if (matrix[k - 1][i] != matrix[k - 1][col - 1 - i])
+        if (matrix[k - ONE][i] != matrix[k - ONE][col - ONE - i])
             return ZERO;
     }
     return ONE;
@@ -68,7 +70,7 @@ int issim(int const row, int const col, int matrix[row][col],
  * 0 - всё свершилось без ошибок, 3 - в функцию переданы неверные значения.
  */
 int makemasfrommat(int const row, int const col,
-    int matrix[row - ONE][col - ONE], int mas[])
+    int matrix[row][col], int mas[])
 {
     if (row < ONE || col < ONE)
         return THREE;
@@ -82,7 +84,7 @@ int makemasfrommat(int const row, int const col,
             j++;
             i++;
         }
-        j = ONE;
+        j = ZERO;
         k++;
     }
     return ZERO;
@@ -111,7 +113,7 @@ int replace(int const num, int mas[], int const insk, int const k)
         return THREE;
     if (insk != ONE && insk != ZERO)
         return FOUR;
-    mas[k - 1] = insk;
+    mas[k - ONE] = insk;
     return ZERO;
 }
 
@@ -124,7 +126,7 @@ int main(void)
         return ONE;
     else
     {
-        if (row < TWO || col < TWO)
+        if (row < ONE || col < ONE)
             return TWO;
         if (k < ZERO || k > row)
             return THREE;

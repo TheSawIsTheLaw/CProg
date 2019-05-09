@@ -58,6 +58,7 @@ int printmat(int const row, int const col, int const printrow,
     {
         for (int j = 0; j < printcol; j++)
             printf("%d ", mat[i][j]);
+        printf("\n");
     }
     return ZERO;
 }
@@ -89,11 +90,11 @@ int racots(int const row, int const col, int mat[row][col])
 {
     if (row < TWO || col < TWO)
         return NONE;
-    static int min;
+    int min = sumofnum(mat[ZERO][ZERO]);
     int minr = 0, now;
-    for (int i = 0; i < row - ONE; i++)
+    for (int i = 0; i < row; i++)
     {
-        for (int j = 0; j < col - ONE; j++)
+        for (int j = 0; j < col; j++)
         {
             now = sumofnum(mat[i][j]);
             if (now < min)
@@ -168,6 +169,7 @@ int main(void)
         int mincol = smallestinrow(minrow, row, col, matrix);
         if (mincol < 0)
             return mincol;
+        printf("(%d %d)", minrow, mincol);
         rc = delrowandcol(minrow, mincol, row, col, matrix);
         if (rc)
             return rc;
