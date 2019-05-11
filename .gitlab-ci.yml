@@ -17,4 +17,3 @@ rk_01:
       - gcc -Wall -Werror main.c
       - cd ../rk_01_02
       - gcc -Wall -Werror main.c
-      
