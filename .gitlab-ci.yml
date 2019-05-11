@@ -11,7 +11,7 @@ rk_01:
   image: gcc
   stage: build
   only:
-      - rk_01
+      - rk_01_1
   script:
       - cd rk_01_01
       - gcc -Wall -Werror main.c
