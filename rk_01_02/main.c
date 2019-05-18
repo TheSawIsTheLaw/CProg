@@ -38,7 +38,7 @@ int main(void)
     {
         if (isprost(number))
         {
-            printf("0%d", number);
+            printf("%d", number);
             return 0;
         }
     }
