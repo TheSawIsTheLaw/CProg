@@ -6,7 +6,7 @@
 
 int findmaxp(int number)
 {
-    int max = 1;
+    long long int max = 1;
     while (max < number)
         max = max * 10;
     max = max / 100;
