@@ -1,7 +1,6 @@
 /* Дано число N. Определить какие из двух рядом стоящих цифр в нем
  *  являются простым числом.
  */
-
 #include <stdio.h>
 
 int findmaxp(int number)
@@ -35,6 +34,14 @@ int main(void)
     scanf("%d", &number);
     if (number < 0)
         number = number * -1;
+    if (number < 10)
+    {
+        if (isprost(number))
+        {
+            printf("0%d", number);
+            return 0;
+        }
+    }
     max = findmaxp(number);
     int rab;
     while (max > 0)
