@@ -1,31 +1,72 @@
-/* Преобразовать исходную матрицу следующим образом:
+/**
+ * \file main.c
+ * \brief Преобразовать исходную матрицу следующим образом:
  * удалить строку и столбец, на пересечении которых расположен элемент матрицы,
  * сумма цифр которого минимальна;
- */
-
-#include <stdio.h>
-
-#define NTWO -2
-#define NONE -1
-#define ZERO 0
-#define ONE 1
-#define TWO 2
-#define FIVE 5
-#define TEN 10
-
-/* Коды ошибок:
+ *
+ * Коды ошибок:
+ *
  * -2 - в функцию delrowandcol переданы некорректные данные;
+ *
  * -1 - в функцию racots или smallestinrow переданы некорректные данные;
+ *
  * 1 - не все введённые значения были присвоены переменным;
+ *
  * 2 - в функцию delrowandcol передано некорректное количество строк или
  * столбцов;
+ *
  * 5 - в функцию printmas было передано некорректное значение строк или
  * столбцов;
  */
 
-/* Функция получает элементы матрицы и размещает их в... Матрице!
+#include <stdio.h>
+
+/**
+ * \def NTWO
+ * \brief Error code
+ */
+#define NTWO -2
+/**
+ * \def NONE
+ * \brief Error code
+ */
+#define NONE -1
+/**
+ * \def ZERO
+ * \brief OK code
+ */
+#define ZERO 0
+/**
+ * \def ONE
+ * \brief Error code
+ */
+#define ONE 1
+/**
+ * \def TWO
+ * \brief Error code
+ */
+#define TWO 2
+/**
+ * \def FIVE
+ * \brief Error code
+ */
+#define FIVE 5
+/**
+ * \def TEN
+ * \brief Делитель
+ */
+#define TEN 10
+
+/**
+ * \fn int getmat(int const row, int const col, int matrix[row][col])
+ * \brief Функция получает элементы матрицы и размещает их в... Матрице!
  * Возвращает 2 при неверных параметрах, 1, если не все введённые значения были
- * присвоены переменным, 0, если всё прошло успешно.
+ * присвоены переменным, 0, если всё прошло успешно
+ *
+ * \param [out] row Количество строк в матрице
+ * \param [out] col Количество столбцов в матрице
+ * \param [out] matrix[row][col] Указатель на матрицу
+ * \return Код ошибки или успешного завершения
  */
 int getmat(int const row, int const col, int matrix[row][col])
 {
@@ -44,8 +85,16 @@ int getmat(int const row, int const col, int matrix[row][col])
     return ZERO;
 }
 
-/* Функция вывода массива, если передано неверное кол-во членов массива
- * возвращает 5, иначе возвращает 0
+/**
+ * \fn int printmat(int const row, int const col, int const printrow,
+ * int const printcol, int mat[row][col])
+ * \brief Функция вывода матрицы.
+ *
+ * \param [out] row Количество строк матрицы
+ * \param [out] col Количество столбцов матрицы
+ * \param [out] printrow Количество выводимых строк
+ * \param [out] printcol Количество выводимых столбцов
+ * \return 0 - удачное завершение, 5 - код ошибки
  */
 int printmat(int const row, int const col, int const printrow,
     int const printcol, int mat[row][col])
@@ -60,7 +109,13 @@ int printmat(int const row, int const col, int const printrow,
     return ZERO;
 }
 
-// Функция возвращает сумму цифр числа
+/**
+ * \fn int sumofnum(int const num)
+ * \brief Функция возвращает сумму цифр числа.
+ *
+ * \param [out] num Задаваемое число
+ * \return Сумму цифр числа
+ */
 int sumofnum(int const num)
 {
     int numvar;
@@ -77,12 +132,17 @@ int sumofnum(int const num)
     return sum;
 }
 
-/* "RowOfTheSmallest"
- * Функция нахождения в матрице строки с элементом, у которого сумма цифр по
- * всей матрице наименьшая
- * Если в функцию переданы неверные значения количества строк или столбцов,
- * выдаёт -1, иначе - 0
+/**
+ * \fn int racots(int const row, int const col, int mat[row][col])
+ * \brief Функция нахождения в матрице строки с элементом, у которого сумма
+ * цифр по всей матрице наименьшая
+ *
+ * \param [out] row Количество строк матрицы
+ * \param [out] col Количество столбцов матрицы
+ * \param [out] mat[row][col] Указатель на выводимую матрицу
+ * \return Индекс строки, на которой находится элемент с наименьшей суммой цифр
  */
+// "RowOfTheSmallest"
 int racots(int const row, int const col, int mat[row][col])
 {
     if (row < TWO || col < TWO)
@@ -104,10 +164,17 @@ int racots(int const row, int const col, int mat[row][col])
     return minr;
 }
 
-/* Функция нахождения в строке матрицы элемента, у которого сумма цифр
- * наименьшая
- * Если в функцию переданы неверные значения количества строк или столбцов,
- * выдаёт минус единицу, иначе - 0
+/**
+ * \fn int smallestinrow(int const minr, int const row, int const col,
+ * int mat[row][col])
+ * \brief Функция нахождения в строке матрицы элемента, у которого сумма цифр
+ * наименьшая.
+ *
+ * \param [out] minr Индекс строки, в которой изется требуемый элемент
+ * \param [out] row Количество строк в матрице
+ * \param [out] col Количество столбцов в матрице
+ * \param [out] mat[row][col] Указатель на матрицу
+ * \return 0 - удачное завершение, -1 - код ошибки
  */
 int smallestinrow(int const minr, int const row, int const col,
     int mat[row][col])
@@ -127,9 +194,14 @@ int smallestinrow(int const minr, int const row, int const col,
     return minc;
 }
 
-/* Функция удаляет указанные строчку и столбец матрицы
- * Возвращает -2, если в функцию переданы некорректные параметры, 0, когда всё
- * прошло успешно
+/**
+ * \fn int delrowandcol(int const drow, int const dcol, int const row,
+ * int const col, int mat[row][col])
+ * \brief Функция удаляет указанные строку и столбец матрицы.
+ *
+ * \param [out] mas[] Указатель на выводимый массив
+ * \param [out] num Количество элементов в массиве
+ * \return 0 - удачное завершение, -2 - код ошибки
  */
 int delrowandcol(int const drow, int const dcol, int const row, int const col,
     int mat[row][col])

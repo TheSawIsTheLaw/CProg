@@ -20,13 +20,36 @@
 
 #include <stdio.h>
 
+/**
+ * \def ZERO
+ * \brief OK code
+ */
 #define ZERO 0
+/**
+ * \def ONE
+ * \brief Error code
+ */
 #define ONE 1
+/**
+ * \def TWO
+ * \brief Error code
+ */
 #define TWO 2
+/**
+ * \def THREE
+ * \brief Error code
+ */
 #define THREE 3
+/**
+ * \def FOUR
+ * \brief Error code
+ */
 #define FOUR 4
+/**
+ * \def FIVE
+ * \brief Error code
+ */
 #define FIVE 5
-
 
 /**
  * \fn int getmat(int const row, int const col, int matrix[row][col])
