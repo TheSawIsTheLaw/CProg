@@ -29,7 +29,7 @@ int str_input(char *str)
         if (rc != 1)
             return 1;
     }
-    if (i < 255 && i != 0)
+    if (i < 255 && i > 0)
     {
         str[i] = '\0';
         return 0;
@@ -162,28 +162,33 @@ int print_str(const int row, const int col, char string[row][col])
 {
     if (row < 0 || col < 0)
         return 5;
-    int j = 0;
+    int j = 0, k = 0;
     for (int i = 0; i < row; i++)
     {
         while (string[i][j])
         {
+            if (k == 0)
+                printf("Result:");
             printf("%c", string[i][j]);
             j++;
+            k++;
         }
         if (j != 0)
             printf(" ");
         j = 0;
     }
+    if (k == 0)
+        return 6;
     return 0;
 }
 
 int main(void)
 {
-    char string[255] = {0};
+    char string[255] = { 0 };
     int rc = str_input(string);
     if (rc)
         return rc;
-    char split_items[9] = " ,.;:-!?", words[16][16] = {0};
+    char split_items[9] = " ,.;:-!?", words[16][16] = { 0 };
     rc = special_split(string, words, split_items);
     if (rc == 0)
         return 2;
@@ -194,7 +199,6 @@ int main(void)
     rc = lexicographical_sort(rows, 16, words);
     if (rc)
         return rc;
-    printf("Result:");
     rc = print_str(rows, 16, words);
     if (rc)
         return rc;
