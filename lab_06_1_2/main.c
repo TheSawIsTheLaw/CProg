@@ -179,11 +179,11 @@ int print_str(const int row, const int col, char string[row][col])
 
 int main(void)
 {
-    char string[255];
+    char string[255] = {0};
     int rc = str_input(string);
     if (rc)
         return rc;
-    char split_items[9] = " ,.;:-!?", words[16][16];
+    char split_items[9] = " ,.;:-!?", words[16][16] = {0};
     rc = special_split(string, words, split_items);
     if (rc == 0)
         return 2;
@@ -200,4 +200,3 @@ int main(void)
         return rc;
     return 0;
 }
-
