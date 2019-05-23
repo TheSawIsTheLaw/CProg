@@ -63,7 +63,7 @@ int special_split(const char *str, char m[][16], const char *symbols)
         ++i;
     }
     m[row][col] = '\0';
-    return row;
+    return ++row;
 }
 
 int del_row(const int row, char words[row][16], const int i)
@@ -143,9 +143,9 @@ int lexicographical_sort(const int row, const int col, char words[row][col])
     {
         for (int j = 0; j < row - 1; j++)
         {
-            if (is_lex_bigger(words[i], words[i + 1]))
+            if (is_lex_bigger(words[j], words[j + 1]))
             {
-                rc = change_places(i, i + 1, row, words);
+                rc = change_places(j, j + 1, row, words);
                 if (rc)
                     return rc;
             }
@@ -189,6 +189,7 @@ int main(void)
     rc = lexicographical_sort(rc, 16, words);
     if (rc)
         return rc;
+    printf("Result:");
     rc = print_str(rows, 16, words);
     if (rc)
         return rc;
