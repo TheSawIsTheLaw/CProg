@@ -29,7 +29,7 @@ int str_input(char *str)
         if (rc != 1)
             return 1;
     }
-    if (i < 255)
+    if (i < 255 && i != 0)
     {
         str[i] = '\0';
         return 0;
