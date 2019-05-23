@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int str_input(char* str)
+int str_input(char *str)
 {
     char symbol;
     scanf("%c", &symbol);
@@ -34,7 +34,7 @@ int str_input(char* str)
         return 1;
 }
 
-int special_split(const char* str, char m[][16], const char* symbols)
+int special_split(const char *str, char m[][16], const char *symbols)
 {
     int i = 0, q = 0;
     int row = 0;
@@ -52,7 +52,7 @@ int special_split(const char* str, char m[][16], const char* symbols)
                 col = 0;
                 break;
             }
-                ++q;
+            ++q;
         }
         if (symbols[q] == '\0')
         {
@@ -63,7 +63,7 @@ int special_split(const char* str, char m[][16], const char* symbols)
         ++i;
     }
     m[row][col] = '\0';
-    return ++row;
+    return row;
 }
 
 int del_row(const int row, char words[row][16], const int i)
@@ -105,7 +105,7 @@ int del_equal_strings(const int num, char words[num][16])
     return exactly;
 }
 
-int is_lex_bigger(const char* word1, const char* word2)
+int is_lex_bigger(const char *word1, const char *word2)
 {
     int i = 0;
     while (word1[i] == word2[i] && word1[i] && word2[i])

@@ -7,7 +7,7 @@
  * указывает str2. Нулевые символы в конце строк в рассмотрение не включаются.
  * Если совпадений нет, возвращается NULL.
  */
-char* my_strpbrk(const char* str1, const char* str2)
+char *my_strpbrk(const char *str1, const char *str2)
 {
     int i = 0, j = 0;
     while (str1[i])
@@ -15,9 +15,7 @@ char* my_strpbrk(const char* str1, const char* str2)
         while (str2[j])
         {
             if (str2[j] == str1[i])
-            {
                 return (char*)str1 + i;
-            }
             j++;
         }
         j = 0;
@@ -32,12 +30,12 @@ char* my_strpbrk(const char* str1, const char* str2)
  * str2. Другими словами, для строки str1 функция strspn() возвращает значение
  * индекса первого символа из числа символов, не входящих в строку str2.
  */
-size_t my_strspn(const char* str1, const char* str2)
+size_t my_strspn(const char *str1, const char *str2)
 {
     int i = 0, j = 0, num = 0;
     while (str1[i])
     {
-        while(str2[j])
+        while (str2[j])
         {
             if (str2[j] == str1[i])
             {
@@ -61,12 +59,12 @@ size_t my_strspn(const char* str1, const char* str2)
  * из символов строки string2, и возвращает количество символов до найденного
  * первого вхождения.
  */
-size_t my_strcspn(const char* str1, const char* str2)
+size_t my_strcspn(const char *str1, const char *str2)
 {
     int i = 0, j = 0, num = 0;
     while (str1[i])
     {
-        while(str2[j])
+        while (str2[j])
         {
             if (str2[j] == str1[i])
             {
@@ -87,16 +85,16 @@ size_t my_strcspn(const char* str1, const char* str2)
  * Таким образом, он также может быть найден для получения указателя
  * на конец строки.
  */
-char* my_strchr(const char* string, int symbol)
+char *my_strchr(const char *string, int symbol)
 {
     int i = 0;
     while (string[i])
     {
-        if (string[i] == symbol)
+        if (string[i] == (char)symbol)
             return (char*)string + i;
         i++;
     }
-    return (char*)NULL;
+    return NULL;
 }
 
 /*
@@ -105,7 +103,7 @@ char* my_strchr(const char* string, int symbol)
  * нулевой символ считается частью строки. Таким образом, он также может быть
  * найден для получения указателя на конец строки.
  */
-char* my_strrchr(const char* string, int symbol)
+char *my_strrchr(const char *string, int symbol)
 {
     int i = 0;
     while (string[i])
@@ -113,8 +111,10 @@ char* my_strrchr(const char* string, int symbol)
     i++;
     while (i)
     {
-        if (string[i] == symbol)
+        if (string[i] == (char)symbol)
+        {
             return (char*)string + i;
+        }
         i--;
     }
     return NULL;
@@ -124,10 +124,10 @@ int main(void)
 {
     char str1[20] = "Tie a rope";
     char str2[10] = "r";
-    char* my = my_strpbrk(str1, str2);
-    char* their = strpbrk(str1, str2);
+    char *my = my_strpbrk(str1, str2);
+    char *their = strpbrk(str1, str2);
     if (my && their)
-        printf("My strpbrk %c(%x); Their %c(%x)\n", *my, *my, *their, *their);
+        printf("My strpbrk %c(%p); Their %c(%p)\n", *my, &(*my), *their, &(*their));
     else
         printf("Yup, this is NULL, my dudes (strpbrk)\n");
 
@@ -136,7 +136,7 @@ int main(void)
     my = my_strpbrk(str3, str4);
     their = strpbrk(str3, str4);
     if (my && their)
-        printf("My strpbrk %c(%x); Their %c(%x)\n", *my, *my, *their, *their);
+        printf("My strpbrk %c(%p); Their %c(%p)\n", *my, &(*my), *their, &(*their));
     else
         printf("Yup, this is NULL, my dudes (strpbrk)\n");
 
@@ -145,7 +145,7 @@ int main(void)
     my = my_strpbrk(str5, str6);
     their = strpbrk(str5, str6);
     if (my && their)
-        printf("My strpbrk %c(%x); Their %c(%x)\n", *my, *my, *their, *their);
+        printf("My strpbrk %c(%p); Their %c(%p)\n", *my, &(*my), *their, &(*their));
     else
         printf("Yup, this is NULL, my dudes (strpbrk)\n");
 
@@ -188,11 +188,11 @@ int main(void)
     printf("My strcspn %d; Their %d\n", b, b1);
 
 
-    char str19[20] = "opopopopopopopo";
-    my = my_strchr(str19, 'a');
-    their = strchr(str19, 'a');
+    char str19[20] = "Oldlood";
+    my = my_strchr(str19, 'd');
+    their = strchr(str19, 'd');
     if (my && their)
-        printf("My strrchr %c (%x); Their %c (%x)\n", *my, *my, *their, *their);
+        printf("My strrchr %c(%p); Their %c(%p)\n", *my, &(*my), *their, &(*their));
     else
         printf("Ha-ha, classic. It's NULL (strchr)\n");
 
@@ -200,15 +200,15 @@ int main(void)
     my = my_strrchr(str20, 'e');
     their = strrchr(str20, 'e');
     if (my && their)
-        printf("My strrchr %c (%x); Their %c (%x)\n", *my, *my, *their, *their);
+        printf("My strrchr %c(%p); Their %c(%p)\n", *my, &(*my), *their, &(*their));
     else
         printf("Ha-ha, classic. It's NULL (strchr)\n");
 
-    char str21[30] = "ULTRA-HARDCORE MITISHI x359x";
+    char str21[30] = "ULTRAHARDCORE MITISHI x359x";
     my = my_strrchr(str21, '[');
     their = strrchr(str21, '[');
     if (my && their)
-        printf("My strrchr %c (%x); Their %c (%x)\n", *my, *my, *their, *their);
+        printf("My strrchr %c(%p); Their %c(%p)\n", *my, &(*my), *their, &(*their));
     else
         printf("Ha-ha, classic. It's NULL (strchr)\n");
 
