@@ -10,20 +10,24 @@
  * порядке. Слова из упорядоченного массива вывести на экран, разделив одним
  * пробелом
  */
-
 #include <stdio.h>
 #include <string.h>
 
 int str_input(char *str)
 {
     char symbol;
-    scanf("%c", &symbol);
+    int rc;
+    rc = scanf("%c", &symbol);
+    if (rc != 1)
+        return 1;
     int i = 0;
     while (symbol != '\n' && symbol && i < 255)
     {
         str[i] = symbol;
         i++;
-        scanf("%c", &symbol);
+        rc = scanf("%c", &symbol);
+        if (rc != 1)
+            return 1;
     }
     if (i < 255)
     {
@@ -34,11 +38,9 @@ int str_input(char *str)
         return 1;
 }
 
-int special_split(const char *str, char m[][15], const char *symbols)
+int special_split(const char *str, char m[][16], const char *symbols)
 {
-    int i = 0, q = 0;
-    int row = 0;
-    int col = 0;
+    int i = 0, q = 0, row = 0, col = 0;
     while (str[i])
     {
         while (symbols[q])
@@ -48,25 +50,26 @@ int special_split(const char *str, char m[][15], const char *symbols)
                 if (col == 0)
                     break;
                 m[row][col] = '\0';
-                ++row;
+                row++;
                 col = 0;
                 break;
             }
-            ++q;
+            q++;
         }
         if (symbols[q] == '\0')
         {
             m[row][col] = str[i];
-            ++col;
+            col++;
         }
         q = 0;
-        ++i;
+        i++;
     }
     m[row][col] = '\0';
-    return ++row;
+    row++;
+    return row;
 }
 
-int del_row(const int row, char words[row][15], const int i)
+int del_row(const int row, char words[row][16], const int i)
 {
     if (row <= 0 || i > row - 1)
         return -2;
@@ -78,12 +81,12 @@ int del_row(const int row, char words[row][15], const int i)
     return 0;
 }
 
-int del_equal_strings(const int num, char words[num][15])
+int del_equal_strings(const int num, char words[num][16])
 {
     if (num <= 0)
         return -1;
     int exactly = num, q, rc, j;
-    for (int i = 0; i < exactly; i++)
+    for (int i = 0; i < exactly - 1; i++)
     {
         j = i + 1;
         while (j < exactly)
@@ -118,7 +121,7 @@ int is_lex_bigger(const char *word1, const char *word2)
         return 0;
 }
 
-int change_places(const int curindex, const int nextindex, const int row, char words[row][15])
+int change_places(const int curindex, const int nextindex, const int row, char words[row][16])
 {
     if (row <= 0 || curindex > row || nextindex > row)
         return 4;
@@ -179,7 +182,7 @@ int main(void)
     int rc = str_input(string);
     if (rc)
         return rc;
-    char split_items[9] = " ,.;:-!?", words[15][15];
+    char split_items[9] = " ,.;:-!?", words[16][16];
     rc = special_split(string, words, split_items);
     if (rc == 0)
         return 2;
@@ -187,13 +190,13 @@ int main(void)
     rows = del_equal_strings(rows, words);
     if (rows < 0)
         return rows;
-    rc = lexicographical_sort(rows, 15, words);
+    rc = lexicographical_sort(rows, 16, words);
     if (rc)
         return rc;
     printf("Result:");
-
-    rc = print_str(rows, 15, words);
+    rc = print_str(rows, 16, words);
     if (rc)
         return rc;
     return 0;
 }
+
