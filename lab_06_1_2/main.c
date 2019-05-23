@@ -34,7 +34,7 @@ int str_input(char *str)
         return 1;
 }
 
-int special_split(const char *str, char m[][16], const char *symbols)
+int special_split(const char *str, char m[][15], const char *symbols)
 {
     int i = 0, q = 0;
     int row = 0;
@@ -66,7 +66,7 @@ int special_split(const char *str, char m[][16], const char *symbols)
     return ++row;
 }
 
-int del_row(const int row, char words[row][16], const int i)
+int del_row(const int row, char words[row][15], const int i)
 {
     if (row <= 0 || i > row - 1)
         return -2;
@@ -78,7 +78,7 @@ int del_row(const int row, char words[row][16], const int i)
     return 0;
 }
 
-int del_equal_strings(const int num, char words[num][16])
+int del_equal_strings(const int num, char words[num][15])
 {
     if (num <= 0)
         return -1;
@@ -118,7 +118,7 @@ int is_lex_bigger(const char *word1, const char *word2)
         return 0;
 }
 
-int change_places(const int curindex, const int nextindex, const int row, char words[row][16])
+int change_places(const int curindex, const int nextindex, const int row, char words[row][15])
 {
     if (row <= 0 || curindex > row || nextindex > row)
         return 4;
@@ -175,23 +175,24 @@ int print_str(const int row, const int col, char string[row][col])
 
 int main(void)
 {
-    char string[256];
+    char string[255];
     int rc = str_input(string);
     if (rc)
         return rc;
-    char split_items[9] = " ,.;:-!?", words[16][16];
+    char split_items[9] = " ,.;:-!?", words[15][15];
     rc = special_split(string, words, split_items);
     if (rc == 0)
         return 2;
     int rows = rc;
-    rc = del_equal_strings(rows, words);
-    if (rc < 0)
-        return rc;
-    rc = lexicographical_sort(rc, 16, words);
+    rows = del_equal_strings(rows, words);
+    if (rows < 0)
+        return rows;
+    rc = lexicographical_sort(rows, 15, words);
     if (rc)
         return rc;
     printf("Result:");
-    rc = print_str(rows, 16, words);
+
+    rc = print_str(rows, 15, words);
     if (rc)
         return rc;
     return 0;

@@ -94,8 +94,8 @@ char *my_strchr(const char *string, int symbol)
             return (char*)string + i;
         i++;
     }
-	if (string[i] == (char)symbol)
-            return (char*)string + i;
+    if (string[i] == (char)symbol)
+        return (char*)string + i;
     return NULL;
 }
 
@@ -110,8 +110,7 @@ char *my_strrchr(const char *string, int symbol)
     int i = 0;
     while (string[i])
         i++;
-    i++;
-    while (i+1)
+    while (i + 1)
     {
         if (string[i] == (char)symbol)
         {
@@ -230,13 +229,26 @@ int main(void)
     my = my_strchr(str19, 'd');
     their = strchr(str19, 'd');
     if (my && their)
-        printf("My strrchr %c(%p); Their %c(%p)", *my, &(*my), *their, &(*their));
+        printf("My strchr %c(%p); Their %c(%p)", *my, &(*my), *their, &(*their));
     else
         printf("Ha-ha, classic. It's NULL (strchr)");
     if (&(*my) == &(*their))
         printf(" PASSED\n");
     else
         printf(" FAULT!\n");
+
+    char str23[8] = "Oldlood";
+    my = my_strchr(str23, 'a');
+    their = strchr(str23, 'a');
+    if (my && their)
+        printf("My strchr %c(%p); Their %c(%p)", *my, &(*my), *their, &(*their));
+    else
+        printf("Ha-ha, classic. It's NULL (strchr)");
+    if (&(*my) == &(*their))
+        printf(" PASSED\n");
+    else
+        printf(" FAULT!\n");
+
 
     char str20[22] = "Wolves are at my door";
     my = my_strrchr(str20, 'e');
@@ -253,6 +265,18 @@ int main(void)
     char str21[28] = "ULTRAHARDCORE MITISHI x359x";
     my = my_strrchr(str21, '[');
     their = strrchr(str21, '[');
+    if (my && their)
+        printf("My strrchr %c(%p); Their %c(%p)", *my, &(*my), *their, &(*their));
+    else
+        printf("Ha-ha, classic. It's NULL (strrchr)");
+    if (&(*my) == &(*their))
+        printf(" PASSED\n");
+    else
+        printf(" FAULT!\n");
+
+    char str22[28] = "Wouch!";
+    my = my_strrchr(str22, 'W');
+    their = strrchr(str22, 'W');
     if (my && their)
         printf("My strrchr %c(%p); Their %c(%p)", *my, &(*my), *their, &(*their));
     else
