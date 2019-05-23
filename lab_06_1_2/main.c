@@ -73,7 +73,7 @@ int del_row(const int row, char words[row][16], const int i)
 {
     if (row <= 0 || i > row - 1)
         return -2;
-    for (int j = i; j < row; j++)
+    for (int j = i; j < row - 1; j++)
     {
         for (int q = 0; q < 16; q++)
             words[j][q] = words[j + 1][q];
@@ -121,7 +121,8 @@ int is_lex_bigger(const char *word1, const char *word2)
         return 0;
 }
 
-int change_places(const int curindex, const int nextindex, const int row, char words[row][16])
+int change_places(const int curindex, const int nextindex, const int row,
+    char words[row][16])
 {
     if (row <= 0 || curindex > row || nextindex > row)
         return 4;
