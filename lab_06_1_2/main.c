@@ -166,7 +166,8 @@ int print_str(const int row, const int col, char string[row][col])
             printf("%c", string[i][j]);
             j++;
         }
-        printf(" ");
+        if (j != 0)
+            printf(" ");
         j = 0;
     }
     return 0;

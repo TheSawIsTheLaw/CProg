@@ -94,6 +94,8 @@ char *my_strchr(const char *string, int symbol)
             return (char*)string + i;
         i++;
     }
+	if (string[i] == (char)symbol)
+            return (char*)string + i;
     return NULL;
 }
 
@@ -109,7 +111,7 @@ char *my_strrchr(const char *string, int symbol)
     while (string[i])
         i++;
     i++;
-    while (i)
+    while (i+1)
     {
         if (string[i] == (char)symbol)
         {
@@ -122,95 +124,143 @@ char *my_strrchr(const char *string, int symbol)
 
 int main(void)
 {
-    char str1[20] = "Tie a rope";
-    char str2[10] = "r";
+    char str1[11] = "Tie a rope";
+    char str2[2] = "r";
     char *my = my_strpbrk(str1, str2);
     char *their = strpbrk(str1, str2);
     if (my && their)
-        printf("My strpbrk %c(%p); Their %c(%p)\n", *my, &(*my), *their, &(*their));
+        printf("My strpbrk %c(%p); Their %c(%p)", *my, &(*my), *their, &(*their));
     else
-        printf("Yup, this is NULL, my dudes (strpbrk)\n");
+        printf("Yup, this is NULL, my dudes (strpbrk)");
+    if (&(*my) == &(*their))
+        printf(" PASSED\n");
+    else
+        printf(" FAULT!\n");
 
-    char str3[20] = "Around your neck";
+    char str3[17] = "Around your neck";
     char str4[4] = "n e";
     my = my_strpbrk(str3, str4);
     their = strpbrk(str3, str4);
     if (my && their)
-        printf("My strpbrk %c(%p); Their %c(%p)\n", *my, &(*my), *their, &(*their));
+        printf("My strpbrk %c(%p); Their %c(%p)", *my, &(*my), *their, &(*their));
     else
-        printf("Yup, this is NULL, my dudes (strpbrk)\n");
+        printf("Yup, this is NULL, my dudes (strpbrk)");
+    if (&(*my) == &(*their))
+        printf(" PASSED\n");
+    else
+        printf(" FAULT!\n");
 
-    char str5[40] = "If the fall doen't shutter your spine";
+    char str5[38] = "If the fall doen't shutter your spine";
     char str6[4] = "q13";
     my = my_strpbrk(str5, str6);
     their = strpbrk(str5, str6);
     if (my && their)
-        printf("My strpbrk %c(%p); Their %c(%p)\n", *my, &(*my), *their, &(*their));
+        printf("My strpbrk %c(%p); Their %c(%p)", *my, &(*my), *their, &(*their));
     else
-        printf("Yup, this is NULL, my dudes (strpbrk)\n");
+        printf("Yup, this is NULL, my dudes (strpbrk)");
+    if (&(*my) == &(*their))
+        printf(" PASSED\n");
+    else
+        printf(" FAULT!\n");
 
 
-    char str7[20] = "SUFFOCATE!";
+    char str7[10] = "SUFFOCATE!";
     char str8[4] = "SUF";
     int b = my_strspn(str7, str8);
     int b1 = strspn(str7, str8);
-    printf("My strspn %d; Their %d\n", b, b1);
+    printf("My strspn %d; Their %d", b, b1);
+    if (b == b1)
+        printf(" PASSED\n");
+    else
+        printf(" FAULT!\n");
 
-    char str9[20] = "SUFFOCATE!";
+    char str9[10] = "SUFFOCATE!";
     char str10[1] = "";
     b = my_strspn(str9, str10);
     b1 = strspn(str9, str10);
-    printf("My strspn %d; Their %d\n", b, b1);
+    printf("My strspn %d; Their %d", b, b1);
+    if (b == b1)
+        printf(" PASSED\n");
+    else
+        printf(" FAULT!\n");
 
-    char str11[20] = "SUFFOCATE!";
-    char str12[10] = "qwerty";
+    char str11[11] = "SUFFOCATE!";
+    char str12[7] = "qwerty";
     b = my_strspn(str11, str12);
     b1 = strspn(str11, str12);
-    printf("My strspn %d; Their %d\n", b, b1);
+    printf("My strspn %d; Their %d", b, b1);
+    if (b == b1)
+        printf(" PASSED\n");
+    else
+        printf(" FAULT!\n");
 
 
-    char str13[20] = "Ire upon the Earth";
+    char str13[19] = "Ire upon the Earth";
     char str14[2] = "q";
     b = my_strcspn(str13, str14);
     b1 = strcspn(str13, str14);
-    printf("My strcspn %d; Their %d\n", b, b1);
+    printf("My strcspn %d; Their %d", b, b1);
+    if (b == b1)
+        printf(" PASSED\n");
+    else
+        printf(" FAULT!\n");
 
-    char str15[20] = "Ire upon the Earth";
+    char str15[19] = "Ire upon the Earth";
     char str16[10] = "the Earth";
     b = my_strcspn(str15, str16);
     b1 = strcspn(str15, str16);
-    printf("My strcspn %d; Their %d\n", b, b1);
+    printf("My strcspn %d; Their %d", b, b1);
+    if (b == b1)
+        printf(" PASSED\n");
+    else
+        printf(" FAULT!\n");
 
-    char str17[20] = "Ire upon the Earth";
-    char str18[20] = "Ire upontheEarth";
+    char str17[19] = "Ire upon the Earth";
+    char str18[17] = "Ire upontheEarth";
     b = my_strcspn(str17, str18);
     b1 = strcspn(str17, str18);
-    printf("My strcspn %d; Their %d\n", b, b1);
+    printf("My strcspn %d; Their %d", b, b1);
+    if (b == b1)
+        printf(" PASSED\n");
+    else
+        printf(" FAULT!\n");
 
 
-    char str19[20] = "Oldlood";
+    char str19[8] = "Oldlood";
     my = my_strchr(str19, 'd');
     their = strchr(str19, 'd');
     if (my && their)
-        printf("My strrchr %c(%p); Their %c(%p)\n", *my, &(*my), *their, &(*their));
+        printf("My strrchr %c(%p); Their %c(%p)", *my, &(*my), *their, &(*their));
     else
-        printf("Ha-ha, classic. It's NULL (strchr)\n");
+        printf("Ha-ha, classic. It's NULL (strchr)");
+    if (&(*my) == &(*their))
+        printf(" PASSED\n");
+    else
+        printf(" FAULT!\n");
 
-    char str20[25] = "Wolves are at my door";
+    char str20[22] = "Wolves are at my door";
     my = my_strrchr(str20, 'e');
     their = strrchr(str20, 'e');
     if (my && their)
-        printf("My strrchr %c(%p); Their %c(%p)\n", *my, &(*my), *their, &(*their));
+        printf("My strrchr %c(%p); Their %c(%p)", *my, &(*my), *their, &(*their));
     else
-        printf("Ha-ha, classic. It's NULL (strchr)\n");
+        printf("Ha-ha, classic. It's NULL (strchr)");
+    if (&(*my) == &(*their))
+        printf(" PASSED\n");
+    else
+        printf(" FAULT!\n");
 
-    char str21[30] = "ULTRAHARDCORE MITISHI x359x";
+    char str21[28] = "ULTRAHARDCORE MITISHI x359x";
     my = my_strrchr(str21, '[');
     their = strrchr(str21, '[');
     if (my && their)
-        printf("My strrchr %c(%p); Their %c(%p)\n", *my, &(*my), *their, &(*their));
+        printf("My strrchr %c(%p); Their %c(%p)", *my, &(*my), *their, &(*their));
     else
-        printf("Ha-ha, classic. It's NULL (strchr)\n");
+        printf("Ha-ha, classic. It's NULL (strchr)");
+    if (&(*my) == &(*their))
+        printf(" PASSED\n");
+    else
+        printf(" FAULT!\n");
 
     return 0;
 }
