@@ -84,7 +84,6 @@ float find_average_between_indices(FILE *in, int start, int end)
         {
             quantity++;
             average += number;
-            printf("%d %f ", quantity, number);
         }
         n = fscanf(in, "%f", &number);
         i++;
