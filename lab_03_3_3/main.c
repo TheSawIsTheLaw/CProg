@@ -131,7 +131,7 @@ int main(void)
         }
     }
     fclose(in);
-
+    
     in = fopen(name, "rb");
     if (!in)
         return -2;

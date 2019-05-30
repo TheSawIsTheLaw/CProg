@@ -28,15 +28,14 @@ int find_max_in_row(FILE *in)
     return ind;
 }
 
-int main(void)
+int process(FILE *in)
 {
-    FILE *in = stdin;
     if (!in)
         return -1;
     int n = find_max_in_row(in);
     if (n < 1)
         return n;
     else
-        printf("%d", n);
+        printf("%d", n - 1);
     return 0;
 }
