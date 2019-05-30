@@ -13,11 +13,11 @@ int find_ind_max(FILE *in)
     if (!in)
         return -1;
     fseek(in, 0, SEEK_SET);
-    double number;
-    int n = fscanf(in, "%lf", &number), i = 0, index = 0;
+    float number;
+    int n = fscanf(in, "%f", &number), i = 0, index = 0;
     if (!n)
         return -1;
-    double max = number;
+    float max = number;
     while (n == 1)
     {
         if (number > max)
@@ -25,7 +25,7 @@ int find_ind_max(FILE *in)
             index = i;
             max = number;
         }
-        n = fscanf(in, "%lf", &number);
+        n = fscanf(in, "%f", &number);
         i++;
     }
     return index;
@@ -36,11 +36,11 @@ int find_ind_min(FILE *in)
     if (!in)
         return -1;
     fseek(in, 0, SEEK_SET);
-    double number;
-    int n = fscanf(in, "%lf", &number), i = 0, index = 0;
+    float number;
+    int n = fscanf(in, "%f", &number), i = 0, index = 0;
     if (!n)
         return -1;
-    double min = number;
+    float min = number;
     while (n == 1)
     {
         if (number < min)
@@ -48,13 +48,13 @@ int find_ind_min(FILE *in)
             index = i;
             min = number;
         }
-        n = fscanf(in, "%lf", &number);
+        n = fscanf(in, "%f", &number);
         i++;
     }
     return index;
 }
 
-double find_average_between_indices(FILE *in, int start, int end)
+float find_average_between_indices(FILE *in, int start, int end)
 {
     if (!in)
         return -666666;
@@ -62,19 +62,19 @@ double find_average_between_indices(FILE *in, int start, int end)
         return -666666;
     else if (start > end)
     {
-        double memory = end;
+        float memory = end;
         end = start;
         start = memory;
     }
    /*
-    * fseek(in, sizeof(double) * (start + 1), SEEK_SET);
+    * fseek(in, sizeof(float) * (start + 1), SEEK_SET);
     * А потом я вспомнил, что это не бинарный файл.
     * А ведь с такими идеями мог бы и в Google попасть!..
     */
     fseek(in, 0, SEEK_SET);
-    double number;
-    int n = fscanf(in, "%lf", &number);
-    double average = 0;
+    float number;
+    int n = fscanf(in, "%f", &number);
+    float average = 0;
     if (!n)
         return -1;
     int quantity = 0, i = 1;
@@ -84,9 +84,9 @@ double find_average_between_indices(FILE *in, int start, int end)
         {
             quantity++;
             average += number;
-            printf("%d %lf ", quantity, number);
+            printf("%d %f ", quantity, number);
         }
-        n = fscanf(in, "%lf", &number);
+        n = fscanf(in, "%f", &number);
         i++;
     }
     average = average / quantity;
@@ -110,10 +110,10 @@ int main(void)
         return -3;
     if (ind_min == ind_max)
         return -4;
-    double average = find_average_between_indices(in, ind_min, ind_max);
+    float average = find_average_between_indices(in, ind_min, ind_max);
     if (average == -666666)
         return -5;
-    printf("%lf", average);
-	fclose(in);
+    printf("%f", average);
+    fclose(in);
     return 0;
 }
