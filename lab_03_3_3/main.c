@@ -135,7 +135,7 @@ int main(void)
     in = fopen(name, "rb");
     if (!in)
         return -2;
-    int mas[row * col];
+    int mas[row * col] = { 0 };
     m = binary_ints_to_mas(in, row, col, mas);
     if (m < 0)
         return m;

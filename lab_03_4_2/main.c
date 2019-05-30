@@ -114,5 +114,6 @@ int main(void)
     if (average == -666666)
         return -5;
     printf("%lf", average);
+	fclose(in);
     return 0;
 }
