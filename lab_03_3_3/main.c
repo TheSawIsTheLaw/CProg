@@ -114,11 +114,12 @@ int print_bin(FILE *in)
     if (!in)
         return -2;
     fseek(in, 0, SEEK_SET);
-    int num, n = fread(&num, sizeof(int), 1, in);
+    int i = 0, num, n = fread(&num, sizeof(int), 1, in);
     while (n)
     {
         printf("%d ", num);
         n = fread(&num, sizeof(int), 1, in);
+        i++;
     }
     return 0;
 }
@@ -128,14 +129,16 @@ int main(const int argc, const char *const argv[])
     setbuf(stdout, NULL);
     if (argc != 3)
         return -666;
-    if (*argv[1] == 's')
+    if (argv[1][0] == 's')
     {
         FILE *in = fopen(argv[2], "rb");
         if (!in)
             return -2;
         int number = find_size_of_bin(in);
-        if (!number)
+        if (number == 0)
             return -3;
+        if (number < 0)
+            return number;
         int mas[number];
         int rc = binary_ints_to_mas(in, number, mas);
         if (rc < 0)
@@ -146,16 +149,18 @@ int main(const int argc, const char *const argv[])
         from_mas_to_bin_file(in, number, mas);
         fclose(in);
     }
-    else if (*argv[1] == 'p')
+    else if (argv[1][0] == 'p')
     {
         FILE *in = fopen(argv[2], "rb");
         if (!in)
             return -2;
         int rc = print_bin(in);
-        if (rc)
+        if (rc < 0)
             return rc;
+        if (rc == 0)
+            return -333;
     }
-    else if (*argv[1] == 'm')
+    else if (argv[1][0] == 'm')
     {
         FILE *in = fopen(argv[2], "wb");
         if (!in)
@@ -169,5 +174,7 @@ int main(const int argc, const char *const argv[])
         }
         fclose(in);
     }
+    else
+        return -9;
     return 0;
 }
