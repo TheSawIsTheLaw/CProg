@@ -129,7 +129,7 @@ int main(const int argc, const char *const argv[])
     setbuf(stdout, NULL);
     if (argc != 3)
         return -666;
-    if (argv[1][0] == 's')
+    if (*argv[1] == 's')
     {
         FILE *in = fopen(argv[2], "rb");
         if (!in)
@@ -149,7 +149,7 @@ int main(const int argc, const char *const argv[])
         from_mas_to_bin_file(in, number, mas);
         fclose(in);
     }
-    else if (argv[1][0] == 'p')
+    else if (*argv[1] == 'p')
     {
         FILE *in = fopen(argv[2], "rb");
         if (!in)
@@ -160,7 +160,7 @@ int main(const int argc, const char *const argv[])
         if (rc == 0)
             return -333;
     }
-    else if (argv[1][0] == 'm')
+    else if (*argv[1] == 'm')
     {
         FILE *in = fopen(argv[2], "wb");
         if (!in)
@@ -174,7 +174,5 @@ int main(const int argc, const char *const argv[])
         }
         fclose(in);
     }
-    else
-        return -9;
     return 0;
 }
