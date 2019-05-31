@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 
-int find_max_in_row(FILE *in)
+int find_max_in_row(FILE *in, int *const index)
 {
     if (!in)
         return -2;
@@ -15,7 +15,7 @@ int find_max_in_row(FILE *in)
     if (n != 1)
         return -3;
     int max = q;
-    while (!feof(in))
+    while (n == 1)
     {
         if (q > max)
         {
@@ -25,7 +25,8 @@ int find_max_in_row(FILE *in)
         n = fscanf(in, "%d", &q);
         i++;
     }
-    return ind;
+    *index = ind;
+    return 0;
 }
 
 int main(void)
@@ -33,10 +34,10 @@ int main(void)
     FILE *in = stdin;
     if (!in)
         return -1;
-    int n = find_max_in_row(in);
-    if (n < 1)
+    int index = 0, n = find_max_in_row(in, &index);
+    if (n)
         return n;
     else
-        printf("%d", n - 1);
+        printf("%d", index);
     return 0;
 }
