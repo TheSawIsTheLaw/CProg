@@ -135,6 +135,7 @@ int main(const int argc, const char *const argv[])
             return -2;
         int number = find_size_of_bin(in);
         int mas[number];
+        memset(mas, 0, number*sizeof(int));
         int rc = binary_ints_to_mas(in, number, mas);
         if (rc < 0)
             return rc;
@@ -147,6 +148,8 @@ int main(const int argc, const char *const argv[])
     else if (*argv[1] == 's')
     {
         FILE *in = fopen(argv[2], "rb");
+        if (!in)
+            return -2;
         int rc = print_bin(in);
         if (rc)
             return rc;
@@ -158,7 +161,7 @@ int main(const int argc, const char *const argv[])
             return -2;
         int number;
         srand(time(NULL));
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
         {
             number = -100 + rand() % 200;
             put_number_by_pos(in, i, number);
