@@ -92,13 +92,12 @@ float find_average_between_indices(FILE *in, int start, int end)
     return average;
 }
 
-int main(void)
+int main(const int argc, const char *const argv[])
 {
-    char name[20];
-    int m = scanf("%s", name);
-    if (!m)
-        return -1;
-    FILE *in = fopen(name, "rt");
+	setbuf(stdout, NULL); // Чтобы в буфере ничего не держалось
+	if (argc != 2)
+		return -666;
+    FILE *in = fopen(argv[1], "rt");
     if (!in)
         return -2;
     int ind_max = find_ind_max(in);
