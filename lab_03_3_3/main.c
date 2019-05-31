@@ -140,11 +140,12 @@ int main(const int argc, const char *const argv[])
         if (number < 0)
             return number;
         int mas[number];
+        memset(mas, 0, number * sizeof(int));
         int rc = binary_ints_to_mas(in, number, mas);
         if (rc < 0)
             return rc;
         fclose(in);
-        quicksort(mas, 0, number);
+        quicksort(mas, 0, number - 1);
         in = fopen(argv[2], "wb");
         from_mas_to_bin_file(in, number, mas);
         fclose(in);
@@ -167,7 +168,7 @@ int main(const int argc, const char *const argv[])
             return -2;
         int number;
         srand(time(NULL));
-        for (int i = 0; i < 0; i++)
+        for (int i = 0; i < 20; i++)
         {
             number = -100 + rand() % 200;
             put_number_by_pos(in, i, number);
