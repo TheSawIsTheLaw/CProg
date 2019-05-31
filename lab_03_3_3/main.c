@@ -117,9 +117,9 @@ int print_bin(FILE *in)
     int i = 0, num, n = fread(&num, sizeof(int), 1, in);
     while (n)
     {
+        i++;
         printf("%d ", num);
         n = fread(&num, sizeof(int), 1, in);
-        i++;
     }
     return i;
 }
@@ -156,8 +156,8 @@ int main(const int argc, const char *const argv[])
         if (!in)
             return -2;
         int rc = print_bin(in);
-        if (rc < 0)
-            return rc;
+        if (rc <= 0)
+            return -3;
     }
     else if (*argv[1] == 'm')
     {
@@ -166,7 +166,7 @@ int main(const int argc, const char *const argv[])
             return -2;
         int number;
         srand(time(NULL));
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 0; i++)
         {
             number = -100 + rand() % 200;
             put_number_by_pos(in, i, number);
