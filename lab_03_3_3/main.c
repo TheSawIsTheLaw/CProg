@@ -98,7 +98,7 @@ void quicksort(int mas[], int first, int last)
 int find_size_of_bin(FILE *in)
 {
     if (!in)
-            return -2;
+        return -2;
     fseek(in, 0, SEEK_SET);
     int size = 0, num, n = fread(&num, sizeof(int), 1, in);
     while (n)
@@ -112,7 +112,7 @@ int find_size_of_bin(FILE *in)
 int print_bin(FILE *in)
 {
     if (!in)
-            return -2;
+        return -2;
     fseek(in, 0, SEEK_SET);
     int num, n = fread(&num, sizeof(int), 1, in);
     while (n)
@@ -128,14 +128,15 @@ int main(const int argc, const char *const argv[])
     setbuf(stdout, NULL);
     if (argc != 3)
         return -666;
-    if (*argv[1] == 'p')
+    if (*argv[1] == 's')
     {
         FILE *in = fopen(argv[2], "rb");
         if (!in)
             return -2;
         int number = find_size_of_bin(in);
+        if (!number)
+            return -3;
         int mas[number];
-        memset(mas, 0, number*sizeof(int));
         int rc = binary_ints_to_mas(in, number, mas);
         if (rc < 0)
             return rc;
@@ -145,7 +146,7 @@ int main(const int argc, const char *const argv[])
         from_mas_to_bin_file(in, number, mas);
         fclose(in);
     }
-    else if (*argv[1] == 's')
+    else if (*argv[1] == 'p')
     {
         FILE *in = fopen(argv[2], "rb");
         if (!in)
@@ -161,7 +162,7 @@ int main(const int argc, const char *const argv[])
             return -2;
         int number;
         srand(time(NULL));
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 0; i++)
         {
             number = -100 + rand() % 200;
             put_number_by_pos(in, i, number);
