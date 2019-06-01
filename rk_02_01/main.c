@@ -35,9 +35,12 @@ int is_sqr(const int row, const int col, const int i, const int j, int matrix[ro
 {
 	for (int q = 0; q < row && q < col; q++)
 	{
-		if (matrix[i + q][j + q] || matrix[i - q][j - q] || matrix[i][j - q] || matrix[i][j + q] ||
-		    matrix[i - q][j] || matrix[i + q][j] || matrix[i + q][j - q] || matrix[i - q][j + q])
-			return q;	
+		if (q >= 1)
+		{
+			if (matrix[i + q][j + q] || matrix[i - q][j - q] || matrix[i][j - q] || matrix[i][j + q] ||
+				matrix[i - q][j] || matrix[i + q][j] || matrix[i + q][j - q] || matrix[i - q][j + q])
+				return q - 1;	
+		}
 	}
 	return 0;
 }
@@ -55,6 +58,34 @@ int the_biggest_sqr_zero(const int row, const int col, int matrix[row][col])
 		}
 	}
 	return max_sqr;
+}
+
+int full(FILE *const out, const int row, const int col,
+ int matrix[row][col], int const max_sqr, int const ones)
+{
+	int sqr;
+	for (int i = 0; i < row; i++)
+	{
+		for (int j = 0; j < col; j++)
+		{
+			sqr = is_sqr(row, col, i, j, matrix);
+			if (sqr == max_sqr)
+			{
+				for (int q = 0; q < sqr; q++)
+				{
+					matrix[i + q][j + q] = ones;
+					matrix[i - q][j - q] = ones;
+					matrix[i][j - q] = ones;
+					matrix[i][j + q] = ones;
+					matrix[i - q][j] = ones;
+					matrix[i + q][j] = ones;
+					matrix[i + q][j - q] = ones;
+					matrix[i - q][j + q] = ones;
+				}
+			}
+		}
+	}
+	return 0;
 }
 
 int main(void)
@@ -93,6 +124,20 @@ int main(void)
 	}
 	
 	int max_sqr = the_biggest_sqr_zero(row, col, matrix);
-	printf("max sqr is %d", max_sqr);
+	printf("\n");
+	
+	FILE *out = fopen("out.txt", "wt");
+	
+	if (!out)
+		return FILE_ERROR;
+	
+	full(out, row, col, matrix, max_sqr, ones);
+	
+	for (int i = 0; i < row; i++)
+	{
+		for (int j = 0; j < col; j++)
+			printf("%d ", matrix[i][j]);
+		printf("\n");
+	}
 	return 0;
 }
