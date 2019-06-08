@@ -13,5 +13,5 @@ rk_02:
   only:
       - rk_02
   script:
-      - cd rk_02_01
+      - cd rk_02_03
       - gcc -Wall -Werror main.c
