@@ -68,26 +68,16 @@ int sqr_of_mat_in_file(FILE *const out,
         {
             sum = 0;
             for (int q = 0; q < num; q++)
-            {
-                printf("%d %d \n", matrix[i][q], matrix[q][j]);
                 sum = sum + matrix[i][q] * matrix[q][j];
-            }
-            fprintf(out, "%I64d", sum);
+            fprintf(out, "%d", (int)sum);
+            /* Я знаю, что это неправильно, но блин, %I64lld и %I64lld
+             * не работают.
+             */
         }
         fprintf(out, "\n");
     }
 
     return 0;
-}
-
-void print_mat(int num, int matrix[num][num])
-{
-    for (int i = 0; i < num; i++)
-    {
-        for (int j = 0; j < num; j++)
-            printf("%d ", matrix[i][j]);
-        printf("\n");
-    }
 }
 
 int main(void)
@@ -114,8 +104,6 @@ int main(void)
         return -1;
 
     rc = sqr_of_mat_in_file(out, num, matrix);
-    printf("\n\n");
-    print_mat(num, matrix);
 
     if(rc)
         return -666;
