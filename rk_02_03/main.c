@@ -1,5 +1,9 @@
 #include <stdio.h>
-#include <string.h>
+
+#define OHGOD 0
+#define FILE_ERROR -1
+#define MATRIX_FULLER_FAIL -3
+#define DIMENSION_ERROR -4
 
 long long int find_rows_and_cols(FILE *const in)
 {
@@ -15,10 +19,10 @@ long long int find_rows_and_cols(FILE *const in)
 }
 
 int full_mat_from_file(FILE *const in,
-    long long int num, int matrix[num][num])
+    const long long int num, int matrix[num][num])
 {
     if (!in)
-        return -1;
+        return FILE_ERROR;
 
     fseek(in, 0, SEEK_SET);
 
@@ -30,7 +34,7 @@ int full_mat_from_file(FILE *const in,
         {
            rc = fscanf(in, "%c", &meme);
            if (!rc)
-               return -3;
+               return MATRIX_FULLER_FAIL;
 
            if (meme != '\n')
                matrix[i][j] = meme;
@@ -38,13 +42,13 @@ int full_mat_from_file(FILE *const in,
                j--;
         }
     }
-    return 0;
+    return OHGOD;
 }
 
-int mat_char_to_int(const int num, int matrix[num][num])
+int mat_char_to_int(const long long int num, int matrix[num][num])
 {
     if (num < 0)
-        return -4;
+        return DIMENSION_ERROR;
     for (int i = 0; i < num; i++)
     {
         for (int j = 0; j < num; j++)
@@ -55,12 +59,18 @@ int mat_char_to_int(const int num, int matrix[num][num])
                 matrix[i][j] = 1;
         }
     }
-    return 0;
+    return OHGOD;
 }
 
 int sqr_of_mat_in_file(FILE *const out,
     const long long int num,int matrix[num][num])
 {
+    if (!out)
+        return FILE_ERROR;
+
+    if (num < 0)
+        return DIMENSION_ERROR;
+
     long long int sum = 0;
     for (int i = 0; i < num; i++)
     {
@@ -70,14 +80,14 @@ int sqr_of_mat_in_file(FILE *const out,
             for (int q = 0; q < num; q++)
                 sum = sum + matrix[i][q] * matrix[q][j];
             fprintf(out, "%d", (int)sum);
-            /* Я знаю, что это неправильно, но блин, %I64lld и %I64lld
+            /* Я знаю, что это неправильно, но блин, %I64lld и %I64d
              * не работают.
              */
         }
         fprintf(out, "\n");
     }
 
-    return 0;
+    return OHGOD;
 }
 
 int main(void)
@@ -85,28 +95,28 @@ int main(void)
     FILE *in = fopen("in.txt", "rt");
 
     if (!in)
-        return -1;
+        return FILE_ERROR;
 
     long long int num = find_rows_and_cols(in);
 
     int matrix[num][num], rc = full_mat_from_file(in, num, matrix);
     if (rc)
-        return -2;
+        return rc;
 
     fclose(in);
 
     rc = mat_char_to_int(num, matrix);
     if (rc)
-        return -3;
+        return rc;
 
     FILE *out = fopen("out.txt", "wt");
     if (!out)
-        return -1;
+        return FILE_ERROR;
 
     rc = sqr_of_mat_in_file(out, num, matrix);
 
     if(rc)
-        return -666;
+        return rc;
 
     fclose(out);
     return 0;
