@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <math.h>
-#include "../Headers/calc_u2.h"
+#include "Headers/calc_u2.h"
 
 /**
  * \def SUCCESS

@@ -18,6 +18,12 @@
  */
 #define EPS 0.0000000001
 
+/**
+ * \def TEST_ERROR
+ * \brief Ошибка при тестировании
+ */
+#define TEST_ERROR 666
+
 int main(void)
 {
     short check, positives = 0, negatives = 0;
@@ -95,17 +101,15 @@ int main(void)
     if (check)
         negatives++;
 
-    if (negatives == 8 && positives == 4)
-        printf("Функции calc_u1 и calc_u2 успешно прошли тестирование!\n");
-    else
-        printf("Функции calc_u1 и calc_u2 прошли лишь %d/8 негативных"
-           " и %d/4 позитивныx тестов\n", negatives, positives);
+    if (negatives != 8 || positives != 4)
+        return TEST_ERROR;
 
-    // del_from_mas_upmod_num
+    int quantity = 5;
+
+/*    // del_from_mas_upmod_num
 
     negatives = 0;
     positives = 0;
-    int quantity = 5;
 
     check = del_from_mas_upmod_num(NULL, &quantity, 2);
 
@@ -146,8 +150,10 @@ int main(void)
 
     *mas = 1;
 
-    check = del_from_mas_upmod_num(mas, &quantity, 2);
-    printf("quantity %d check %d ", quantity, check);
+    *check = del_from_mas_upmod_num(mas, &quantity, 2);
+    
+    printf("check = %d ", check);
+
     if (!check && quantity == 5)
         positives++;
 
@@ -158,16 +164,15 @@ int main(void)
     *mas = 1;
 
     check = del_from_mas_upmod_num(mas, &quantity, 2);
+    
+    printf("check = %d ", check);
 
     if (!check && quantity == 1 && *mas == 1)
         positives++;
 
-    if (positives == 2 && negatives == 6)
-        printf("Функция del_from_mas_upmod_num успешно прошла тестирование!\n");
-    else
-        printf("Функция del_from_mas_upmod_num прошла лишь %d/2 позитивных"
-           " и %d/6 негативных тестов.\n", positives, negatives);
-
+    if (positives != 2 || negatives != 6)
+        return TEST_ERROR;
+    */
     // insert_in_mas_by_pos_start_end
 
     negatives = 0;
@@ -213,22 +218,12 @@ int main(void)
     if (!check && *mas == 6.66 && *(mas + 1) == 6.66 && *(mas + 7) == 6.66)
         positives++;
 
-    if (positives == 2 && negatives == 4)
-        printf("Функция insert_in_mas_by_pos_start_end успешно прошла"
-           " тестирование!\n");
-    else
-        printf("Функция insert_in_mas_by_pos_start_end прошла лишь %d/2"
-           " позитивных и %d/4 негативных тестов.\n", positives, negatives);
+    if (positives != 2 || negatives != 4)
+        return TEST_ERROR;
 
     // print_double_array
 
     negatives = 0;
-    positives = 0;
-
-    check = print_double_array(mas, quantity);
-
-    if (!check)
-        positives++;
 
     check = print_double_array(mas, 0);
 
@@ -245,12 +240,8 @@ int main(void)
     if (check)
         negatives++;
 
-    if (positives == 1 && negatives == 3)
-        printf("\nФункция print_double_array успешно прошла"
-           " тестирование!\n");
-    else
-        printf("\nФункция print_double_array прошла лишь %d/1"
-           " позитивных и %d/3 негативных тестов.\n", positives, negatives);
+    if (negatives != 3)
+        return TEST_ERROR;
 
     return SUCCESS;
 }

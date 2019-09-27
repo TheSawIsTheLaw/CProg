@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "../Headers/expand.h"
-#include "../Headers/invitation.h"
+#include "Headers/expand.h"
+#include "Headers/invitation.h"
 
 /**
  * \def SUCCESS

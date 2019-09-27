@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "../Headers/del.h"
+#include "Headers/del.h"
 
 /**
  * \def SUCCESS
@@ -26,7 +26,7 @@
 
 short del_from_mas_upmod_num(double *mas, int *const quantity, double const num)
 {
-    if (!quantity || *quantity <= 0 || !mas || num <= 0)
+    if ( !mas || !quantity || *quantity <= 0 || num <= 0)
         return DFMUN_DATA_ERROR;
 
     for (int i = 0; i < *quantity; i++)

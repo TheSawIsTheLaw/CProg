@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../Headers/print.h"
+#include "Headers/print.h"
 
 /**
  * \def SUCCESS

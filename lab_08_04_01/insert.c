@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../Headers/insert.h"
+#include "Headers/insert.h"
 
 /**
  * \def SUCCESS

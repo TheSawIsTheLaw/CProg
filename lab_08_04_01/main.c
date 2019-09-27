@@ -28,13 +28,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "../Headers/invitation.h"
-#include "../Headers/calc_u1.h"
-#include "../Headers/calc_u2.h"
-#include "../Headers/del.h"
-#include "../Headers/expand.h"
-#include "../Headers/insert.h"
-#include "../Headers/print.h"
+#include "Headers/invitation.h"
+#include "Headers/calc_u1.h"
+#include "Headers/calc_u2.h"
+#include "Headers/del.h"
+#include "Headers/expand.h"
+#include "Headers/insert.h"
+#include "Headers/print.h"
 
 /**
  * \def SUCCESS
