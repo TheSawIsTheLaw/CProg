@@ -22,14 +22,14 @@ invitation.o: Funcs/invitation.c
 print.o: Funcs/print.c
 	gcc -std=c99 -c -Wall -Werror -pedantic -o print.o Funcs/print.c   
 	
-app: main.o calc_u1.o calc_u2.o del.o expand.o insert.o invitation.o print.o
-	gcc -std=c99 -Wall -Werror -pedantic -o app main.o calc_u1.o calc_u2.o del.o expand.o insert.o invitation.o print.o
+app.exe: main.o calc_u1.o calc_u2.o del.o expand.o insert.o invitation.o print.o
+	gcc -std=c99 -Wall -Werror -pedantic -o app.exe main.o calc_u1.o calc_u2.o del.o expand.o insert.o invitation.o print.o
 
 test.o: Test/test.c
 	gcc -std=c99 -c -Wall -Werror -pedantic -o test.o Test/test.c 
 	
-test: test.o calc_u1.o calc_u2.o del.o expand.o insert.o invitation.o print.o
-	gcc -std=c99 -Wall -Werror -pedantic -o test test.o calc_u1.o calc_u2.o del.o insert.o print.o
+test.exe: test.o calc_u1.o calc_u2.o del.o expand.o insert.o invitation.o print.o
+	gcc -std=c99 -Wall -Werror -pedantic -o test.exe test.o calc_u1.o calc_u2.o del.o insert.o print.o
 	
 clean:
 	rm *.o *.exe
