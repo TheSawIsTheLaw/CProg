@@ -19,7 +19,7 @@ short calc_u2(int const quantity, double *mas, double *const u2)
         return C_U2_DATA_ERROR;
 
     double sum = 0;
-    for (int i = 0; i <= quantity - 1; i++)
+    for (int i = 0; i < quantity; i++)
         sum += *(mas + i) / quantity;
 
     *u2 = sum;
