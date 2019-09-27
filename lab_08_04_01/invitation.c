@@ -20,7 +20,6 @@
 
 short invitation_len_mas_pos(int *const quantity, double *mas, int *const pos)
 {
-
     short check;
 
     check = scanf("%d", quantity);

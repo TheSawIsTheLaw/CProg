@@ -19,7 +19,7 @@
 #define IIMBPSE_REALLOC_ERROR 12
 
 short insert_in_mas_by_pos_start_end(double *mas, int *const quantity,
-   int const pos, double const num)
+int const pos, double const num)
 {
     if (!mas || !quantity || pos >= *quantity || pos < 0)
         return IIMBPSE_DATA_ERROR;

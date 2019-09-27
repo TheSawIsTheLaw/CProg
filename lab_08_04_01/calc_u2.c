@@ -15,12 +15,12 @@
 
 short calc_u2(int const quantity, double *mas, double *const u2)
 {
-    if (quantity <= 0 || !mas|| !u2)
+    if (quantity <= 0 || !mas || !u2)
         return C_U2_DATA_ERROR;
 
     double sum = 0;
     for (int i = 0; i <= quantity - 1; i++)
-        sum += *(mas + i)/ quantity;
+        sum += *(mas + i) / quantity;
 
     *u2 = sum;
 
