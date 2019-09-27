@@ -120,7 +120,7 @@ int main(void)
 
     /* Количество членов в массиве, указатель на массив и позиция,
     с которой предстоит работать далее */
-    double *mas = (double*)malloc(sizeof(double));
+    double *mas = (double*)calloc(1, sizeof(double));
     if (!mas)
         return 1;
 
@@ -134,10 +134,9 @@ int main(void)
 
     double u1;
     check = calc_u1(quantity, mas, &u1);
-    
     if (check)
         return check;
-    
+
     check = del_from_mas_upmod_num(mas, &quantity, u1);
 
     double u2;
@@ -147,10 +146,7 @@ int main(void)
 
     check = insert_in_mas_by_pos_start_end(mas, &quantity, pos, u2);
     if (check)
-    {
-        printf("%d %d %lf %lf ", check, quantity, u1, u2);
         return check;
-    }
 
     check = print_double_array(mas, quantity);
 

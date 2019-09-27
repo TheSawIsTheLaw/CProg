@@ -20,7 +20,7 @@ short calc_u1(int const quantity, double *mas, double *const u1)
 
     double sum = 0;
     int sum_del = 0;
-    for (int i = 0; i < quantity; i++)
+    for (int i = 0; i <= quantity - 1; i++)
     {
         sum_del += (i + 1) * (i + 1);
         sum += (i + 1) * (i + 1) * (*(mas + i));
