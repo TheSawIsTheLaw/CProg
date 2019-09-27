@@ -1,0 +1,256 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "../Headers/calc_u1.h"
+#include "../Headers/calc_u2.h"
+#include "../Headers/del.h"
+#include "../Headers/insert.h"
+#include "../Headers/print.h"
+
+/**
+ * \def SUCCESS
+ * \brief Код удачного завершения подпрограммы или программы
+ */
+#define SUCCESS 0
+
+/**
+ * \def EPS
+ * \brief Переменная для сравнения чисел double
+ */
+#define EPS 0.0000000001
+
+int main(void)
+{
+    short check, positives = 0, negatives = 0;
+
+    double *mas = (double*)calloc(5, sizeof(double));
+
+    double u1 = 0, u2 = 0;
+
+    for (short i = 0; i < 5; i++)
+        *(mas + i) = 1;
+
+    // calc_u1
+
+    check = calc_u1(5, mas, &u1);
+
+    if (!check && u1 == 1)
+        positives++;
+
+    *mas = 2;
+
+    if (!check && u1 - 1.018181818 < EPS)
+        positives++;
+
+    check = calc_u1(0, mas, &u1);
+
+    if (check)
+        negatives++;
+
+    check = calc_u1(-1, mas, &u1);
+
+    if (check)
+        negatives++;
+
+    check = calc_u1(5, NULL, &u1);
+
+    if (check)
+        negatives++;
+
+    check = calc_u1(5, mas, NULL);
+
+    if (check)
+        negatives++;
+
+    // calc_u2
+
+    *mas = 1;
+
+    check = calc_u1(5, mas, &u2);
+
+    if (!check && u2 == 1)
+        positives++;
+
+    *mas = 2;
+
+    if (!check && u2 - 1.2 < EPS)
+        positives++;
+
+    check = calc_u2(0, mas, &u2);
+
+    if (check)
+        negatives++;
+
+    check = calc_u2(-1, mas, &u2);
+
+    if (check)
+        negatives++;
+
+    check = calc_u2(5, NULL, &u2);
+
+    if (check)
+        negatives++;
+
+    check = calc_u2(5, mas, NULL);
+
+    if (check)
+        negatives++;
+
+    if (negatives == 8 && positives == 4)
+        printf("Функции calc_u1 и calc_u2 успешно прошли тестирование!\n");
+    else
+        printf("Функции calc_u1 и calc_u2 прошли лишь %d/8 негативных"
+           " и %d/4 позитивныx тестов\n", negatives, positives);
+
+    // del_from_mas_upmod_num
+
+    negatives = 0;
+    positives = 0;
+    int quantity = 5;
+
+    check = del_from_mas_upmod_num(NULL, &quantity, 2);
+
+    if (check)
+        negatives++;
+
+    check = del_from_mas_upmod_num(mas, NULL, 2);
+
+    if (check)
+        negatives++;
+
+    quantity = 0;
+    check = del_from_mas_upmod_num(mas, &quantity, 2);
+
+    if (check)
+        negatives++;
+
+    quantity = -1;
+    check = del_from_mas_upmod_num(mas, &quantity, 2);
+
+    if (check)
+        negatives++;
+
+    quantity = 5;
+    check = del_from_mas_upmod_num(mas, &quantity, 0);
+
+    if (check)
+        negatives++;
+
+    check = del_from_mas_upmod_num(mas, &quantity, -666);
+
+    if (check)
+        negatives++;
+
+    mas = (double*)realloc(mas, sizeof(double) * 5);
+    for (short i = 1; i < 5; i++)
+        *(mas + i) = -1.5;
+
+    *mas = 1;
+
+    check = del_from_mas_upmod_num(mas, &quantity, 2);
+    printf("quantity %d check %d ", quantity, check);
+    if (!check && quantity == 5)
+        positives++;
+
+    mas = (double*)realloc(mas, sizeof(double) * 5);
+    for (short i = 1; i < 5; i++)
+        *(mas + i) = 2.5;
+
+    *mas = 1;
+
+    check = del_from_mas_upmod_num(mas, &quantity, 2);
+
+    if (!check && quantity == 1 && *mas == 1)
+        positives++;
+
+    if (positives == 2 && negatives == 6)
+        printf("Функция del_from_mas_upmod_num успешно прошла тестирование!\n");
+    else
+        printf("Функция del_from_mas_upmod_num прошла лишь %d/2 позитивных"
+           " и %d/6 негативных тестов.\n", positives, negatives);
+
+    // insert_in_mas_by_pos_start_end
+
+    negatives = 0;
+    positives = 0;
+
+    mas = (double*)realloc(mas, sizeof(double) * 5);
+    for (short i = 1; i < 5; i++)
+        *(mas + i) = 2.5;
+    quantity = 5;
+
+    check = insert_in_mas_by_pos_start_end(NULL, &quantity, 1, 6.66);
+
+    if (check)
+        negatives++;
+
+    check = insert_in_mas_by_pos_start_end(mas, NULL, 1, 6.66);
+
+    if (check)
+        negatives++;
+
+    check = insert_in_mas_by_pos_start_end(mas, &quantity, 8, 6.66);
+
+    if (check)
+        negatives++;
+
+    check = insert_in_mas_by_pos_start_end(mas, &quantity, -2, 6.66);
+
+    if (check)
+        negatives++;
+
+    check = insert_in_mas_by_pos_start_end(mas, &quantity, 0, 6.66);
+
+    if (!check && *mas == 6.66 && *(mas + 1) == 6.66 && *(mas + 7) == 6.66)
+        positives++;
+
+    mas = (double*)realloc(mas, sizeof(double) * 5);
+    for (short i = 1; i < 5; i++)
+        *(mas + i) = 2.5;
+    quantity = 5;
+
+    check = insert_in_mas_by_pos_start_end(mas, &quantity, 2, 6.66);
+
+    if (!check && *mas == 6.66 && *(mas + 1) == 6.66 && *(mas + 7) == 6.66)
+        positives++;
+
+    if (positives == 2 && negatives == 4)
+        printf("Функция insert_in_mas_by_pos_start_end успешно прошла"
+           " тестирование!\n");
+    else
+        printf("Функция insert_in_mas_by_pos_start_end прошла лишь %d/2"
+           " позитивных и %d/4 негативных тестов.\n", positives, negatives);
+
+    // print_double_array
+
+    negatives = 0;
+    positives = 0;
+
+    check = print_double_array(mas, quantity);
+
+    if (!check)
+        positives++;
+
+    check = print_double_array(mas, 0);
+
+    if (check)
+        negatives++;
+
+    check = print_double_array(mas, -1);
+
+    if (check)
+        negatives++;
+
+    check = print_double_array(NULL, quantity);
+
+    if (check)
+        negatives++;
+
+    if (positives == 1 && negatives == 3)
+        printf("\nФункция print_double_array успешно прошла"
+           " тестирование!\n");
+    else
+        printf("\nФункция print_double_array прошла лишь %d/1"
+           " позитивных и %d/3 негативных тестов.\n", positives, negatives);
+
+    return SUCCESS;
+}
