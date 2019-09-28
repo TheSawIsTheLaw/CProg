@@ -130,29 +130,44 @@ int main(void)
     check = invitation_len_mas_pos(&quantity, mas, &pos);
 
     if (check)
+    {
+        free(mas);
         return check;
-
+    }
+    
     double u1;
     check = calc_u1(quantity, mas, &u1);
     if (check)
+    {
+        free(mas);
         return check;
-
+    }
+    
     check = del_from_mas_upmod_num(mas, &quantity, u1);
 
     double u2;
     check = calc_u2(quantity, mas, &u2);
     if (check)
+    {
+        free(mas);
         return check;
-
+    }
+    
     check = insert_in_mas_by_pos_start_end(mas, &quantity, pos, u2);
     if (check)
+    {
+        free(mas);
         return check;
-
+    }
+    
     check = print_double_array(mas, quantity);
 
     if (check)
+    {
+        free(mas);
         return check;
-
+    }
+    
     free(mas);
 
     return SUCCESS;
