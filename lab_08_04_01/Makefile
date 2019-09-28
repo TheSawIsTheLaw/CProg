@@ -25,8 +25,8 @@ print.o: print.c
 app.exe: main.o calc_u1.o calc_u2.o del.o expand.o insert.o invitation.o print.o
 	gcc -std=c99 -Wall -Werror -pedantic -o app.exe main.o calc_u1.o calc_u2.o del.o expand.o insert.o invitation.o print.o
 
-test.o: Test/test.c
-	gcc -std=c99 -c -Wall -Werror -pedantic -o test.o Test/test.c 
+test.o: test.c
+	gcc -std=c99 -c -Wall -Werror -pedantic -o test.o test.c 
 	
 test.exe: test.o calc_u1.o calc_u2.o del.o expand.o insert.o invitation.o print.o
 	gcc -std=c99 -Wall -Werror -pedantic -o test.exe test.o calc_u1.o calc_u2.o del.o insert.o print.o

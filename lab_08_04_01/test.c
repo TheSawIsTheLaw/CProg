@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../Headers/calc_u1.h"
-#include "../Headers/calc_u2.h"
-#include "../Headers/del.h"
-#include "../Headers/insert.h"
-#include "../Headers/print.h"
+#include "Headers/calc_u1.h"
+#include "Headers/calc_u2.h"
+#include "Headers/del.h"
+#include "Headers/insert.h"
+#include "Headers/print.h"
 
 /**
  * \def SUCCESS
@@ -243,5 +243,5 @@ int main(void)
     if (negatives != 3)
         return TEST_ERROR;
 
-    return SUCCESS;
+    return 0;
 }
