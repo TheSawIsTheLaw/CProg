@@ -24,22 +24,22 @@
  */
 #define DFMUN_REALLOC_ERROR 10
 
-short del_from_mas_upmod_num(double *mas, int *const quantity, double const num)
+short del_from_mas_upmod_num(double **mas, int *const quantity, double const num)
 {
-    if (!mas || !quantity || *quantity <= 0 || num <= 0)
+    if (!(*mas) || !quantity || *quantity <= 0 || num <= 0)
         return DFMUN_DATA_ERROR;
 
     for (int i = 0; i < *quantity; i++)
     {
-        if (fabs(*(mas + i)) > num)
+        if (fabs(*(*mas + i)) > num)
         {
             (*quantity)--;
             if (*quantity <= 0)
                 return DFMUN_QUANTITY_OUT_ERROR;
             for (int j = i; j < *quantity; j++)
                 *(mas + j) = *(mas + j + 1);
-            mas = (double*)realloc(mas, sizeof(double) * (*quantity));
-            if (!mas)
+            *mas = (double *)realloc(*mas, sizeof(double) * (*quantity));
+            if (!(*mas))
                 return DFMUN_REALLOC_ERROR;
             i--;
         }

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "Headers/expand.h"
 #include "Headers/invitation.h"
 
@@ -18,12 +19,16 @@
  */
 #define POS_ERROR 4
 
-short invitation_len_mas_pos(int *const quantity, double *mas, int *const pos)
+short invitation_len_mas_pos(int *const quantity, double **mas, int *const pos)
 {
     short check;
 
     check = scanf("%d", quantity);
     if (!check)
+        return QUANTITY_ERROR;
+
+    *mas = (double *)malloc(sizeof(double));
+    if (!(*mas))
         return QUANTITY_ERROR;
 
     check = expand_dyn_mas(*quantity, mas);

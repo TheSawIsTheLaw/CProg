@@ -23,14 +23,14 @@
  */
 #define EDM_DATA_ERROR 5
 
-short expand_dyn_mas(const int quantity, double *mas)
+short expand_dyn_mas(const int quantity, double **mas)
 {
-    if (quantity <= 0 || !mas)
+    if (quantity <= 0 || !(*mas))
         return EDM_DATA_ERROR;
-    double *newmas = (double*)realloc(mas, sizeof(double) * quantity);
+    double *newmas = (double *)realloc(*mas, sizeof(double) * quantity);
     if (newmas)
     {
-        mas = newmas;
+        *mas = newmas;
         newmas = NULL;
     }
     else
@@ -39,7 +39,7 @@ short expand_dyn_mas(const int quantity, double *mas)
     short check;
     for (int i = 0; i < quantity; i++)
     {
-        check = scanf("%lf", mas + i);
+        check = scanf("%lf", *mas + i);
         if (!check)
             return READ_ARRAY_ERROR;
     }
