@@ -120,7 +120,7 @@ int main(void)
 
     /* Количество членов в массиве, указатель на массив и позиция,
     с которой предстоит работать далее */
-    double *mas = (double*)calloc(1, sizeof(double));
+    double *mas = (double*)malloc(sizeof(double));
     if (!mas)
         return 1;
 
@@ -135,7 +135,7 @@ int main(void)
         return check;
     }
     
-    double u1;
+    double u1 = 0;
     check = calc_u1(quantity, mas, &u1);
     if (check)
     {
@@ -145,7 +145,7 @@ int main(void)
     
     check = del_from_mas_upmod_num(mas, &quantity, u1);
 
-    double u2;
+    double u2 = 0;
     check = calc_u2(quantity, mas, &u2);
     if (check)
     {

@@ -27,8 +27,13 @@ short expand_dyn_mas(const int quantity, double *mas)
 {
     if (quantity <= 0 || !mas)
         return EDM_DATA_ERROR;
-    mas = (double*)realloc(mas, sizeof(double) * quantity);
-    if (!mas)
+    double *newmas = (double*)realloc(mas, sizeof(double) * quantity);
+    if (newmas)
+    {
+        mas = newmas;
+        newmas = NULL;
+    }
+    else
         return EDM_REALLOC_ERROR;
 
     short check;
