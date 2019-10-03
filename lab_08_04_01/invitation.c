@@ -14,6 +14,11 @@
  */
 #define QUANTITY_ERROR 1
 /**
+ * \def READ_ARRAY_ERROR
+ * \brief Код ошибки в подпрограмме expand_dyn_mas
+ */
+#define READ_ARRAY_ERROR 3
+/**
  * \def POS_ERROR
  * \brief Код ошибки в подпрограмме invitation_len_mas_pos
  */
@@ -27,14 +32,16 @@ short invitation_len_mas_pos(int *const quantity, double **mas, int *const pos)
     if (!check)
         return QUANTITY_ERROR;
 
-    *mas = (double *)malloc(sizeof(double));
+    *mas = (double *)calloc(*quantity, sizeof(double));
     if (!(*mas))
-        return QUANTITY_ERROR;
+        return 666;
 
-    check = expand_dyn_mas(*quantity, mas);
-
-    if (check)
-        return check;
+    for (int i = 0; i < *quantity; i++)
+    {
+        check = scanf("%lf", *mas + i);
+        if (!check)
+            return READ_ARRAY_ERROR;
+    }
 
     check = scanf("%d", pos);
 
