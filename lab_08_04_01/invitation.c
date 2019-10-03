@@ -28,11 +28,7 @@ short invitation_len_mas_pos(int *const quantity, double **mas, int *const pos)
     short check;
 
     check = scanf("%d", quantity);
-    if (!check)
-        return QUANTITY_ERROR;
-
-    if (!quantity)
-        return QUANTITY_ERROR;
+    // Тут проверок не будет. С разыменованием наступает ад и Израиль.
 
     *mas = (double *)calloc(*quantity, sizeof(double));
     if (!(*mas))

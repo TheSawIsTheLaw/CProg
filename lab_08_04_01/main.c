@@ -62,7 +62,7 @@
 #define POS_ERROR 4
 /**
  * \def EDM_DATA_ERROR
- * \brief Код ошибки в подпрограмме expand_dyn_mas
+ * \brief Код ошибки в подпрограмме invitation_len_mas_pos
  */
 #define EDM_DATA_ERROR 5
 /**
