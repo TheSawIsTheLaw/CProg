@@ -19,13 +19,10 @@
 #define IIMBPSE_REALLOC_ERROR 12
 
 short insert_in_mas_by_pos_start_end(double **mas, int *const quantity,
-                                     int const pos, double const num)
+int const pos, double const num)
 {
     if (!(*mas) || !quantity || pos >= *quantity || pos < 0)
-    {
-        printf("\n ЭТА ХУЙНЯ БЛЯТЬ ЗАРЯЖЕН В КИОСКЕ %d %d", pos, *quantity);
         return IIMBPSE_DATA_ERROR;
-    }
     *quantity = *quantity + 3;
     *mas = (double *)realloc(*mas, sizeof(double) * (*quantity));
     if (!(*mas))

@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "Headers/expand.h"
 #include "Headers/invitation.h"
 
 /**
@@ -32,9 +31,12 @@ short invitation_len_mas_pos(int *const quantity, double **mas, int *const pos)
     if (!check)
         return QUANTITY_ERROR;
 
+    if (!quantity)
+        return QUANTITY_ERROR;
+
     *mas = (double *)calloc(*quantity, sizeof(double));
     if (!(*mas))
-        return 666;
+        return QUANTITY_ERROR;
 
     for (int i = 0; i < *quantity; i++)
     {
