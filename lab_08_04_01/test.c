@@ -223,7 +223,7 @@ int main(void)
     positives = 0;
     negatives = 0;
     quantity = 3;
-    printf("Тесты для подпрограммы del_from_mas_upmod_num\n");
+    printf("Тесты для подпрограммы insert_in_mas_by_pos_start_end\n");
     check = insert_in_mas_by_pos_start_end(&mas, &quantity, 1, 666.0);
     printf("Тепличные значения. Исходный массив: 1 2 3;\n"
         "Индекс вставки: 1; Добавление: 666;"
@@ -320,7 +320,7 @@ int main(void)
 
     printf("Тесты для подпрограммы print_double_array\n");
     quantity = 6;
-    check = print_double_array(&mas, quantity);
+    check = print_double_array(mas, quantity);
     printf("Тепличные значения. Переменная проверки: %d;\n", check);
     if (!check)
     {
