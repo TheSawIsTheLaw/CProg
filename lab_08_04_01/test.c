@@ -34,7 +34,7 @@ int main(void)
     int positives = 0, negatives = 0;
 
     printf("Тесты для подпрограммы calc_u1\n");
-    short check = calc_u1(5, &mas, &u1);
+    short check = calc_u1(5, mas, &u1);
     printf("Тепличные значения. Переменная проверки: %d; Значение u1: %lf\n", check, u1);
     if (u1 - EPS < 0)
     {
@@ -44,7 +44,7 @@ int main(void)
     else
         printf("Тест не пройден :(\n");
 
-    check = calc_u1(-1, &mas, &u1);
+    check = calc_u1(-1, mas, &u1);
     printf("Негативный тест. Переменная проверки: %d; Количество членов массива: -1\n", check);
     if (check)
     {
@@ -64,7 +64,7 @@ int main(void)
     else
         printf("Тест не пройден :(\n");
 
-    check = calc_u1(-1, &mas, NULL);
+    check = calc_u1(-1, mas, NULL);
     printf("Негативный тест. Переменная проверки: %d; Указатель на u1: NULL\n", check);
     if (check)
     {
@@ -85,7 +85,7 @@ int main(void)
 
     printf("Тесты для подпрограммы calc_u2\n");
     double u2 = 1;
-    check = calc_u2(5, &mas, &u2);
+    check = calc_u2(5, mas, &u2);
     printf("Тепличные значения. Переменная проверки: %d; Значение u2: %lf\n", check, u2);
     if (u2 - EPS < 0)
     {
@@ -95,7 +95,7 @@ int main(void)
     else
         printf("Тест не пройден :(\n");
 
-    check = calc_u2(-1, &mas, &u1);
+    check = calc_u2(-1, mas, &u1);
     printf("Негативный тест. Переменная проверки: %d; Количество членов массива: -1\n", check);
     if (check)
     {
@@ -115,7 +115,7 @@ int main(void)
     else
         printf("Тест не пройден :(\n");
 
-    check = calc_u1(-1, &mas, NULL);
+    check = calc_u2(-1, mas, NULL);
     printf("Негативный тест. Переменная проверки: %d; Указатель на u1: NULL\n", check);
     if (check)
     {
@@ -143,8 +143,8 @@ int main(void)
     int quantity = 5;
     check = del_from_mas_upmod_num(&mas, &quantity, 3.0);
     printf("Тепличные значения. Исходный массив: 1 2 3 4 5;\n"
-       "Количество членов в массиве до: 5; Удаление по: 3;"
-       " Количество членов в массиве после: %d;\n", quantity);
+        "Количество членов в массиве до: 5; Удаление по: 3;"
+        " Количество членов в массиве после: %d;\n", quantity);
     if (quantity == 3)
     {
         printf("Тест пройден\n");
@@ -228,11 +228,11 @@ int main(void)
     printf("Тесты для подпрограммы insert_in_mas_by_pos_start_end\n");
     check = insert_in_mas_by_pos_start_end(&mas, &quantity, 1, 666.0);
     printf("Тепличные значения. Исходный массив: 1 2 3;\n"
-       "Индекс вставки: 1; Добавление: 666;"
-       " Массив после: %lf %lf %lf %lf %lf %lf;\n", *mas, *(mas + 1), *(mas + 2),
-          *(mas + 3), *(mas + 4), *(mas + 5));
+        "Индекс вставки: 1; Добавление: 666;"
+        " Массив после: %lf %lf %lf %lf %lf %lf;\n", *mas, *(mas + 1), *(mas + 2),
+    *(mas + 3), *(mas + 4), *(mas + 5));
     if (*mas - 666 < EPS && *(mas + 1) - 666 < EPS && *(mas + 5) - 666 < EPS &&
-       quantity == 6)
+        quantity == 6)
     {
         printf("Тест пройден\n");
         positives++;
