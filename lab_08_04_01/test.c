@@ -143,8 +143,8 @@ int main(void)
     int quantity = 5;
     check = del_from_mas_upmod_num(&mas, &quantity, 3.0);
     printf("Тепличные значения. Исходный массив: 1 2 3 4 5;\n"
-        "Количество членов в массиве до: 5; Удаление по: 3;"
-        " Количество членов в массиве после: %d;\n", quantity);
+       "Количество членов в массиве до: 5; Удаление по: 3;"
+       " Количество членов в массиве после: %d;\n", quantity);
     if (quantity == 3)
     {
         printf("Тест пройден\n");
@@ -228,11 +228,11 @@ int main(void)
     printf("Тесты для подпрограммы insert_in_mas_by_pos_start_end\n");
     check = insert_in_mas_by_pos_start_end(&mas, &quantity, 1, 666.0);
     printf("Тепличные значения. Исходный массив: 1 2 3;\n"
-        "Индекс вставки: 1; Добавление: 666;"
-        " Массив после: %lf %lf %lf %lf %lf %lf;\n", *mas, *(mas + 1), *(mas + 2),
-    *(mas + 3), *(mas + 4), *(mas + 5));
+       "Индекс вставки: 1; Добавление: 666;"
+       " Массив после: %lf %lf %lf %lf %lf %lf;\n", *mas, *(mas + 1), *(mas + 2),
+          *(mas + 3), *(mas + 4), *(mas + 5));
     if (*mas - 666 < EPS && *(mas + 1) - 666 < EPS && *(mas + 5) - 666 < EPS &&
-        quantity == 6)
+       quantity == 6)
     {
         printf("Тест пройден\n");
         positives++;
