@@ -35,12 +35,18 @@ short del_from_mas_upmod_num(double **mas, int *const quantity, double const num
         {
             (*quantity)--;
             if (*quantity <= 0)
+            {
+                free(*mas);
                 return DFMUN_QUANTITY_OUT_ERROR;
+            }
             for (int j = i; j < *quantity; j++)
                 *(*mas + j) = *(*mas + j + 1);
             *mas = (double *)realloc(*mas, sizeof(double) * (*quantity));
             if (!(*mas))
+            {
+                free(*mas);
                 return DFMUN_REALLOC_ERROR;
+            }
             i--;
         }
     }
