@@ -214,9 +214,11 @@ int main(void)
     mas = (double *)realloc(mas, sizeof(double) * 3);
     if (!mas)
     {
+        free(mas);
         printf("Oopsee-doopsee... Say 'hello' to you memory manager!");
         return SATAN;
     }
+    *mas = 1;
     *(mas + 1) = 2;
     *(mas + 2) = 3;
 
