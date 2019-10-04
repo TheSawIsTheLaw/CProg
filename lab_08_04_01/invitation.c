@@ -43,7 +43,7 @@ short invitation_len_mas_pos(int const quantity, double **mas, int *const pos)
 
     check = scanf("%d", pos);
 
-    if (!check || *pos < 0)
+    if (!check || *pos <= 0)
         return POS_ERROR;
 
     return SUCCESS;
