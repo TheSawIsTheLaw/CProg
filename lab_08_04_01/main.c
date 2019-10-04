@@ -141,6 +141,11 @@ int main(void)
     }
 
     check = del_from_mas_upmod_num(&mas, &quantity, u1);
+    if (check)
+    {
+        free(mas);
+        return check;
+    }
 
     double u2;
     check = calc_u2(quantity, mas, &u2);
@@ -158,7 +163,6 @@ int main(void)
     }
 
     check = print_double_array(mas, quantity);
-
     if (check)
     {
         free(mas);
