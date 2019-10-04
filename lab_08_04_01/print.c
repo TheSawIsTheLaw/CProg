@@ -12,7 +12,18 @@
  */
 #define PDA_DATA_ERROR 13
 
-short print_double_array(double *mas, int const quantity)
+/**
+ * \fn short print_double_array(double const *const mas, int const quantity)
+ *
+ * \param double const *const mas - Указатель на динамический массив
+ * \param int const quantity - Переменная размерности массива
+ *
+ * \brief Функция, выводящая переданный в неё массив
+ *
+ * \return Код ошибки (отличное от нуля число) или
+ * успешного завершения (нуль)
+ */
+short print_double_array(double const *const mas, int const quantity)
 {
     if (!mas || quantity <= 0)
         return PDA_DATA_ERROR;

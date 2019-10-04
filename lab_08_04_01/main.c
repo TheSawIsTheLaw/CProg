@@ -41,8 +41,8 @@
  */
 #define SUCCESS 0
 /**
- * \def QUANTITY_ERROR
- * \brief Код ошибки в подпрограмме invitation_len_mas_pos
+ * \def POS_ERROR
+ * \brief Код ошибки, связанный с количеством членов в массиве
  */
 #define QUANTITY_ERROR 1
 /**
@@ -137,6 +137,7 @@ int main(void)
         return check;
     }
 
+    // Высчитываем первое значение
     double u1;
     check = calc_u1(quantity, mas, &u1);
     if (check)
@@ -146,6 +147,7 @@ int main(void)
         return check;
     }
 
+    // Удаляем числа из массива, большие по модулю, чем вычесленное значение
     check = del_from_mas_upmod_num(&mas, &quantity, u1);
     if (check)
     {
@@ -154,6 +156,7 @@ int main(void)
         return check;
     }
 
+    // Вычисляем второе значение
     double u2;
     check = calc_u2(quantity, mas, &u2);
     if (check)
@@ -163,6 +166,7 @@ int main(void)
         return check;
     }
 
+    // Добавляем значение в начало, конец и указанную позицию
     check = insert_in_mas_by_pos_start_end(&mas, &quantity, pos, u2);
     if (check)
     {
@@ -171,6 +175,7 @@ int main(void)
         return check;
     }
 
+    // Выводим полученный массив
     check = print_double_array(mas, quantity);
     if (check)
     {
@@ -179,6 +184,7 @@ int main(void)
         return check;
     }
 
+    // @ освобождаем
     free(mas);
 
     return SUCCESS;

@@ -13,7 +13,19 @@
  */
 #define C_U1_DATA_ERROR 6
 
-short calc_u1(int const quantity, double *mas, double *const u1)
+/**
+ * \fn short calc_u1(int const quantity, double const *const mas, double *const u1)
+ *
+ * \param int const quantity - Переменная размерности массива
+ * \param double const *const mas - Указатель на динамический массив
+ * \param double *const u1 - Указатель на переменную, в которую будет записан результат
+ *
+ * \brief Функция, высчитывающая значение u1 (среднее арифметическое взвешенное)
+ *
+ * \return Код ошибки (отличное от нуля число) или
+ * успешного завершения (нуль)
+ */
+short calc_u1(int const quantity, double const *const mas, double *const u1)
 {
     if (quantity <= 0 || !mas || !u1)
         return C_U1_DATA_ERROR;

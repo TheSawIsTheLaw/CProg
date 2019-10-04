@@ -13,7 +13,19 @@
  */
 #define C_U2_DATA_ERROR 7
 
-short calc_u2(int const quantity, double *mas, double *const u2)
+/**
+ * \fn short calc_u2(int const quantity, double *const mas, double *const u2)
+ *
+ * \param int const quantity - Переменная размерности массива
+ * \param double const *const mas - Указатель на динамический массив
+ * \param double *const u2 - Указатель на переменную, в которую будет записан результат
+ *
+ * \brief Функция, высчитывающая значение u2 (sum(len(x) - 1, i = 0)(x(i)/len(x)))
+ *
+ * \return Код ошибки (отличное от нуля число) или
+ * успешного завершения (нуль)
+ */
+short calc_u2(int const quantity, double const *const mas, double *const u2)
 {
     if (quantity <= 0 || !mas || !u2)
         return C_U2_DATA_ERROR;

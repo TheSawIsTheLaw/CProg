@@ -24,7 +24,20 @@
  */
 #define DFMUN_REALLOC_ERROR 10
 
-short del_from_mas_upmod_num(double **mas, int *const quantity, double const num)
+/**
+ * \fn short del_from_mas_upmod_num(double **const mas, int *const quantity, double const num)
+ *
+ * \param int *const quantity - Указатель на переменную размерности массива
+ * \param double **const mas - Указатель на указатель на динамический массив
+ * \param double const num - число-фактор удаления
+ *
+ * \brief Функция, удаляющая все числа из массива, модуль которых выше
+ * переданного числа-фактора
+ *
+ * \return Код ошибки (отличное от нуля число) или
+ * успешного завершения (нуль)
+ */
+short del_from_mas_upmod_num(double **const mas, int *const quantity, double const num)
 {
     if (!(mas) || !(*mas) || !quantity || *quantity <= 0 || num <= 0)
         return DFMUN_DATA_ERROR;
@@ -34,6 +47,7 @@ short del_from_mas_upmod_num(double **mas, int *const quantity, double const num
         if (fabs(*(*mas + i)) > num)
         {
             (*quantity)--;
+            // Массив получается пустым, закрыть ворота!
             if (*quantity <= 0)
                 return DFMUN_QUANTITY_OUT_ERROR;
             for (int j = i; j < *quantity; j++)

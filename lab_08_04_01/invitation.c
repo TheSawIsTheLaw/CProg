@@ -8,7 +8,7 @@
  */
 #define SUCCESS 0
 /**
- * \def QUANTITY_ERROR
+ * \def POS_ERROR
  * \brief Код ошибки в подпрограмме invitation_len_mas_pos
  */
 #define QUANTITY_ERROR 1
@@ -23,16 +23,30 @@
  */
 #define POS_ERROR 4
 
-short invitation_len_mas_pos(int const quantity, double **mas, int *const pos)
+/**
+ * \fn short invitation_len_mas_pos(int const quantity, double **mas, int *const pos)
+ *
+ * \param int const quantity - Переменная размерности массива
+ * \param double **const mas - Указатель на указатель на динамический массив
+ * \param int *const pos - Указатель на значение позиции вставки
+ *
+ * \brief Функция, создающая массив, считывающая значения его элементов и
+ * получающая значение позиции вставки значения u2
+ *
+ * \return Код ошибки (отличное от нуля число) или
+ * успешного завершения (нуль)
+ */
+short invitation_len_mas_pos(int const quantity, double **const mas, int *const pos)
 {
     // Тут проверок не будет. С разыменованием наступает ад и Израиль.
     if (!pos)
-        return QUANTITY_ERROR;
+        return POS_ERROR;
 
     *mas = (double *)calloc(quantity, sizeof(double));
     if (!(*mas))
         return QUANTITY_ERROR;
 
+    // Считывание элементов массива
     short check;
     for (int i = 0; i < quantity; i++)
     {
@@ -41,6 +55,7 @@ short invitation_len_mas_pos(int const quantity, double **mas, int *const pos)
             return READ_ARRAY_ERROR;
     }
 
+    // Считывание позици вставки
     check = scanf("%d", pos);
 
     if (!check || *pos <= 0)
