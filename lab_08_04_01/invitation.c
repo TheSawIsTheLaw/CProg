@@ -23,36 +23,26 @@
  */
 #define POS_ERROR 4
 
-short invitation_len_mas_pos(int *const quantity, double **mas, int *const pos)
+short invitation_len_mas_pos(int const quantity, double **mas, int *const pos)
 {
     short check;
-
-    check = scanf("%d", quantity);
-    if (!check)
-        return QUANTITY_ERROR;
     // Тут проверок не будет. С разыменованием наступает ад и Израиль.
 
-    *mas = (double *)calloc(*quantity, sizeof(double));
+    *mas = (double *)calloc(quantity, sizeof(double));
     if (!(*mas))
         return QUANTITY_ERROR;
 
-    for (int i = 0; i < *quantity; i++)
+    for (int i = 0; i < quantity; i++)
     {
         check = scanf("%lf", *mas + i);
         if (!check)
-        {
-            free(*mas);
             return READ_ARRAY_ERROR;
-        }
     }
 
     check = scanf("%d", pos);
 
     if (!check)
-    {
-        free(*mas);
         return POS_ERROR;
-    }
 
     return SUCCESS;
 }

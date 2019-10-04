@@ -119,16 +119,21 @@ int main(void)
     с которой предстоит работать далее */
     short check;
 
-    int quantity, pos;
+    int quantity, pos = 0;
 
     double *mas;
 
+    check = scanf("%d", &quantity);
+    if (!check || quantity < 1)
+        return QUANTITY_ERROR;
+
     // Принимаем значения
-    check = invitation_len_mas_pos(&quantity, &mas, &pos);
+    check = invitation_len_mas_pos(quantity, &mas, &pos);
 
     if (check)
     {
-        free(mas);
+        if (mas)
+            free(mas);
         return check;
     }
 
@@ -136,14 +141,16 @@ int main(void)
     check = calc_u1(quantity, mas, &u1);
     if (check)
     {
-        free(mas);
+        if (mas)
+            free(mas);
         return check;
     }
 
     check = del_from_mas_upmod_num(&mas, &quantity, u1);
     if (check)
     {
-        free(mas);
+        if (mas)
+            free(mas);
         return check;
     }
 
@@ -151,21 +158,24 @@ int main(void)
     check = calc_u2(quantity, mas, &u2);
     if (check)
     {
-        free(mas);
+        if (mas)
+            free(mas);
         return check;
     }
 
     check = insert_in_mas_by_pos_start_end(&mas, &quantity, pos, u2);
     if (check)
     {
-        free(mas);
+        if (mas)
+            free(mas);
         return check;
     }
 
     check = print_double_array(mas, quantity);
     if (check)
     {
-        free(mas);
+        if (mas)
+            free(mas);
         return check;
     }
 
