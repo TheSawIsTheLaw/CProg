@@ -211,8 +211,8 @@ int main(void)
     else
         printf("А почему тесты не проходят?\n\n");
 
-    mas = (double *)realloc(mas, sizeof(double) * 6);
-    if (!(*mas))
+    mas = (double *)realloc(mas, sizeof(double) * 3);
+    if (!mas)
     {
         printf("Oopsee-doopsee... Say 'hello' to you memory manager!");
         return SATAN;
