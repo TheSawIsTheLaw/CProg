@@ -121,7 +121,7 @@ int main(void)
 
     int quantity, pos = 0;
 
-    double *mas;
+    double *mas = NULL;
 
     check = scanf("%d", &quantity);
     if (!check || quantity < 1)
