@@ -21,7 +21,7 @@
 short insert_in_mas_by_pos_start_end(double **mas, int *const quantity,
 int const pos, double const num)
 {
-    if (!(*mas) || !quantity || *quantity < 1 || pos >= *quantity || pos < 0)
+    if (!(*mas) || !quantity || *quantity < 1 || pos >= *quantity + 1 || pos < 0)
         return IIMBPSE_DATA_ERROR;
     *quantity = *quantity + 3;
     *mas = (double *)realloc(*mas, sizeof(double) * (*quantity));
