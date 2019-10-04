@@ -335,5 +335,6 @@ int main(void)
     else
         printf("А почему тесты не проходят?\n\n");
 
+    free(mas);
     return 0;
 }
