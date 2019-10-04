@@ -23,7 +23,7 @@
  * \def TEST_ERROR
  * \brief Ошибка при тестировании
  */
-#define TEST_ERROR 666
+#define SATAN 666
 
 int main(void)
 {
@@ -194,11 +194,31 @@ int main(void)
     else
         printf("Тест не пройден :(\n");
 
-    printf("Итого: %d/1 positive, %d/4 negatives\n", positives, negatives);
-    if (positives == 1 && negatives == 4)
+    quantity = 3;
+    check = del_from_mas_upmod_num(&mas, &quantity, 0.1);
+    printf("Негативный тест. Переменная проверки: %d; Удаление всех значений;\n", check);
+    if (check)
+    {
+        printf("Тест пройден\n");
+        negatives++;
+    }
+    else
+        printf("Тест не пройден :(\n");
+
+    printf("Итого: %d/1 positive, %d/5 negatives\n", positives, negatives);
+    if (positives == 1 && negatives == 5)
         printf("Тестирование функции проведено успешно.\n\n");
     else
         printf("А почему тесты не проходят?\n\n");
+
+    mas = (double *)realloc(mas, sizeof(double) * 3);
+    if (!(*mas))
+    {
+        printf("Oopsee-doopsee... Say 'hello' to you memory manager!");
+        return SATAN;
+    }
+    *(mas + 1) = 2;
+    *(mas + 2) = 3;
 
     positives = 0;
     negatives = 0;
@@ -298,12 +318,13 @@ int main(void)
     negatives = 0;
     positives = 0;
 
-    printf("Тесты для подпрограммы print)double_array\n");
+    printf("Тесты для подпрограммы print_double_array\n");
+    quantity = 6;
     check = print_double_array(&mas, quantity);
     printf("Тепличные значения. Переменная проверки: %d;\n", check);
-    if (check)
+    if (!check)
     {
-        printf("\nТест пройден\n");
+        printf("Тест пройден\n");
         positives++;
     }
     else
