@@ -26,7 +26,7 @@
 
 short del_from_mas_upmod_num(double **mas, int *const quantity, double const num)
 {
-    if (!(*mas) || !quantity || *quantity <= 0 || num <= 0)
+    if (!(mas) || !(*mas) || !quantity || *quantity <= 0 || num <= 0)
         return DFMUN_DATA_ERROR;
 
     for (int i = 0; i < *quantity; i++)

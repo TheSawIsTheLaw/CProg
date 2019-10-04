@@ -106,7 +106,7 @@ int main(void)
 
     int quantity = 5;
 
-/*    // del_from_mas_upmod_num
+    // del_from_mas_upmod_num
 
     negatives = 0;
     positives = 0;
@@ -144,35 +144,9 @@ int main(void)
     if (check)
         negatives++;
 
-    mas = (double*)realloc(mas, sizeof(double) * 5);
-    for (short i = 1; i < 5; i++)
-        *(mas + i) = -1.5;
-
-    *mas = 1;
-
-    *check = del_from_mas_upmod_num(mas, &quantity, 2);
-    
-    printf("check = %d ", check);
-
-    if (!check && quantity == 5)
-        positives++;
-
-    mas = (double*)realloc(mas, sizeof(double) * 5);
-    for (short i = 1; i < 5; i++)
-        *(mas + i) = 2.5;
-
-    *mas = 1;
-
-    check = del_from_mas_upmod_num(mas, &quantity, 2);
-    
-    printf("check = %d ", check);
-
-    if (!check && quantity == 1 && *mas == 1)
-        positives++;
-
-    if (positives != 2 || negatives != 6)
+    if (positives != 0 || negatives != 6)
         return TEST_ERROR;
-    */
+
     // insert_in_mas_by_pos_start_end
 
     negatives = 0;
@@ -203,22 +177,7 @@ int main(void)
     if (check)
         negatives++;
 
-    check = insert_in_mas_by_pos_start_end(mas, &quantity, 0, 6.66);
-
-    if (!check && *mas == 6.66 && *(mas + 1) == 6.66 && *(mas + 7) == 6.66)
-        positives++;
-
-    mas = (double*)realloc(mas, sizeof(double) * 5);
-    for (short i = 1; i < 5; i++)
-        *(mas + i) = 2.5;
-    quantity = 5;
-
-    check = insert_in_mas_by_pos_start_end(mas, &quantity, 2, 6.66);
-
-    if (!check && *mas == 6.66 && *(mas + 1) == 6.66 && *(mas + 7) == 6.66)
-        positives++;
-
-    if (positives != 2 || negatives != 4)
+    if (positives != 0 || negatives != 4)
         return TEST_ERROR;
 
     // print_double_array
