@@ -7,11 +7,3 @@ test:
   artifacts:
     paths: [report.txt.enc]
     when: always
-rk_02:
-  image: gcc
-  stage: build
-  only:
-      - rk_02
-  script:
-      - cd rk_02_03
-      - gcc -Wall -Werror main.c
