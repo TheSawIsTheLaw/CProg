@@ -36,6 +36,8 @@
 #include "headers/del_to_sq.h"
 #include "headers/add_rows.h"
 #include "headers/add_cols.h"
+#include "headers/comp_mat.h"
+#include "headers/copy_mat.h"
 
 #define SUCCESS 0
 #define DATA_A_ERROR 1
@@ -46,7 +48,7 @@
 #define MEMORY_B_ERROR 10
 #define COMP_DATA_ERROR 14
 
-#define DEBUG
+//#define DEBUG
 
 /**
  * \fn int main()
@@ -161,32 +163,74 @@ int main(void)
             return check;
     }
 
-/*
-    #ifdef DEBUG
-    printf("\n");
-    print_matrix(row_a, col_a, matrix_a);
-    printf("\n");
-    print_matrix(row_b, col_b, matrix_b);
-    #endif
-
-*/
-
     int ro, gamma;
     check = fscanf(in, "%d %d", &ro, &gamma);
 
-    if (check != 2)
+    if (check != 2 || ro < 1 || gamma < 1)
         return COMP_DATA_ERROR;
 
-    // Вызов функции перемножения матриц в форе от нуля до ро
-    // Продолжение этой содомии
-    // ДОБРО ПОЖАЛОВАТЬ В АД, АХАХХАХАХАХАХАХХАХАХАХХАХАХАХАХХ
+    int64_t **total = (int64_t **)calloc(row_a, sizeof(int64_t **));
+    int64_t **total_copy = (int64_t **)calloc(row_a, sizeof(int64_t **));
+
+    if (!total || !total_copy)
+        return ULTRASATAN;
+
+    for (int i = 0; i < col_b; i++)
+    {
+        *(total_copy + i) = (int64_t *)calloc(row_a, sizeof(int64_t *));
+        *(total + i) = (int64_t *)calloc(row_a, sizeof(int64_t *));
+
+        if (!*(total_copy + i) || !*(total + i))
+            return ULTRASATAN;
+    }
+
+    check = comp_mat(row_a, col_a, row_b, col_b, matrix_a, matrix_a, &total);
+    if (check)
+        return check;
+
+    #ifdef DEBUG
+    printf("\n");
+    check = print_matrix(row_b, col_b, total, out);
+    printf("\n");
+    check = print_matrix(row_b, col_b, total_copy, out);
+    #endif
+
+    for (int i = 1; i < ro; i++)
+    {
+        check = copy_mat(total, row_a, col_a, &total_copy);
+        #ifdef DEBUG
+        printf("\n");
+        check = print_matrix(row_b, col_b, total_copy, out);
+        #endif
+        if (check)
+            return check;
+        check = comp_mat(row_a, col_a, row_b, col_b, total_copy, matrix_a, &total);
+        #ifdef DEBUG
+        printf("\n");
+        check = print_matrix(row_b, col_b, total, out);
+        #endif
+        if (check)
+            return check;
+    }
+    check = copy_mat(total, row_a, col_a, &total_copy);
+    if (check)
+        return check;
+    check = comp_mat(row_a, col_a, row_b, col_b, total_copy, matrix_b, &total);
+    if (check)
+        return check;
+    for (int i = 1; i < gamma; i++)
+    {
+        check = copy_mat(total, row_a, col_a, &total_copy);
+        if (check)
+            return check;
+        check = comp_mat(row_a, col_a, row_b, col_b, total_copy, matrix_b, &total);
+        if (check)
+            return check;
+    }
 
     //Конец таска
     printf("\n");
-    check = print_matrix(row_a, col_a, matrix_a, out);
-    printf("\n");
-    check = print_matrix(row_b, col_b, matrix_b, out);
-
+    check = print_matrix(row_b, col_b, total, out);
 
     #ifdef DEBUG
     printf("Я возьму телефон...");
@@ -197,5 +241,10 @@ int main(void)
     printf("Наберу деканат...");
     #endif
     check = free_matrix(row_b, &matrix_b);
+
+    check = free_matrix(row_b, &total);
+
+    check = free_matrix(row_b, &total_copy);
+
     return 0;
 }
