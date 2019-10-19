@@ -1,5 +1,5 @@
-test.exe: app.exe test.o calc_u1.o calc_u2.o del.o insert.o invitation.o print.o add_rows.c
-	gcc -std=c99 -Wall -Werror -o test.exe test.o calc_u1.o calc_u2.o del.o insert.o print.o invitation.o add_rows.c
+test.exe: app.exe test.o free.o make.o print.o del_to_sq.o add_rows.o add_cols.o comp_mat.o copy_mat.o
+	gcc -std=c99 -Wall -Werror -o test.exe test.o free.o make.o print.o del_to_sq.o add_rows.o add_cols.o comp_mat.o copy_mat.o
 
 app.exe: main.o free.o make.o print.o del_to_sq.o add_rows.o add_cols.o comp_mat.o copy_mat.o
 	gcc -std=c99 -Wall -Werror -o app.exe main.o free.o make.o print.o del_to_sq.o add_rows.o add_cols.o comp_mat.o copy_mat.o
@@ -31,8 +31,8 @@ comp_mat.o: funcs/comp_mat.c
 copy_mat.o: funcs/copy_mat.c
 	gcc -std=c99 -c -Wall -Werror -o copy_mat.o funcs/copy_mat.c
 
-test.o: test.c
-	gcc -std=c99 -c -Wall -Werror -o test.o test.c
+test.o: tests/test.c
+	gcc -std=c99 -c -Wall -Werror -o test.o tests/test.c
 	
 clean:
 	rm *.o *.exe
