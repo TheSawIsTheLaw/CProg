@@ -26,7 +26,10 @@ int add_rows_till_sec(int *row_a, int col_a, int row_b, int64_t ***mat)
         {
             for (int j = 0; j < *row_a; j++)
                 sum = sum + *(*(*mat + j) + i);
-            *(*(*mat + *row_a) + i) = (int64_t)(floor(sum / (*row_a)));
+            if (sum >= 0)
+                *(*(*mat + *row_a) + i) = (int64_t)(sum / (*row_a));
+            else
+                *(*(*mat + *row_a) + i) = (int64_t)((sum - 1) / (*row_a));
             sum = 0;
         }
         *row_a = *row_a + 1;
