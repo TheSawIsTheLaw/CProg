@@ -73,7 +73,7 @@ int main(void)
 
     check = fscanf(in, "%d %d", &row_a, &col_a);
 
-    if (check != 2)
+    if (check != 2 || row_a < 1 || col_a < 1)
         return DATA_A_ERROR;
 
     int64_t **matrix_a = (int64_t **)calloc(row_a, sizeof(int64_t **));
@@ -97,16 +97,21 @@ int main(void)
 
     check = fscanf(stdin, "%d %d", &row_b, &col_b);
 
-    if (check != 2)
+    if (check != 2 || row_b < 1 || row_a < 1)
     {
         free_matrix(row_a, &matrix_a);
+
         return DATA_B_ERROR;
     }
 
     int64_t **matrix_b = (int64_t **)calloc(row_b, sizeof(int64_t **));
 
     if (!matrix_b)
-        return DATA_A_ERROR;
+    {
+        free_matrix(row_a, &matrix_a);
+
+        return DATA_B_ERROR;
+    }
 
 
     #ifdef DEBUG
