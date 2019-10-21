@@ -38,6 +38,7 @@
 #include "headers/add_cols.h"
 #include "headers/comp_mat.h"
 #include "headers/copy_mat.h"
+#include "headers/go_to_zero.h"
 
 #define SUCCESS 0
 #define DATA_A_ERROR 1
@@ -80,7 +81,6 @@ int main(void)
     if (!matrix_a)
         return DATA_A_ERROR;
 
-
     #ifdef DEBUG
     printf("/1/Я возьму телефон...");
     #endif
@@ -98,7 +98,10 @@ int main(void)
     check = fscanf(stdin, "%d %d", &row_b, &col_b);
 
     if (check != 2)
+    {
+        free_matrix(row_a, &matrix_a);
         return DATA_B_ERROR;
+    }
 
     int64_t **matrix_b = (int64_t **)calloc(row_b, sizeof(int64_t **));
 
@@ -115,10 +118,12 @@ int main(void)
     {
         if (matrix_b)
         {
-            check = free_matrix(row_a, &matrix_a);
+            free_matrix(row_a, &matrix_a);
 
-            check = free_matrix(row_b, &matrix_b);
+            free_matrix(row_b, &matrix_b);
         }
+        else
+            free_matrix(row_a, &matrix_a);
         return check;
     }
 
@@ -132,7 +137,12 @@ int main(void)
     {
         check = del_to_sq(&row_a, &col_a, &matrix_a);
         if (check != ULTRASATAN && check != SUCCESS)
+        {
+            free_matrix(row_a, &matrix_a);
+
+            free_matrix(row_b, &matrix_b);
             return MEMORY_A_ERROR;
+        }
     }
 
 
@@ -143,7 +153,12 @@ int main(void)
     {
         check = del_to_sq(&row_b, &col_b, &matrix_b);
         if (check != ULTRASATAN && check != SUCCESS)
+        {
+            free_matrix(row_a, &matrix_a);
+
+            free_matrix(row_b, &matrix_b);
             return MEMORY_B_ERROR;
+        }
     }
 
     if (row_a < row_b)
@@ -151,18 +166,18 @@ int main(void)
         check = add_rows_till_sec(&row_a, col_a, row_b, &matrix_a);
         if (check)
         {
-            check = free_matrix(row_a, &matrix_a);
+            free_matrix(row_a, &matrix_a);
 
-            check = free_matrix(row_b, &matrix_b);
+            free_matrix(row_b, &matrix_b);
             return check;
         }
 
         check = add_cols_till_sec(&col_a, row_a, col_b, &matrix_a);
         if (check)
         {
-            check = free_matrix(row_a, &matrix_a);
+            free_matrix(row_a, &matrix_a);
 
-            check = free_matrix(row_b, &matrix_b);
+            free_matrix(row_b, &matrix_b);
             return check;
         }
     }
@@ -171,18 +186,19 @@ int main(void)
         check = add_rows_till_sec(&row_b, col_b, row_a, &matrix_b);
         if (check)
         {
-            check = free_matrix(row_a, &matrix_a);
+            free_matrix(row_a, &matrix_a);
 
-            check = free_matrix(row_b, &matrix_b);
+            free_matrix(row_b, &matrix_b);
             return check;
         }
 
         check = add_cols_till_sec(&col_b, row_b, col_a, &matrix_b);
         if (check)
         {
-            check = free_matrix(row_a, &matrix_a);
+            free_matrix(row_a, &matrix_a);
 
-            check = free_matrix(row_b, &matrix_b);
+            free_matrix(row_b, &matrix_b);
+
             return check;
         }
     }
@@ -190,8 +206,14 @@ int main(void)
     int ro, gamma;
     check = fscanf(in, "%d %d", &ro, &gamma);
 
-    if (check != 2 || ro < 1 || gamma < 1)
+    if (check != 2 || ro < 0 || gamma < 0)
+    {
+        free_matrix(row_a, &matrix_a);
+
+        free_matrix(row_b, &matrix_b);
+
         return COMP_DATA_ERROR;
+    }
 
     int64_t **total = (int64_t **)calloc(row_a, sizeof(int64_t **));
     int64_t **total_copy = (int64_t **)calloc(row_a, sizeof(int64_t **));
@@ -199,7 +221,22 @@ int main(void)
     int64_t **total_sec = (int64_t **)calloc(row_a, sizeof(int64_t **));
 
     if (!total || !total_copy || !total_fir || !total_sec)
+    {
+        free_matrix(row_a, &matrix_a);
+
+        free_matrix(row_b, &matrix_b);
+
+        if (total)
+            free_matrix(row_a, &total);
+        if (total_copy)
+            free_matrix(row_a, &total_copy);
+        if (total_fir)
+            free_matrix(row_a, total_fir);
+        if (total_sec)
+            free_matrix(row_a, total_sec);
+
         return ULTRASATAN;
+    }
 
     for (int i = 0; i < col_b; i++)
     {
@@ -208,26 +245,77 @@ int main(void)
         *(total_copy + i) = (int64_t *)calloc(row_a, sizeof(int64_t *));
         *(total + i) = (int64_t *)calloc(row_a, sizeof(int64_t *));
 
-        if (!*(total_sec + i)|| !*(total_fir + i)|| !*(total_copy + i) || !*(total + i))
+        if (!*(total_sec + i) || !*(total_fir + i) || !*(total_copy + i) || !*(total + i))
+        {
+            free_matrix(row_a, &matrix_a);
+
+            free_matrix(row_b, &matrix_b);
+
+            free_matrix(row_a, &total);
+
+            free_matrix(row_a, &total_copy);
+
+            free_matrix(row_a, total_fir);
+
+            free_matrix(row_a, total_sec);
+
             return ULTRASATAN;
+        }
     }
 
-    if (ro == 1)
+    if (!ro)
+    {
+        check = mat_to_zero(&matrix_a, row_a, col_a);
+        if (check)
+        {
+            free_matrix(row_a, &matrix_a);
+
+            free_matrix(row_b, &matrix_b);
+
+            free_matrix(row_b, &total);
+
+            free_matrix(row_b, &total_copy);
+
+            free_matrix(row_b, &total_sec);
+
+            free_matrix(row_b, &total_fir);
+
+            return check;
+        }
+        check = copy_mat(matrix_a, row_a, col_a, &total_fir);
+        if (check)
+        {
+            free_matrix(row_a, &matrix_a);
+
+            free_matrix(row_b, &matrix_b);
+
+            free_matrix(row_b, &total);
+
+            free_matrix(row_b, &total_copy);
+
+            free_matrix(row_b, &total_sec);
+
+            free_matrix(row_b, &total_fir);
+
+            return check;
+        }
+    }
+    else if (ro == 1)
     {
         check = copy_mat(matrix_a, row_a, col_a, &total_fir);
         if (check)
         {
-            check = free_matrix(row_a, &matrix_a);
+            free_matrix(row_a, &matrix_a);
 
-            check = free_matrix(row_b, &matrix_b);
+            free_matrix(row_b, &matrix_b);
 
-            check = free_matrix(row_b, &total);
+            free_matrix(row_b, &total);
 
-            check = free_matrix(row_b, &total_copy);
+            free_matrix(row_b, &total_copy);
 
-            check = free_matrix(row_b, &total_sec);
+            free_matrix(row_b, &total_sec);
 
-            check = free_matrix(row_b, &total_fir);
+            free_matrix(row_b, &total_fir);
 
             return check;
         }
@@ -237,17 +325,17 @@ int main(void)
         check = comp_mat(row_a, col_a, row_b, col_b, matrix_a, matrix_a, &total);
         if (check)
         {
-            check = free_matrix(row_a, &matrix_a);
+            free_matrix(row_a, &matrix_a);
 
-            check = free_matrix(row_b, &matrix_b);
+            free_matrix(row_b, &matrix_b);
 
-            check = free_matrix(row_b, &total);
+            free_matrix(row_b, &total);
 
-            check = free_matrix(row_b, &total_copy);
+            free_matrix(row_b, &total_copy);
 
-            check = free_matrix(row_b, &total_sec);
+            free_matrix(row_b, &total_sec);
 
-            check = free_matrix(row_b, &total_fir);
+            free_matrix(row_b, &total_fir);
 
             return check;
         }
@@ -269,17 +357,17 @@ int main(void)
         #endif
         if (check)
         {
-            check = free_matrix(row_a, &matrix_a);
+            free_matrix(row_a, &matrix_a);
 
-            check = free_matrix(row_b, &matrix_b);
+            free_matrix(row_b, &matrix_b);
 
-            check = free_matrix(row_b, &total);
+            free_matrix(row_b, &total);
 
-            check = free_matrix(row_b, &total_copy);
+            free_matrix(row_b, &total_copy);
 
-            check = free_matrix(row_b, &total_sec);
+            free_matrix(row_b, &total_sec);
 
-            check = free_matrix(row_b, &total_fir);
+            free_matrix(row_b, &total_fir);
 
             return check;
         }
@@ -290,60 +378,98 @@ int main(void)
         #endif
         if (check)
         {
-            check = free_matrix(row_a, &matrix_a);
+            free_matrix(row_a, &matrix_a);
 
-            check = free_matrix(row_b, &matrix_b);
+            free_matrix(row_b, &matrix_b);
 
-            check = free_matrix(row_b, &total);
+            free_matrix(row_b, &total);
 
-            check = free_matrix(row_b, &total_copy);
+            free_matrix(row_b, &total_copy);
 
-            check = free_matrix(row_b, &total_sec);
+            free_matrix(row_b, &total_sec);
 
-            check = free_matrix(row_b, &total_fir);
+            free_matrix(row_b, &total_fir);
 
             return check;
         }
     }
 
-    if (ro != 1)
+    if (ro != 1 && ro != 0)
     {
         check = copy_mat(total, row_a, col_a, &total_fir);
         //check = print_matrix(row_b, col_b, total, out);
         if (check)
         {
-            check = free_matrix(row_a, &matrix_a);
+            free_matrix(row_a, &matrix_a);
 
-            check = free_matrix(row_b, &matrix_b);
+            free_matrix(row_b, &matrix_b);
 
-            check = free_matrix(row_b, &total);
+            free_matrix(row_b, &total);
 
-            check = free_matrix(row_b, &total_copy);
+            free_matrix(row_b, &total_copy);
 
-            check = free_matrix(row_b, &total_sec);
+            free_matrix(row_b, &total_sec);
 
-            check = free_matrix(row_b, &total_fir);
+            free_matrix(row_b, &total_fir);
 
             return check;
         }
     }
 
-    if (gamma == 1)
+
+    if (!gamma)
+    {
+        check = mat_to_zero(&matrix_b, row_b, col_b);
+        if (check)
+        {
+            free_matrix(row_a, &matrix_a);
+
+            free_matrix(row_b, &matrix_b);
+
+            free_matrix(row_b, &total);
+
+            free_matrix(row_b, &total_copy);
+
+            free_matrix(row_b, &total_sec);
+
+            free_matrix(row_b, &total_fir);
+
+            return check;
+        }
+        check = copy_mat(matrix_b, row_b, col_b, &total_sec);
+        if (check)
+        {
+            free_matrix(row_a, &matrix_a);
+
+            free_matrix(row_b, &matrix_b);
+
+            free_matrix(row_b, &total);
+
+            free_matrix(row_b, &total_copy);
+
+            free_matrix(row_b, &total_sec);
+
+            free_matrix(row_b, &total_fir);
+
+            return check;
+        }
+    }
+    else if (gamma == 1)
     {
         check = copy_mat(matrix_b, row_a, col_a, &total_sec);
         if (check)
         {
-            check = free_matrix(row_a, &matrix_a);
+            free_matrix(row_a, &matrix_a);
 
-            check = free_matrix(row_b, &matrix_b);
+            free_matrix(row_b, &matrix_b);
 
-            check = free_matrix(row_b, &total);
+            free_matrix(row_b, &total);
 
-            check = free_matrix(row_b, &total_copy);
+            free_matrix(row_b, &total_copy);
 
-            check = free_matrix(row_b, &total_sec);
+            free_matrix(row_b, &total_sec);
 
-            check = free_matrix(row_b, &total_fir);
+            free_matrix(row_b, &total_fir);
 
             return check;
         }
@@ -353,17 +479,17 @@ int main(void)
         check = comp_mat(row_a, col_a, row_b, col_b, matrix_b, matrix_b, &total);
         if (check)
         {
-            check = free_matrix(row_a, &matrix_a);
+            free_matrix(row_a, &matrix_a);
 
-            check = free_matrix(row_b, &matrix_b);
+            free_matrix(row_b, &matrix_b);
 
-            check = free_matrix(row_b, &total);
+            free_matrix(row_b, &total);
 
-            check = free_matrix(row_b, &total_copy);
+            free_matrix(row_b, &total_copy);
 
-            check = free_matrix(row_b, &total_sec);
+            free_matrix(row_b, &total_sec);
 
-            check = free_matrix(row_b, &total_fir);
+            free_matrix(row_b, &total_fir);
 
             return check;
         }
@@ -374,55 +500,55 @@ int main(void)
         check = copy_mat(total, row_a, col_a, &total_copy);
         if (check)
         {
-            check = free_matrix(row_a, &matrix_a);
+            free_matrix(row_a, &matrix_a);
 
-            check = free_matrix(row_b, &matrix_b);
+            free_matrix(row_b, &matrix_b);
 
-            check = free_matrix(row_b, &total);
+            free_matrix(row_b, &total);
 
-            check = free_matrix(row_b, &total_copy);
+            free_matrix(row_b, &total_copy);
 
-            check = free_matrix(row_b, &total_sec);
+            free_matrix(row_b, &total_sec);
 
-            check = free_matrix(row_b, &total_fir);
+            free_matrix(row_b, &total_fir);
 
             return check;
         }
         check = comp_mat(row_a, col_a, row_b, col_b, total_copy, matrix_b, &total);
         if (check)
         {
-            check = free_matrix(row_a, &matrix_a);
+            free_matrix(row_a, &matrix_a);
 
-            check = free_matrix(row_b, &matrix_b);
+            free_matrix(row_b, &matrix_b);
 
-            check = free_matrix(row_b, &total);
+            free_matrix(row_b, &total);
 
-            check = free_matrix(row_b, &total_copy);
+            free_matrix(row_b, &total_copy);
 
-            check = free_matrix(row_b, &total_sec);
+            free_matrix(row_b, &total_sec);
 
-            check = free_matrix(row_b, &total_fir);
+            free_matrix(row_b, &total_fir);
 
             return check;
         }
     }
-    if (gamma != 1)
+    if (gamma != 1 && gamma != 0)
     {
         check = copy_mat(total, row_a, col_a, &total_sec);
         //check = print_matrix(row_b, col_b, total, out);
         if (check)
         {
-            check = free_matrix(row_a, &matrix_a);
+            free_matrix(row_a, &matrix_a);
 
-            check = free_matrix(row_b, &matrix_b);
+            free_matrix(row_b, &matrix_b);
 
-            check = free_matrix(row_b, &total);
+            free_matrix(row_b, &total);
 
-            check = free_matrix(row_b, &total_copy);
+            free_matrix(row_b, &total_copy);
 
-            check = free_matrix(row_b, &total_sec);
+            free_matrix(row_b, &total_sec);
 
-            check = free_matrix(row_b, &total_fir);
+            free_matrix(row_b, &total_fir);
 
             return check;
         }
@@ -431,17 +557,17 @@ int main(void)
     check = comp_mat(row_a, col_a, row_b, col_b, total_fir, total_sec, &total);
     if (check)
     {
-        check = free_matrix(row_a, &matrix_a);
+        free_matrix(row_a, &matrix_a);
 
-        check = free_matrix(row_b, &matrix_b);
+        free_matrix(row_b, &matrix_b);
 
-        check = free_matrix(row_b, &total);
+        free_matrix(row_b, &total);
 
-        check = free_matrix(row_b, &total_copy);
+        free_matrix(row_b, &total_copy);
 
-        check = free_matrix(row_b, &total_sec);
+        free_matrix(row_b, &total_sec);
 
-        check = free_matrix(row_b, &total_fir);
+        free_matrix(row_b, &total_fir);
 
         return check;
     }
@@ -453,17 +579,17 @@ int main(void)
     #ifdef DEBUG
     printf("Я возьму телефон...");
     #endif
-    check = free_matrix(row_a, &matrix_a);
+    free_matrix(row_a, &matrix_a);
 
-    check = free_matrix(row_b, &matrix_b);
+    free_matrix(row_b, &matrix_b);
 
-    check = free_matrix(row_b, &total);
+    free_matrix(row_b, &total);
 
-    check = free_matrix(row_b, &total_copy);
+    free_matrix(row_b, &total_copy);
 
-    check = free_matrix(row_b, &total_sec);
+    free_matrix(row_b, &total_sec);
 
-    check = free_matrix(row_b, &total_fir);
+    free_matrix(row_b, &total_fir);
 
     return 0;
 }

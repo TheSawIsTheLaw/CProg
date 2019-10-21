@@ -1,8 +1,8 @@
-test.exe: app.exe test.o free.o make.o print.o del_to_sq.o add_rows.o add_cols.o comp_mat.o copy_mat.o
-	gcc -std=c99 -Wall -Werror -o test.exe test.o free.o make.o print.o del_to_sq.o add_rows.o add_cols.o comp_mat.o copy_mat.o
+test.exe: app.exe test.o free.o make.o print.o del_to_sq.o add_rows.o add_cols.o comp_mat.o copy_mat.o go_to_zero.o
+	gcc -std=c99 -Wall -Werror -o test.exe test.o free.o make.o print.o del_to_sq.o add_rows.o add_cols.o comp_mat.o copy_mat.o go_to_zero.o
 
-app.exe: main.o free.o make.o print.o del_to_sq.o add_rows.o add_cols.o comp_mat.o copy_mat.o
-	gcc -std=c99 -Wall -Werror -o app.exe main.o free.o make.o print.o del_to_sq.o add_rows.o add_cols.o comp_mat.o copy_mat.o
+app.exe: main.o free.o make.o print.o del_to_sq.o add_rows.o add_cols.o comp_mat.o copy_mat.o go_to_zero.o
+	gcc -std=c99 -Wall -Werror -o app.exe main.o free.o make.o print.o del_to_sq.o add_rows.o add_cols.o comp_mat.o copy_mat.o go_to_zero.o
 
 main.o: main.c
 	gcc -std=c99 -c -Wall -Werror -o main.o main.c
@@ -30,6 +30,9 @@ comp_mat.o: funcs/comp_mat.c
 	
 copy_mat.o: funcs/copy_mat.c
 	gcc -std=c99 -c -Wall -Werror -o copy_mat.o funcs/copy_mat.c
+
+go_to_zero.o: funcs/go_to_zero.c
+	gcc -std=c99 -c -Wall -Werror -o go_to_zero.o funcs/go_to_zero.c
 
 test.o: tests/test.c
 	gcc -std=c99 -c -Wall -Werror -o test.o tests/test.c
