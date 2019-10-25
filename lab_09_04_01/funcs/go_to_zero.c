@@ -16,9 +16,7 @@ int mat_to_zero(int64_t ***mat, int row, int col)
             if (i == j)
                 *(*(*mat + i) + j) = 1;
             else
-            {
                 *(*(*mat + i) + j) = 0;
-            }
         }
     }
 

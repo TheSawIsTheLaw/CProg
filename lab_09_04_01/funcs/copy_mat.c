@@ -5,7 +5,7 @@
 #include "../headers/copy_mat.h"
 
 #define SUCCESS 0
-#define COPY_DATA_ERROR 1488
+#define COPY_DATA_ERROR 359
 
 int copy_mat(int64_t **mat_f, int row, int col, int64_t ***mat_to)
 {

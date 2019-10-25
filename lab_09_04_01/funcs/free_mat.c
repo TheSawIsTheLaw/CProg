@@ -8,7 +8,7 @@
 
 int free_matrix(int row, uint64_t ***mat)
 {
-    if (row <= 0)
+    if (row <= 0 || !mat)
         return FREE_DATA_ERROR;
 
     for (int i = 0; i < row; i++)
