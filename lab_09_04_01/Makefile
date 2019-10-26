@@ -1,5 +1,5 @@
-test.exe: test.o free.o make.o print.o del_to_sq.o add_rows.o add_cols.o comp_mat.o copy_mat.o go_to_zero.o AC_neg.o AC_pos.o AR_neg.o AR_pos.o CM_neg.o CM_pos.o DTS_neg.o DTS_pos_sqr.o DTS_pos_rows.o DTS_pos_cols.o FM_neg.o FM_pos.o GTZ_neg.o GTZ_pos.o PM_neg.o PM_pos.o
-	gcc -std=c99 -Wall -Werror -o test.exe test.o free.o make.o print.o del_to_sq.o add_rows.o add_cols.o comp_mat.o copy_mat.o go_to_zero.o AC_neg.o AC_pos.o AR_neg.o AR_pos.o CM_neg.o CM_pos.o DTS_neg.o DTS_pos_sqr.o DTS_pos_rows.o DTS_pos_cols.o FM_neg.o FM_pos.o GTZ_neg.o GTZ_pos.o PM_neg.o PM_pos.o
+test.exe: test.o free.o make.o print.o del_to_sq.o add_rows.o add_cols.o comp_mat.o copy_mat.o go_to_zero.o AC_neg.o AC_pos.o AR_neg.o AR_pos.o CM_neg.o CM_pos.o DTS_neg.o DTS_pos_sqr.o DTS_pos_rows.o DTS_pos_cols.o FM_neg.o FM_pos.o GTZ_neg.o GTZ_pos.o PM_neg.o PM_pos.o COMP_pos.o COMP_neg.o
+	gcc -std=c99 -Wall -Werror -o test.exe test.o free.o make.o print.o del_to_sq.o add_rows.o add_cols.o comp_mat.o copy_mat.o go_to_zero.o AC_neg.o AC_pos.o AR_neg.o AR_pos.o CM_neg.o CM_pos.o DTS_neg.o DTS_pos_sqr.o DTS_pos_rows.o DTS_pos_cols.o FM_neg.o FM_pos.o GTZ_neg.o GTZ_pos.o PM_neg.o PM_pos.o COMP_pos.o COMP_neg.o
 
 app.exe: main.o free.o make.o print.o del_to_sq.o add_rows.o add_cols.o comp_mat.o copy_mat.o go_to_zero.o
 	gcc -std=c99 -Wall -Werror -o app.exe main.o free.o make.o print.o del_to_sq.o add_rows.o add_cols.o comp_mat.o copy_mat.o go_to_zero.o
@@ -84,6 +84,12 @@ PM_pos.o: tests/positive/PM_pos_data.c
 
 PM_neg.o: tests/negative/PM_neg_data.c
 	gcc -std=c99 -c -Wall -Werror -o PM_neg.o tests/negative/PM_neg_data.c
+
+COMP_pos.o: tests/positive/COMP_pos_data.c
+	gcc -std=c99 -c -Wall -Werror -o COMP_pos.o tests/positive/COMP_pos_data.c
+
+COMP_neg.o: tests/negative/COMP_neg_data.c
+	gcc -std=c99 -c -Wall -Werror -o COMP_neg.o tests/negative/COMP_neg_data.c
 
 clean:
 	rm *.o *.exe

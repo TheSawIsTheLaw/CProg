@@ -26,6 +26,8 @@
 #include "headers/GTZ_pos_data.h"
 #include "headers/PM_neg_data.h"
 #include "headers/PM_pos_data.h"
+#include "headers/COMP_neg_data.h"
+#include "headers/COMP_pos_data.h"
 
 #define SUCCESS 0
 #define I_HATE_THIS_LIFE_GOD_WHY 1366613
@@ -71,6 +73,12 @@ int main(void)
         return check;
 
     check = pm_neg_data();
+    if (!check)
+        negatives++;
+    else
+        return check;
+
+    check = comp_neg_data();
     if (!check)
         negatives++;
     else
@@ -131,6 +139,14 @@ int main(void)
     else
         return check;
 
+    check = comp_pos_data();
+    if (!check)
+        positives++;
+    else
+        return check;
 
-    return SUCCESS;
+    if (positives == 10 && negatives == 8)
+        return SUCCESS;
+    else
+        return I_HATE_THIS_LIFE_GOD_WHY;
 }
