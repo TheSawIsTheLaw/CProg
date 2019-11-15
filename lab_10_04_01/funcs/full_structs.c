@@ -25,7 +25,7 @@ int full_structs(students **mas, FILE *f)
     if (!mas)
         return FS_NILL_ERROR;
 
-    unsigned long max_quant = MAX;
+    unsigned long max_quant = MAX, real_mas_quant = 0;
 
     students *new = realloc(*mas, max_quant * sizeof (int));
     if (new)
@@ -39,7 +39,7 @@ int full_structs(students **mas, FILE *f)
     // то в соотвествии с этим признаком каждый раз будет реаллокать +10, пока не хватит)
 
     // Переменные максимального количества значений
-    int mq_gr = MAX_GR, mq_surn = MAX_SURN, mq_birth = MAX_MARKS, mq_marks = MAX_MARKS;
+    int mq_gr = MAX_GR, mq_surn = MAX_SURN, mq_marks = MAX_MARKS;
 
     char *gr = calloc(MAX_GR, sizeof(char));
     char *surn = calloc(MAX_SURN, sizeof(char));
@@ -53,7 +53,7 @@ int full_structs(students **mas, FILE *f)
     if (!gr || !surn || !birth || !marks)
         return FS_MEMORY_ERROR;
 
-    // Сосканфить стринг не получится. Потому что иначе расширения не будет... Придётся всё делать поэлементно.
+    // Сосканфить стринг не получится. Потому что динамика... Придётся всё делать поэлементно.
 
     char cur_c = 'a';
 
@@ -278,9 +278,96 @@ int full_structs(students **mas, FILE *f)
         /// ! Send new fields to structure and it's ?reallocation?
         /// !
 
+        if (real_mas_quant >= max_quant)
+        {
+            max_quant = max_quant * 2;
+            new = realloc(*mas, max_quant * sizeof(students));
+            if (new)
+            {
+                *mas = new;
+                new = NULL;
+            }
+            else
+            {
+                free(gr);
+                free(surn);
+                free(birth);
+                free(marks);
+
+                return FS_MEMORY_ERROR;
+            }
+        }
+
+        // Group
+        (*mas + real_mas_quant)->group = calloc(mq_gr, sizeof(char));
+        if (!((*mas + real_mas_quant)->group))
+        {
+            free(gr);
+            free(surn);
+            free(birth);
+            free(marks);
+
+            return FS_MEMORY_ERROR;
+        }
+        strcpy((*mas + real_mas_quant)->group, gr);
+
+        // Surname
+        (*mas + real_mas_quant)->surname = calloc(mq_surn, sizeof(char));
+        if (!((*mas + real_mas_quant)->surname))
+        {
+            free(gr);
+            free(surn);
+            free(birth);
+            free(marks);
+
+            return FS_MEMORY_ERROR;
+        }
+        strcpy((*mas + real_mas_quant)->surname, surn);
+
+        // Birthday
+        (*mas + real_mas_quant)->birthday = calloc(MAX_SURN, sizeof(int));
+        if (!((*mas + real_mas_quant)->birthday))
+        {
+            free(gr);
+            free(surn);
+            free(birth);
+            free(marks);
+
+            return FS_MEMORY_ERROR;
+        }
+
+        *((*mas + real_mas_quant)->birthday) = birth[0];
+        *((*mas + real_mas_quant)->birthday + 1) = birth[1];
+        *((*mas + real_mas_quant)->birthday + 2) = birth[2];
+
+        // Marks
+        (*mas + real_mas_quant)->marks = calloc(mq_marks, sizeof(int));
+        if (!((*mas + real_mas_quant)->birthday))
+        {
+            free(gr);
+            free(surn);
+            free(birth);
+            free(marks);
+
+            return FS_MEMORY_ERROR;
+        }
+        for (int i = 0; i < mq_marks; i++)
+            *((*mas + real_mas_quant)->marks + i) = marks[i];
+        real_mas_quant++;
     }
 
     // В конце следует добавить конечное поле с none, чтобы иметь понятие, где оное кончается
+    (*mas + real_mas_quant)->group = calloc(5, sizeof(char));
+    if (!((*mas + real_mas_quant)->group))
+    {
+        free(gr);
+        free(surn);
+        free(birth);
+        free(marks);
+
+        return FS_MEMORY_ERROR;
+    }
+    strcpy((*mas + real_mas_quant)->group, "none");
 
     return SUCCESS;
 }

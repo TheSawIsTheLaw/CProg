@@ -28,6 +28,7 @@ int free_students(students **mas)
 
         if ((*mas + i)->marks)
             free((*mas + i)->marks);
+        i++;
     }
 
     free(*mas);
