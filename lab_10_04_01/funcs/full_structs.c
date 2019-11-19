@@ -35,7 +35,7 @@ int full_structs(students **mas, FILE *f)
     }
     else
         return FS_MEMORY_ERROR;
-    // Если в массиве не будет хватать места (по принаку того, что последний элемент != /0,
+    // Если в массиве не будет хватать места (по признаку того, что последний элемент != /0,
     // то в соотвествии с этим признаком каждый раз будет реаллокать +10, пока не хватит)
 
     // Переменные максимального количества значений
@@ -341,6 +341,8 @@ int full_structs(students **mas, FILE *f)
         *((*mas + real_mas_quant)->birthday + 2) = birth[2];
 
         // Marks
+        (*mas + real_mas_quant)->q_marks = mq_marks;
+
         (*mas + real_mas_quant)->marks = calloc(mq_marks, sizeof(int));
         if (!((*mas + real_mas_quant)->birthday))
         {
@@ -368,6 +370,11 @@ int full_structs(students **mas, FILE *f)
         return FS_MEMORY_ERROR;
     }
     strcpy((*mas + real_mas_quant)->group, "none");
+
+    free(gr);
+    free(surn);
+    free(birth);
+    free(marks);
 
     return SUCCESS;
 }

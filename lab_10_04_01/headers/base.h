@@ -6,6 +6,7 @@ typedef struct
     char *group;
     char *surname;
     int *birthday;
+    int q_marks;
     int *marks;
 }students;
 

@@ -30,6 +30,10 @@
 
 #define DEBUG
 
+#ifdef DEBUG
+#include <string.h>
+#endif
+
 // Задание файловых переменных для ввода/вывода
 #define F_IN stdin
 #define F_OUT stdout
@@ -38,19 +42,33 @@ int main(void)
 {
     students *mas_s = calloc(1, sizeof(students));
 
-    FILE *f_out = F_OUT;
-    FILE *f_in = F_IN;
-
     if (!mas_s)
         return MEMORY_ERROR;
+#ifndef DEBUG
+    FILE *f_out = F_OUT;
+#endif
+    FILE *f_in = F_IN;
+
 
     int check = full_structs(&mas_s, f_in);
     if (check)
     {
-        free_students(&mas_s);
+        free(mas_s);
         return check;
     }
 
+#ifdef DEBUG
+    int i = 0;
+    while (strcmp((mas_s + i)->group, "none"))
+    {
+        printf("%s %s ", (mas_s + i)->group, (mas_s + i)->surname);
+        printf("%d.%d.%d ", *((mas_s + i)->birthday), *((mas_s + i)->birthday + 1), *((mas_s + i)->birthday + 2));
+        for (int j = 0; j < (mas_s + i)->q_marks; j++)
+            printf("%d ", *((mas_s + i)->marks));
+        i++;
+    }
+#endif
+#ifndef DEBUG
     check = kill_adults();
     if (check)
     {
@@ -79,11 +97,10 @@ int main(void)
         return check;
     }
 
-#ifndef DEBUG
     check = free_students(&mas_s);
     if (check)
         return check;
-
 #endif
+
     return SUCCESS;
 }

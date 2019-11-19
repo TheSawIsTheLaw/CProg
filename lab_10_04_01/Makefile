@@ -10,7 +10,7 @@ main.o: main.c
 free_students.o: funcs/free_students.c
 	gcc -std=c99 -c -Wall -Werror -o free_students.o funcs/free_students.c
 	
-full_structs.o: funcs/kill_lower_four_marks.c
+full_structs.o: funcs/full_structs.c
 	gcc -std=c99 -c -Wall -Werror -o full_structs.o funcs/full_structs.c
 	
 kill_adults.o: funcs/kill_adults.c
