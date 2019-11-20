@@ -6,7 +6,7 @@
 
 #define SUCCESS 0
 // Начальный размер массива записей
-#define MAX 10
+#define MAX 1
 #define MAX_GR 10
 #define MAX_SURN 20
 #define MAX_BIRTH 3
@@ -20,14 +20,14 @@
 #define FS_MEMORY_ERROR 102
 #define FS_SCANF_ERROR 103
 
-int full_structs(students **mas, FILE *f)
+int full_structs(students **mas, FILE *f, int *out_quan)
 {
     if (!mas)
         return FS_NILL_ERROR;
 
     unsigned long max_quant = MAX, real_mas_quant = 0;
 
-    students *new = realloc(*mas, max_quant * sizeof (int));
+    students *new = realloc(*mas, max_quant * sizeof (students));
     if (new)
     {
         *mas = new;
@@ -58,7 +58,7 @@ int full_structs(students **mas, FILE *f)
     char cur_c = 'a';
 
     short flag = 1;
-    int check, cur_pos = 0, new_mq_marks;
+    int check, cur_pos, new_mq_marks;
     int *new_i_m;
 
     char* new_c;  // Переменная для расширения массивов char типа
@@ -67,6 +67,7 @@ int full_structs(students **mas, FILE *f)
     {
         /// ! Работа с полем группы
         /// ! Work with group field
+        DEB("GROUP STARTED")
         check = fscanf(f, "%c", &cur_c);
         if (check != 1)
         {
@@ -77,8 +78,22 @@ int full_structs(students **mas, FILE *f)
 
             return FS_SCANF_ERROR;
         }
-        while (cur_c != '\n')
+        cur_pos = 0;
+        while (cur_c != '\n' || cur_pos == 0)
         {
+            while (cur_c == '\n' || cur_c == ' ')
+            {
+                check = fscanf(f, "%c", &cur_c);
+                if (check != 1)
+                {
+                    free(gr);
+                    free(surn);
+                    free(birth);
+                    free(marks);
+
+                    return FS_SCANF_ERROR;
+                }
+            }
             gr[cur_pos] = cur_c;
             if (cur_pos == mq_gr - 1)
             {
@@ -126,7 +141,6 @@ int full_structs(students **mas, FILE *f)
                 free(surn);
                 free(birth);
                 free(marks);
-
                 return FS_MEMORY_ERROR;
             }
         }
@@ -134,7 +148,7 @@ int full_structs(students **mas, FILE *f)
 
         /// ! Проверка на то, является ли это стоп-словом (простите, это не отсылка)
         /// ! Checking flag for stop "whiling" (rolling-rolling-rolling, c'mon)
-
+        DEB(gr)
         if (!strcmp("none", gr))
         {
             flag = 0; // Да, это смешно. Но мне бы иначе сказали, что у меня цикл бесконечный. Ага.
@@ -142,6 +156,7 @@ int full_structs(students **mas, FILE *f)
             break;
         }
 
+        DEB("SURNAME STARTED")
         check = fscanf(f, "%c", &cur_c);
         if (check != 1)
         {
@@ -156,7 +171,7 @@ int full_structs(students **mas, FILE *f)
 
         /// ! Работа с полем имени
         /// ! Work with surname field
-        while (cur_c != '\n')
+        while (cur_c != '\n' || !cur_pos)
         {
             if (cur_pos == mq_surn - 1)
             {
@@ -215,19 +230,29 @@ int full_structs(students **mas, FILE *f)
             }
         }
         surn[cur_pos] = '\0';
+        DEB(surn)
 
         /// ! Работа с полем датой рождения
         /// ! ALARM! На данном этапе отладка с восприятием 31-го февраля не произведена!
         /// ! Work with birthday field
-        fscanf(f, "%d.", birth);
-        fscanf(f, "%d.", birth + 1);
-        fscanf(f, "%d", birth + 2);
+        DEB("BIRTHDAY STARTED")
+        check = fscanf(f, "%d.%d.%d", birth, birth + 1, birth + 2);
+        if (check != 3)
+        {
+            free(gr);
+            free(surn);
+            free(birth);
+            free(marks);
+
+            return FS_SCANF_ERROR;
+        }
         /// !
         /// ! ТУТ МОГЛА БЫТЬ ВАША РЕКЛАМА (ИЛИ ПРОВЕРКА)
         /// !
 
         /// ! Работа с полем оценок
         /// ! Work with marks field
+        DEB("MARKS STARTED")
         check = fscanf(f, "%d", &new_mq_marks);
         if (check != 1)
         {
@@ -257,9 +282,10 @@ int full_structs(students **mas, FILE *f)
                 return FS_MEMORY_ERROR;
             }
         }
-        for (int i = 0; i < mq_marks; i++)
+        int new_marks;
+        for (int i = 0; i < new_mq_marks; i++)
         {
-            check = fscanf(f, "%d", &new_mq_marks);
+            check = fscanf(f, "%d", &new_marks);
             if (check != 1)
             {
                 free(gr);
@@ -269,8 +295,9 @@ int full_structs(students **mas, FILE *f)
 
                 return FS_SCANF_ERROR;
             }
-            marks[i] = new_mq_marks;
+            marks[i] = new_marks;
         }
+        DEB("MARKS ENDED")
 
         /// !
         /// ! Дальше вообще начинается лютый треш и содомия, приготовьтесь
@@ -278,25 +305,7 @@ int full_structs(students **mas, FILE *f)
         /// ! Send new fields to structure and it's ?reallocation?
         /// !
 
-        if (real_mas_quant >= max_quant)
-        {
-            max_quant = max_quant * 2;
-            new = realloc(*mas, max_quant * sizeof(students));
-            if (new)
-            {
-                *mas = new;
-                new = NULL;
-            }
-            else
-            {
-                free(gr);
-                free(surn);
-                free(birth);
-                free(marks);
-
-                return FS_MEMORY_ERROR;
-            }
-        }
+        DEB("SENDING...")
 
         // Group
         (*mas + real_mas_quant)->group = calloc(mq_gr, sizeof(char));
@@ -320,18 +329,23 @@ int full_structs(students **mas, FILE *f)
             free(birth);
             free(marks);
 
+            //free((*mas + real_mas_quant)->group);
+
             return FS_MEMORY_ERROR;
         }
         strcpy((*mas + real_mas_quant)->surname, surn);
 
         // Birthday
-        (*mas + real_mas_quant)->birthday = calloc(MAX_SURN, sizeof(int));
+        (*mas + real_mas_quant)->birthday = calloc(MAX_BIRTH, sizeof(int));
         if (!((*mas + real_mas_quant)->birthday))
         {
             free(gr);
             free(surn);
             free(birth);
             free(marks);
+
+            free((*mas + real_mas_quant)->group);
+            free((*mas + real_mas_quant)->surname);
 
             return FS_MEMORY_ERROR;
         }
@@ -341,9 +355,9 @@ int full_structs(students **mas, FILE *f)
         *((*mas + real_mas_quant)->birthday + 2) = birth[2];
 
         // Marks
-        (*mas + real_mas_quant)->q_marks = mq_marks;
+        (*mas + real_mas_quant)->q_marks = new_mq_marks;
 
-        (*mas + real_mas_quant)->marks = calloc(mq_marks, sizeof(int));
+        (*mas + real_mas_quant)->marks = calloc(new_mq_marks, sizeof(int));
         if (!((*mas + real_mas_quant)->birthday))
         {
             free(gr);
@@ -351,11 +365,35 @@ int full_structs(students **mas, FILE *f)
             free(birth);
             free(marks);
 
+            free((*mas + real_mas_quant)->group);
+            free((*mas + real_mas_quant)->surname);
+
             return FS_MEMORY_ERROR;
         }
-        for (int i = 0; i < mq_marks; i++)
+        for (int i = 0; i < new_mq_marks; i++)
             *((*mas + real_mas_quant)->marks + i) = marks[i];
         real_mas_quant++;
+
+        max_quant++; // Топорно, но уж лучше реаллокать, чем таскать за собой длину массива структур
+        new = realloc(*mas, max_quant * sizeof(students));
+        if (new)
+        {
+            *mas = new;
+            new = NULL;
+        }
+        else
+        {
+            free(gr);
+            free(surn);
+            free(birth);
+            free(marks);
+
+            free((*mas + real_mas_quant)->group);
+            free((*mas + real_mas_quant)->surname);
+            free((*mas + real_mas_quant)->birthday);
+
+            return FS_MEMORY_ERROR;
+        }
     }
 
     // В конце следует добавить конечное поле с none, чтобы иметь понятие, где оное кончается
@@ -375,6 +413,8 @@ int full_structs(students **mas, FILE *f)
     free(surn);
     free(birth);
     free(marks);
+
+    *out_quan = real_mas_quant;
 
     return SUCCESS;
 }

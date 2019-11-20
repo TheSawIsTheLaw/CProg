@@ -8,14 +8,14 @@
 
 #define SUCCESS 0
 
-int free_students(students **mas)
+int free_students(students **mas, int quan)
 {
     if (!mas)
         return NULL_ERROR;
 
     int i = 0;
 
-    while (!strcmp("none", (*mas + i)->group))
+    while (i < quan)
     {
         if ((*mas + i)->group)
             free((*mas + i)->group);
@@ -30,6 +30,7 @@ int free_students(students **mas)
             free((*mas + i)->marks);
         i++;
     }
+    free((*mas + i)->group);
 
     free(*mas);
 

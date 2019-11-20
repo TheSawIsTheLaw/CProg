@@ -28,8 +28,6 @@
 #define MEMORY_ERROR 666
 #define SUCCESS 0
 
-#define DEBUG
-
 #ifdef DEBUG
 #include <string.h>
 #endif
@@ -48,9 +46,9 @@ int main(void)
     FILE *f_out = F_OUT;
 #endif
     FILE *f_in = F_IN;
+    int fr_quan;
 
-
-    int check = full_structs(&mas_s, f_in);
+    int check = full_structs(&mas_s, f_in, &fr_quan);
     if (check)
     {
         free(mas_s);
@@ -97,10 +95,10 @@ int main(void)
         return check;
     }
 
-    check = free_students(&mas_s);
+#endif
+    check = free_students(&mas_s, fr_quan);
     if (check)
         return check;
-#endif
 
     return SUCCESS;
 }
