@@ -28,10 +28,6 @@
 #define MEMORY_ERROR 666
 #define SUCCESS 0
 
-#ifdef DEBUG
-#include <string.h>
-#endif
-
 // Задание файловых переменных для ввода/вывода
 #define F_IN stdin
 #define F_OUT stdout
@@ -55,7 +51,7 @@ int main(void)
         return check;
     }
 
-#ifdef DEBUG
+#if DEBUG == 1
     int i = 0;
     while (strcmp((mas_s + i)->group, "none"))
     {
@@ -65,15 +61,24 @@ int main(void)
             printf("%d ", *((mas_s + i)->marks));
         i++;
     }
-#endif
-#ifndef DEBUG
-    check = kill_adults();
+    check = kill_adults(mas_s);
     if (check)
     {
         free_students(&mas_s);
         return check;
     }
 
+    while (strcmp((mas_s + i)->group, "none"))
+    {
+        printf("%s %s ", (mas_s + i)->group, (mas_s + i)->surname);
+        printf("%d.%d.%d ", *((mas_s + i)->birthday), *((mas_s + i)->birthday + 1), *((mas_s + i)->birthday + 2));
+        for (int j = 0; j < (mas_s + i)->q_marks; j++)
+            printf("%d ", *((mas_s + i)->marks));
+        i++;
+    }
+
+#endif
+#if DEBUG == 0
     check = kill_lower_four_marks();
     if (check)
     {
