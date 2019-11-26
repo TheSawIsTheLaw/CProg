@@ -13,47 +13,53 @@
 #define KA_NILL_ERROR 200
 #define KI_PARAMS_ERROR 210
 #define KI_MEMORY_ERROR 211
-#define KI_EMPTY 212
 
-int kill_it(students *mas, const int i)
+int kill_it(students **mas, const int i, int *end_quan)
 {
     if (i < 0 || !mas)
         return KI_PARAMS_ERROR;
     int j = i;
-    free((mas + i)->group);
-    free((mas + i)->marks);
-    free((mas + i)->surname);
-    free((mas + i)->birthday);
-    free(mas + i);
-    while (strcmp((mas + j + 1)->group, "none"))
+    free((*mas + j)->group);
+    free((*mas + j)->marks);
+    free((*mas + j)->surname);
+    free((*mas + j)->birthday);
+    while (strcmp((*mas + j + 1)->group, "none"))
     {
-        *(mas + j) = *(mas + j + 1);
+        (*mas + j)->group = (*mas + j + 1)->group;
+        (*mas + j)->birthday = (*mas + j + 1)->birthday;
+        (*mas + j)->q_marks = (*mas + j + 1)->q_marks;
+        (*mas + j)->surname = (*mas + j + 1)->surname;
+        (*mas + j)->marks = (*mas + j + 1)->marks;
         j++;
     }
-    *(mas + j) = *(mas + j + 1);
-    free((mas + j + 1)->group);
-    free(mas + j + 1);
-    if (j == 0)
-        return KI_EMPTY;
-    students *new = realloc(mas, j * sizeof(students));
+    (*mas + j)->group = (*mas + j + 1)->group;
+    (*mas + j)->surname = NULL;
+    (*mas + j)->marks = NULL;
+    (*mas + j)->surname = NULL;
+    (*mas + j)->birthday = NULL;
+    (*mas + j + 1)->group = NULL;
+
+    *end_quan = j + 1;
+    students *new = realloc(*mas, (j + 1) * sizeof(students));
     if (!new)
         return KI_MEMORY_ERROR;
-    mas = new;
+    *mas = new;
     new = NULL;
 
     return SUCCESS;
 }
 
-int kill_adults(students *mas)
+int kill_adults(students **mas, int *ser_quan)
 {
-    if (!mas)
+    if (!mas || !*mas || !ser_quan)
         return KA_NILL_ERROR;
 
     int i = 0, check = 0;
 
-    while(strcmp((mas + i)->group, "none"))
+    while(strcmp((*mas + i)->group, "none"))
     {
-        if (!strcmp((mas + i)->group, "ИУ7-31Б"))
+        DEB("IN DA KILL")
+        if (!strcmp((*mas + i)->group, "ИУ7-31Б"))
         {
             /// !
             /// ! ВНИМАНИЕ! СЛЕДУЮЩИЕ ТРИ "ИФА" НЕ ДЛЯ СЛАБОНЕРВНЫХ!
@@ -63,17 +69,27 @@ int kill_adults(students *mas)
             /// ! (занятный факт: слово "распутица" действительно присутствует в английском языке)
             /// ! (но написал я его, конечно же, неправильно)
             /// !
-             if (CUR_YEAR - *((mas + i)->birthday + 2) > 17)
-                 check = kill_it(mas, i);
-             else if (CUR_YEAR - *((mas + i)->birthday + 2) == 17 && CUR_MONTH - *((mas + i)->birthday + 1) > 0)
-                 check = kill_it(mas, i);
-             /// ! Данный вариант развития событий не особо хотелось добавлять, но всё во имя универсальности!
-             else if (CUR_YEAR - *((mas + i)->birthday + 2) == 17 &&
-                 CUR_MONTH - *((mas + i)->birthday + 1) == 0 &&
-                 CUR_DAY - *((mas + i)->birthday) < 0)
-                 check = kill_it(mas, i);
-             if (check)
-                 return check;
+
+            if (CUR_YEAR - *((*mas + i)->birthday) > 17)
+            {
+                check = kill_it(mas, i, ser_quan);
+                i--;
+            }
+            else if (CUR_YEAR - *((*mas + i)->birthday) == 17 && CUR_MONTH - *((*mas + i)->birthday + 1) > 0)
+            {
+                check = kill_it(mas, i, ser_quan);
+                i--;
+            }
+            /// ! Данный вариант развития событий не особо хотелось добавлять, но всё во имя универсальности!
+            else if (CUR_YEAR - *((*mas + i)->birthday) == 17 &&
+                CUR_MONTH - *((*mas + i)->birthday + 1) == 0 &&
+                CUR_DAY - *((*mas + i)->birthday + 2) < 0)
+            {
+                check = kill_it(mas, i, ser_quan);
+                i--;
+            }
+            if (check)
+                return check;
         }
         i++;
     }

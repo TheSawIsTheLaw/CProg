@@ -15,7 +15,7 @@ int free_students(students **mas, int quan)
 
     int i = 0;
 
-    while (i < quan)
+    while (i < quan - 1)
     {
         if ((*mas + i)->group)
             free((*mas + i)->group);

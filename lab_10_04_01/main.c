@@ -61,13 +61,15 @@ int main(void)
             printf("%d ", *((mas_s + i)->marks));
         i++;
     }
-    check = kill_adults(mas_s);
+    int service_quan;
+    check = kill_adults(&mas_s, &service_quan);
     if (check)
     {
-        free_students(&mas_s);
+        free_students(&mas_s, service_quan);
         return check;
     }
 
+    i = 0;
     while (strcmp((mas_s + i)->group, "none"))
     {
         printf("%s %s ", (mas_s + i)->group, (mas_s + i)->surname);
