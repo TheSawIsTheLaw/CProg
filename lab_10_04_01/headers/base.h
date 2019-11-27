@@ -14,7 +14,7 @@ typedef struct
     char *surname;
     int *birthday;
     int q_marks;
-    int *marks;
+    float *marks;
 }students;
 
 int free_students();

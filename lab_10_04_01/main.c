@@ -58,7 +58,7 @@ int main(void)
         printf("%s %s ", (mas_s + i)->group, (mas_s + i)->surname);
         printf("%d.%d.%d ", *((mas_s + i)->birthday), *((mas_s + i)->birthday + 1), *((mas_s + i)->birthday + 2));
         for (int j = 0; j < (mas_s + i)->q_marks; j++)
-            printf("%d ", *((mas_s + i)->marks));
+            printf("%f ", *((mas_s + i)->marks) + j);
         i++;
     }
     int service_quan;
@@ -75,18 +75,27 @@ int main(void)
         printf("%s %s ", (mas_s + i)->group, (mas_s + i)->surname);
         printf("%d.%d.%d ", *((mas_s + i)->birthday), *((mas_s + i)->birthday + 1), *((mas_s + i)->birthday + 2));
         for (int j = 0; j < (mas_s + i)->q_marks; j++)
-            printf("%d ", *((mas_s + i)->marks));
+            printf("%f ", *((mas_s + i)->marks + j));
         i++;
     }
 
-#endif
-#if DEBUG == 0
-    check = kill_lower_four_marks();
+    check = kill_lower_four_marks(&mas_s);
     if (check)
     {
         free_students(&mas_s);
         return check;
     }
+    i = 0;
+    while (strcmp((mas_s + i)->group, "none"))
+    {
+        printf("%s %s ", (mas_s + i)->group, (mas_s + i)->surname);
+        printf("%d.%d.%d ", *((mas_s + i)->birthday), *((mas_s + i)->birthday + 1), *((mas_s + i)->birthday + 2));
+        for (int j = 0; j < (mas_s + i)->q_marks; j++)
+            printf("%f ", *((mas_s + i)->marks + j));
+        i++;
+    }
+#endif
+#if DEBUG == 0
 
     check = sort_by_key();
     if (check)

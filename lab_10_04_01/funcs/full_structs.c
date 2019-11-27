@@ -48,7 +48,7 @@ int full_structs(students **mas, FILE *f, int *out_quan)
     // Почему не статика? Нам запретили улыбаться и всячески радоваться жизни.
     // Neperevodimaya igra slov
     int *birth = calloc(MAX_BIRTH, sizeof(int));
-    int *marks = calloc(MAX_MARKS, sizeof(int));
+    float *marks = calloc(MAX_MARKS, sizeof(float));
 
     if (!gr || !surn || !birth || !marks)
         return FS_MEMORY_ERROR;
@@ -59,7 +59,7 @@ int full_structs(students **mas, FILE *f, int *out_quan)
 
     short flag = 1;
     int check, cur_pos, new_mq_marks;
-    int *new_i_m;
+    float *new_i_m;
 
     char* new_c;  // Переменная для расширения массивов char типа
 
@@ -266,7 +266,7 @@ int full_structs(students **mas, FILE *f, int *out_quan)
         if (new_mq_marks > mq_marks)
         {
             mq_marks = new_mq_marks;
-            new_i_m = realloc(marks, mq_marks * sizeof(int));
+            new_i_m = realloc(marks, mq_marks * sizeof(float));
             if (new_i_m)
             {
                 marks = new_i_m;
@@ -282,10 +282,10 @@ int full_structs(students **mas, FILE *f, int *out_quan)
                 return FS_MEMORY_ERROR;
             }
         }
-        int new_marks;
+        float new_marks;
         for (int i = 0; i < new_mq_marks; i++)
         {
-            check = fscanf(f, "%d", &new_marks);
+            check = fscanf(f, "%f", &new_marks);
             if (check != 1)
             {
                 free(gr);
@@ -357,8 +357,8 @@ int full_structs(students **mas, FILE *f, int *out_quan)
         // Marks
         (*mas + real_mas_quant)->q_marks = new_mq_marks;
 
-        (*mas + real_mas_quant)->marks = calloc(new_mq_marks, sizeof(int));
-        if (!((*mas + real_mas_quant)->birthday))
+        (*mas + real_mas_quant)->marks = calloc(new_mq_marks, sizeof(float));
+        if (!((*mas + real_mas_quant)->marks))
         {
             free(gr);
             free(surn);

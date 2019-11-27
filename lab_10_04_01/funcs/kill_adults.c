@@ -11,6 +11,8 @@
 #define SUCCESS 0
 
 #define KA_NILL_ERROR 200
+#define KA_SATAN_LOOP 201
+
 #define KI_PARAMS_ERROR 210
 #define KI_MEMORY_ERROR 211
 
@@ -73,11 +75,15 @@ int kill_adults(students **mas, int *ser_quan)
             if (CUR_YEAR - *((*mas + i)->birthday) > 17)
             {
                 check = kill_it(mas, i, ser_quan);
+                if (check)
+                    return check;
                 i--;
             }
             else if (CUR_YEAR - *((*mas + i)->birthday) == 17 && CUR_MONTH - *((*mas + i)->birthday + 1) > 0)
             {
                 check = kill_it(mas, i, ser_quan);
+                if (check)
+                    return check;
                 i--;
             }
             /// ! Данный вариант развития событий не особо хотелось добавлять, но всё во имя универсальности!
@@ -86,12 +92,17 @@ int kill_adults(students **mas, int *ser_quan)
                 CUR_DAY - *((*mas + i)->birthday + 2) < 0)
             {
                 check = kill_it(mas, i, ser_quan);
+                if (check)
+                    return check;
                 i--;
             }
             if (check)
                 return check;
         }
         i++;
+
+        if (i == 66666)
+            return KA_SATAN_LOOP;
     }
 
     return SUCCESS;
