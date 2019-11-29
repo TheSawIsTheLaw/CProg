@@ -22,10 +22,10 @@ int print_info(FILE *f, students *journal, int quan)
 
         fprintf(f, "%d.%d.%d\n", *((journal + i)->birthday), *((journal + i)->birthday + 1), *((journal + i)->birthday + 2));
 
-        fprintf(f, "%d ", (journal + i)->q_marks);
+        fprintf(f, "%d", (journal + i)->q_marks);
 
         for (int j = 0; j < (journal + i)->q_marks; j++)
-            fprintf(f, "%f ", *((journal + i)->marks + j));
+            fprintf(f, " %f", *((journal + i)->marks + j));
 
         fprintf(f, "\n");
 
