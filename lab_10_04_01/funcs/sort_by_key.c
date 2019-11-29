@@ -86,7 +86,7 @@ int merge_sort_students(students **mas, int quan, int (*comp)(students *, studen
                 // Пока не дошли до конца пути
                 // заполняем следующий элемент формируемой последовательности
                 // меньшим из двух просматриваемых
-                if (comp(*mas + i, *mas + j) < 0)
+                if (comp(*mas + i, *mas + j) <= 0)
                 {
                     DEB((*mas + i)->group)
                     (buf + k)->group = (*mas + i)->group;
@@ -95,6 +95,7 @@ int merge_sort_students(students **mas, int quan, int (*comp)(students *, studen
                     (buf + k)->q_marks = (*mas + i)->q_marks;
                     (buf + k)->birthday = (*mas + i)->birthday;
                     i++;
+                    k++;
                 }
                 else
                 {
@@ -105,8 +106,8 @@ int merge_sort_students(students **mas, int quan, int (*comp)(students *, studen
                     (buf + k)->q_marks = (*mas + j)->q_marks;
                     (buf + k)->birthday = (*mas + j)->birthday;
                     j++;
+                    k++;
                 }
-                k++;
             }
             while (i < step)
             {
