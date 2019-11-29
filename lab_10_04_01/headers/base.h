@@ -19,6 +19,8 @@ typedef struct
 
 int free_students();
 
+int free_students_without_none();
+
 int full_structs();
 
 int kill_adults();

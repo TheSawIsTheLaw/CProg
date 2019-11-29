@@ -26,7 +26,9 @@ int full_structs(students **mas, FILE *f, int *out_quan)
     if (!mas)
         return FS_NILL_ERROR;
 
-    unsigned long max_quant = MAX, real_mas_quant = 0;
+    unsigned long max_quant = MAX;
+
+    *out_quan = 0;
 
     students *new = realloc(*mas, max_quant * sizeof (students));
     if (new)
@@ -366,8 +368,8 @@ int full_structs(students **mas, FILE *f, int *out_quan)
         DEB("SENDING...")
 
         // Group
-        (*mas + real_mas_quant)->group = calloc(mq_gr, sizeof(char));
-        if (!((*mas + real_mas_quant)->group))
+        (*mas + *out_quan)->group = calloc(mq_gr, sizeof(char));
+        if (!((*mas + *out_quan)->group))
         {
             free(gr);
             free(surn);
@@ -376,61 +378,61 @@ int full_structs(students **mas, FILE *f, int *out_quan)
 
             return FS_MEMORY_ERROR;
         }
-        strcpy((*mas + real_mas_quant)->group, gr);
+        strcpy((*mas + *out_quan)->group, gr);
 
         // Surname
-        (*mas + real_mas_quant)->surname = calloc(mq_surn, sizeof(char));
-        if (!((*mas + real_mas_quant)->surname))
+        (*mas + *out_quan)->surname = calloc(mq_surn, sizeof(char));
+        if (!((*mas + *out_quan)->surname))
         {
             free(gr);
             free(surn);
             free(birth);
             free(marks);
 
-            //free((*mas + real_mas_quant)->group);
+            //free((*mas + *out_quan)->group);
 
             return FS_MEMORY_ERROR;
         }
-        strcpy((*mas + real_mas_quant)->surname, surn);
+        strcpy((*mas + *out_quan)->surname, surn);
 
         // Birthday
-        (*mas + real_mas_quant)->birthday = calloc(MAX_BIRTH, sizeof(int));
-        if (!((*mas + real_mas_quant)->birthday))
+        (*mas + *out_quan)->birthday = calloc(MAX_BIRTH, sizeof(int));
+        if (!((*mas + *out_quan)->birthday))
         {
             free(gr);
             free(surn);
             free(birth);
             free(marks);
 
-            free((*mas + real_mas_quant)->group);
-            free((*mas + real_mas_quant)->surname);
+            free((*mas + *out_quan)->group);
+            free((*mas + *out_quan)->surname);
 
             return FS_MEMORY_ERROR;
         }
 
-        *((*mas + real_mas_quant)->birthday) = birth[0];
-        *((*mas + real_mas_quant)->birthday + 1) = birth[1];
-        *((*mas + real_mas_quant)->birthday + 2) = birth[2];
+        *((*mas + *out_quan)->birthday) = birth[0];
+        *((*mas + *out_quan)->birthday + 1) = birth[1];
+        *((*mas + *out_quan)->birthday + 2) = birth[2];
 
         // Marks
-        (*mas + real_mas_quant)->q_marks = new_mq_marks;
+        (*mas + *out_quan)->q_marks = new_mq_marks;
 
-        (*mas + real_mas_quant)->marks = calloc(new_mq_marks, sizeof(float));
-        if (!((*mas + real_mas_quant)->marks))
+        (*mas + *out_quan)->marks = calloc(new_mq_marks, sizeof(float));
+        if (!((*mas + *out_quan)->marks))
         {
             free(gr);
             free(surn);
             free(birth);
             free(marks);
 
-            free((*mas + real_mas_quant)->group);
-            free((*mas + real_mas_quant)->surname);
+            free((*mas + *out_quan)->group);
+            free((*mas + *out_quan)->surname);
 
             return FS_MEMORY_ERROR;
         }
         for (int i = 0; i < new_mq_marks; i++)
-            *((*mas + real_mas_quant)->marks + i) = marks[i];
-        real_mas_quant++;
+            *((*mas + *out_quan)->marks + i) = marks[i];
+        (*out_quan)++;
 
         max_quant++; // Топорно, но уж лучше реаллокать, чем таскать за собой длину массива структур
         new = realloc(*mas, max_quant * sizeof(students));
@@ -446,33 +448,36 @@ int full_structs(students **mas, FILE *f, int *out_quan)
             free(birth);
             free(marks);
 
-            free((*mas + real_mas_quant)->group);
-            free((*mas + real_mas_quant)->surname);
-            free((*mas + real_mas_quant)->birthday);
+            free((*mas + *out_quan)->group);
+            free((*mas + *out_quan)->surname);
+            free((*mas + *out_quan)->birthday);
 
             return FS_MEMORY_ERROR;
         }
     }
 
     // В конце следует добавить конечное поле с none, чтобы иметь понятие, где оное кончается
-    (*mas + real_mas_quant)->group = calloc(5, sizeof(char));
-    if (!((*mas + real_mas_quant)->group))
+    (*mas + *out_quan)->group = calloc(5, sizeof(char));
+    if (!((*mas + *out_quan)->group))
     {
         free(gr);
         free(surn);
         free(birth);
         free(marks);
 
+        free((*mas + *out_quan)->group);
+        free((*mas + *out_quan)->surname);
+        free((*mas + *out_quan)->birthday);
+        free((*mas + *out_quan)->marks);
+
         return FS_MEMORY_ERROR;
     }
-    strcpy((*mas + real_mas_quant)->group, "none");
+    strcpy((*mas + *out_quan)->group, "none");
 
     free(gr);
     free(surn);
     free(birth);
     free(marks);
-
-    *out_quan = real_mas_quant;
 
     return SUCCESS;
 }

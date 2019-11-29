@@ -50,7 +50,7 @@ int main(void)
     int check = full_structs(&mas_s, f_in, &fr_quan);
     if (check)
     {
-        free(mas_s);
+        free_students_without_none(&mas_s, fr_quan);
         return check;
     }
 #if DEBUG == 1
