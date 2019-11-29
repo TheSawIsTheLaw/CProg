@@ -19,6 +19,7 @@
 #define FS_NILL_ERROR 101
 #define FS_MEMORY_ERROR 102
 #define FS_SCANF_ERROR 103
+#define FS_DATE_ERROR 104
 
 int full_structs(students **mas, FILE *f, int *out_quan)
 {
@@ -245,9 +246,69 @@ int full_structs(students **mas, FILE *f, int *out_quan)
 
             return FS_SCANF_ERROR;
         }
-        /// !
-        /// ! ТУТ МОГЛА БЫТЬ ВАША РЕКЛАМА (ИЛИ ПРОВЕРКА)
-        /// !
+
+        if (*birth < 1 || *(birth + 1) < 1 || *(birth + 2) < 1)
+        {
+            free(gr);
+            free(surn);
+            free(birth);
+            free(marks);
+
+            return FS_DATE_ERROR;
+        }
+
+        if (*(birth + 1) == 1 || *(birth + 1) == 3 || *(birth + 1) == 5 || *(birth + 1) == 7 ||
+           *(birth + 1) == 8 || *(birth + 1) == 10 || *(birth + 1) == 12)
+        {
+             if (*(birth + 2) > 31)
+             {
+                 free(gr);
+                 free(surn);
+                 free(birth);
+                 free(marks);
+
+                 return FS_DATE_ERROR;
+             }
+        }
+        else if (*(birth + 1) == 4 || *(birth + 1) == 6 || *(birth + 1) == 9 || *(birth + 1) == 11)
+        {
+            if (*(birth + 2) > 30)
+            {
+                free(gr);
+                free(surn);
+                free(birth);
+                free(marks);
+
+                return FS_DATE_ERROR;
+            }
+        }
+        else if (*(birth + 1) == 2)
+        {
+            if (*birth % 4 == 0 && *birth % 100 != 0 && *birth % 400 == 0)
+            {
+                if (*(birth + 2) > 29)
+                {
+                    free(gr);
+                    free(surn);
+                    free(birth);
+                    free(marks);
+
+                    return FS_DATE_ERROR;
+                }
+            }
+            else
+            {
+                if (*(birth + 2) > 28)
+                {
+                    free(gr);
+                    free(surn);
+                    free(birth);
+                    free(marks);
+
+                    return FS_DATE_ERROR;
+                }
+            }
+        }
 
         /// ! Работа с полем оценок
         /// ! Work with marks field
