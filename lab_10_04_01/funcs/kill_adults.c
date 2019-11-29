@@ -12,6 +12,7 @@
 
 #define KA_NILL_ERROR 200
 #define KA_SATAN_LOOP 201
+#define KA_GO_TO_ZERO_ERROR 202
 
 #define KI_PARAMS_ERROR 210
 #define KI_MEMORY_ERROR 211
@@ -105,6 +106,9 @@ int kill_adults(students **mas, int *ser_quan)
         if (i == 66666)
             return KA_SATAN_LOOP;
     }
+    if (!i)
+        return KA_GO_TO_ZERO_ERROR;
+
     *ser_quan = i;
 
     return SUCCESS;

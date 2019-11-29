@@ -258,17 +258,17 @@ int full_structs(students **mas, FILE *f, int *out_quan)
         }
 
         if (*(birth + 1) == 1 || *(birth + 1) == 3 || *(birth + 1) == 5 || *(birth + 1) == 7 ||
-           *(birth + 1) == 8 || *(birth + 1) == 10 || *(birth + 1) == 12)
+            *(birth + 1) == 8 || *(birth + 1) == 10 || *(birth + 1) == 12)
         {
-             if (*(birth + 2) > 31)
-             {
-                 free(gr);
-                 free(surn);
-                 free(birth);
-                 free(marks);
+            if (*(birth + 2) > 31)
+            {
+                free(gr);
+                free(surn);
+                free(birth);
+                free(marks);
 
-                 return FS_DATE_ERROR;
-             }
+                return FS_DATE_ERROR;
+            }
         }
         else if (*(birth + 1) == 4 || *(birth + 1) == 6 || *(birth + 1) == 9 || *(birth + 1) == 11)
         {

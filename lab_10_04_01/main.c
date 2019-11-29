@@ -64,7 +64,7 @@ int main(void)
         i++;
     }
 #endif
-    int service_quan;
+    int service_quan = 0;
     check = kill_adults(&mas_s, &service_quan);
     if (check)
     {
@@ -134,7 +134,7 @@ int main(void)
     check = print_info(f_s_out, mas_s, service_quan);
     if (check)
     {
-        free_students(&mas_s);
+        free_students(&mas_s, service_quan);
         return check;
     }
 

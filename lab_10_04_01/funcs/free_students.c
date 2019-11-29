@@ -5,6 +5,7 @@
 #include "../headers/base.h"
 
 #define NULL_ERROR -666666
+#define FS_EMPTY_ERROR -100
 
 #define SUCCESS 0
 
@@ -35,6 +36,9 @@ int free_students(students **mas, int quan)
         free((*mas + i)->group);
 
     free(*mas);
+
+    if (!quan)
+        return FS_EMPTY_ERROR;
 
     return SUCCESS;
 }
