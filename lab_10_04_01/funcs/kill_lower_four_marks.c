@@ -19,7 +19,7 @@ int kill_lower_four_marks(students **mas)
 
     float *new;
 
-    while(strcmp((*mas + i)->group, "none"))
+    while (strcmp((*mas + i)->group, "none"))
     {
         for (int j = 0; j < (*mas + i)->q_marks; j++)
         {

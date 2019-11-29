@@ -20,7 +20,7 @@ int print_info(FILE *f, students *journal, int quan)
 
         fprintf(f, "%s\n", (journal + i)->surname);
 
-        fprintf(f, "%d.%d.%d\n", *((journal + i)->birthday), *((journal + i)->birthday + 1), *((journal + i)->birthday + 2));
+        fprintf(f, "3 %d %d %d\n", *((journal + i)->birthday), *((journal + i)->birthday + 1), *((journal + i)->birthday + 2));
 
         fprintf(f, "%d ", (journal + i)->q_marks);
 

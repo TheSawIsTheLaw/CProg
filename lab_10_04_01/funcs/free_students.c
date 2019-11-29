@@ -32,7 +32,7 @@ int free_students(students **mas, int quan)
         i++;
     }
     if ((*mas + i)->group)
-                free((*mas + i)->group);
+        free((*mas + i)->group);
 
     free(*mas);
 

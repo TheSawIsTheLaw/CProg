@@ -59,7 +59,7 @@ int kill_adults(students **mas, int *ser_quan)
 
     int i = 0, check = 0;
 
-    while(strcmp((*mas + i)->group, "none"))
+    while (strcmp((*mas + i)->group, "none"))
     {
         DEB("IN DA KILL")
         if (!strcmp((*mas + i)->group, TO_KILL))

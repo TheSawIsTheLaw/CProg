@@ -61,7 +61,7 @@ int full_structs(students **mas, FILE *f, int *out_quan)
     int check, cur_pos, new_mq_marks;
     float *new_i_m;
 
-    char* new_c;  // Переменная для расширения массивов char типа
+    char *new_c;  // Переменная для расширения массивов char типа
 
     while (flag)
     {
@@ -152,7 +152,6 @@ int full_structs(students **mas, FILE *f, int *out_quan)
         if (!strcmp("none", gr))
         {
             flag = 0; // Да, это смешно. Но мне бы иначе сказали, что у меня цикл бесконечный. Ага.
-
             break;
         }
 
