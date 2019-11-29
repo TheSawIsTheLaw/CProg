@@ -26,7 +26,10 @@
 #include "headers/base.h"
 
 #define MEMORY_ERROR 666
+#define SCANF_ERROR 777
 #define SUCCESS 0
+
+#define KEY_QUANTITY 8
 
 // Задание файловых переменных для ввода/вывода
 #define F_IN stdin
@@ -50,7 +53,6 @@ int main(void)
         free(mas_s);
         return check;
     }
-
 #if DEBUG == 1
     int i = 0;
     while (strcmp((mas_s + i)->group, "none"))
@@ -61,6 +63,7 @@ int main(void)
             printf("%f ", *((mas_s + i)->marks) + j);
         i++;
     }
+#endif
     int service_quan;
     check = kill_adults(&mas_s, &service_quan);
     if (check)
@@ -69,6 +72,7 @@ int main(void)
         return check;
     }
 
+#if DEBUG == 1
     i = 0;
     while (strcmp((mas_s + i)->group, "none"))
     {
@@ -78,13 +82,15 @@ int main(void)
             printf("%f ", *((mas_s + i)->marks + j));
         i++;
     }
+#endif
 
     check = kill_lower_four_marks(&mas_s);
     if (check)
     {
-        free_students(&mas_s);
+        free_students(&mas_s, service_quan);
         return check;
     }
+#if DEBUG == 1
     i = 0;
     while (strcmp((mas_s + i)->group, "none"))
     {
@@ -95,24 +101,46 @@ int main(void)
         i++;
     }
 #endif
-#if DEBUG == 0
 
-    check = sort_by_key();
-    if (check)
+    char key[KEY_QUANTITY];
+    check = fscanf(F_IN, "%s", key);
+
+    if (check != 1)
     {
-        free_students(&mas_s);
-        return check;
+        free_students(&mas_s, service_quan);
+        return SCANF_ERROR;
     }
 
-    check = print_info();
+    check = sort_by_key(key, &mas_s, service_quan);
     if (check)
     {
-        free_students(&mas_s);
+        free_students(&mas_s, service_quan);
         return check;
     }
-
+#if DEBUG == 1
+    i = 0;
+    while (i < service_quan)
+    {
+        printf("%s %s ", (mas_s + i)->group, (mas_s + i)->surname);
+        printf("%d.%d.%d ", *((mas_s + i)->birthday), *((mas_s + i)->birthday + 1), *((mas_s + i)->birthday + 2));
+        for (int j = 0; j < (mas_s + i)->q_marks; j++)
+            printf("%f ", *((mas_s + i)->marks + j));
+        i++;
+    }
 #endif
-    check = free_students(&mas_s, fr_quan);
+
+    FILE *f_s_out = fopen("students.txt", "w");
+
+    check = print_info(f_s_out, mas_s, service_quan);
+    if (check)
+    {
+        free_students(&mas_s);
+        return check;
+    }
+
+    fclose(f_s_out);
+
+    check = free_students(&mas_s, service_quan);
     if (check)
         return check;
 

@@ -1,6 +1,6 @@
 #ifndef __BASE_H__
 #define __BASE_H__
-#define DEBUG 1
+#define DEBUG 0
 
 #if DEBUG == 1
 #define DEB(s) printf("\nDEBUGGING_VALUE\n%s\nEND_DEB\n",s);

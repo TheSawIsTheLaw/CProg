@@ -8,6 +8,7 @@
 
 #define SUCCESS 0
 
+
 int free_students(students **mas, int quan)
 {
     if (!mas)
@@ -15,7 +16,7 @@ int free_students(students **mas, int quan)
 
     int i = 0;
 
-    while (i < quan - 1)
+    while (i < quan)
     {
         if ((*mas + i)->group)
             free((*mas + i)->group);
@@ -30,7 +31,8 @@ int free_students(students **mas, int quan)
             free((*mas + i)->marks);
         i++;
     }
-    free((*mas + i)->group);
+    if ((*mas + i)->group)
+                free((*mas + i)->group);
 
     free(*mas);
 

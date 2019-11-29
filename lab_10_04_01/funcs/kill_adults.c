@@ -16,7 +16,9 @@
 #define KI_PARAMS_ERROR 210
 #define KI_MEMORY_ERROR 211
 
-int kill_it(students **mas, const int i, int *end_quan)
+#define TO_KILL "ИУ7-31Б"
+
+int kill_it(students **mas, const int i)
 {
     if (i < 0 || !mas)
         return KI_PARAMS_ERROR;
@@ -41,7 +43,6 @@ int kill_it(students **mas, const int i, int *end_quan)
     (*mas + j)->birthday = NULL;
     (*mas + j + 1)->group = NULL;
 
-    *end_quan = j + 1;
     students *new = realloc(*mas, (j + 1) * sizeof(students));
     if (!new)
         return KI_MEMORY_ERROR;
@@ -61,7 +62,7 @@ int kill_adults(students **mas, int *ser_quan)
     while(strcmp((*mas + i)->group, "none"))
     {
         DEB("IN DA KILL")
-        if (!strcmp((*mas + i)->group, "ИУ7-31Б"))
+        if (!strcmp((*mas + i)->group, TO_KILL))
         {
             /// !
             /// ! ВНИМАНИЕ! СЛЕДУЮЩИЕ ТРИ "ИФА" НЕ ДЛЯ СЛАБОНЕРВНЫХ!
@@ -74,14 +75,14 @@ int kill_adults(students **mas, int *ser_quan)
 
             if (CUR_YEAR - *((*mas + i)->birthday) > 17)
             {
-                check = kill_it(mas, i, ser_quan);
+                check = kill_it(mas, i);
                 if (check)
                     return check;
                 i--;
             }
             else if (CUR_YEAR - *((*mas + i)->birthday) == 17 && CUR_MONTH - *((*mas + i)->birthday + 1) > 0)
             {
-                check = kill_it(mas, i, ser_quan);
+                check = kill_it(mas, i);
                 if (check)
                     return check;
                 i--;
@@ -91,7 +92,7 @@ int kill_adults(students **mas, int *ser_quan)
                 CUR_MONTH - *((*mas + i)->birthday + 1) == 0 &&
                 CUR_DAY - *((*mas + i)->birthday + 2) < 0)
             {
-                check = kill_it(mas, i, ser_quan);
+                check = kill_it(mas, i);
                 if (check)
                     return check;
                 i--;
@@ -104,6 +105,7 @@ int kill_adults(students **mas, int *ser_quan)
         if (i == 66666)
             return KA_SATAN_LOOP;
     }
+    *ser_quan = i;
 
     return SUCCESS;
 }
