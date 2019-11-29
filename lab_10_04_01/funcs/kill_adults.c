@@ -106,8 +106,6 @@ int kill_adults(students **mas, int *ser_quan)
         if (i == 66666)
             return KA_SATAN_LOOP;
     }
-    if (!i)
-        return KA_GO_TO_ZERO_ERROR;
 
     *ser_quan = i;
 
