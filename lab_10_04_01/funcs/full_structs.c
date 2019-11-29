@@ -257,8 +257,7 @@ int full_structs(students **mas, FILE *f, int *out_quan)
             return FS_DATE_ERROR;
         }
 
-        if (*(birth + 1) == 1 || *(birth + 1) == 3 || *(birth + 1) == 5 || *(birth + 1) == 7 ||
-            *(birth + 1) == 8 || *(birth + 1) == 10 || *(birth + 1) == 12)
+        if (*(birth + 1) == 1 || *(birth + 1) == 3 || *(birth + 1) == 5 || *(birth + 1) == 7 || *(birth + 1) == 8 || *(birth + 1) == 10 || *(birth + 1) == 12)
         {
             if (*(birth + 2) > 31)
             {

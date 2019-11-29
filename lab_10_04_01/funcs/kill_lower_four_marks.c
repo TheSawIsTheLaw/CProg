@@ -27,8 +27,6 @@ int kill_lower_four_marks(students **mas)
             if (*((*mas + i)->marks + j) < 4)
             {
                 (*mas + i)->q_marks = (*mas + i)->q_marks - 1;
-                if (!(*mas + i)->q_marks)
-                    return KLFM_EMPTY_ERROR;
                 for (int k = j; k < (*mas + i)->q_marks; k++)
                     *((*mas + i)->marks + k) = *((*mas + i)->marks + k + 1);
                 flag = 1;
