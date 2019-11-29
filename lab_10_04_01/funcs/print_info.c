@@ -14,7 +14,7 @@ int print_info(FILE *f, students *journal, int quan)
 
     int i = 0;
 
-    while (i < quan - 1)
+    while (i < quan)
     {
         fprintf(f, "%s\n", (journal + i)->group);
 
