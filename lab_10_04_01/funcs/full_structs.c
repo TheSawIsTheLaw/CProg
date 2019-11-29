@@ -233,7 +233,6 @@ int full_structs(students **mas, FILE *f, int *out_quan)
         DEB(surn)
 
         /// ! Работа с полем датой рождения
-        /// ! ALARM! На данном этапе отладка с восприятием 31-го февраля не произведена!
         /// ! Work with birthday field
         DEB("BIRTHDAY STARTED")
         check = fscanf(f, "%d.%d.%d", birth, birth + 1, birth + 2);
@@ -247,7 +246,7 @@ int full_structs(students **mas, FILE *f, int *out_quan)
             return FS_SCANF_ERROR;
         }
 
-        if (*birth < 1 || *(birth + 1) < 1 || *(birth + 2) < 1)
+        if (*birth < 0 || *(birth + 1) < 1 || *(birth + 2) < 1)
         {
             free(gr);
             free(surn);
@@ -283,7 +282,7 @@ int full_structs(students **mas, FILE *f, int *out_quan)
         }
         else if (*(birth + 1) == 2)
         {
-            if (*birth % 4 == 0 && *birth % 100 != 0 && *birth % 400 == 0)
+            if (*birth % 4 == 0 && (*birth % 100 != 0 || *birth % 400 == 0))
             {
                 if (*(birth + 2) > 29)
                 {
