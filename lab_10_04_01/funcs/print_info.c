@@ -27,6 +27,8 @@ int print_info(FILE *f, students *journal, int quan)
         for (int j = 0; j < (journal + i)->q_marks; j++)
             fprintf(f, "%f ", *((journal + i)->marks + j));
 
+        fprintf(f, "\n");
+
         i++;
     }
 
