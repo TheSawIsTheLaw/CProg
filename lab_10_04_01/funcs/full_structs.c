@@ -366,7 +366,7 @@ int full_structs(students **mas, FILE *f, int *out_quan)
 
             return FS_SCANF_ERROR;
         }
-        if (new_mq_marks <= 0)
+        if (new_mq_marks <= 1)
         {
             free(gr);
             free(surn);
