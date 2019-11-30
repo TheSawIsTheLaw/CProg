@@ -20,6 +20,7 @@
 #define FS_MEMORY_ERROR 102
 #define FS_SCANF_ERROR 103
 #define FS_DATE_ERROR 104
+#define FS_Q_MARKS_ERROR 105
 
 int full_structs(students **mas, FILE *f, int *out_quan)
 {
@@ -248,7 +249,7 @@ int full_structs(students **mas, FILE *f, int *out_quan)
             return FS_SCANF_ERROR;
         }
 
-        if (*birth < 0 || *(birth + 1) < 1 || *(birth + 2) < 1)
+        if (*birth < 1 || *(birth + 1) < 1 || *(birth + 2) < 1)
         {
             free(gr);
             free(surn);
@@ -322,6 +323,15 @@ int full_structs(students **mas, FILE *f, int *out_quan)
             free(marks);
 
             return FS_SCANF_ERROR;
+        }
+        if (new_mq_marks <= 0)
+        {
+            free(gr);
+            free(surn);
+            free(birth);
+            free(marks);
+
+            return FS_Q_MARKS_ERROR;
         }
         if (new_mq_marks > mq_marks)
         {
