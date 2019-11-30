@@ -103,7 +103,7 @@ int main(void)
 #endif
 
     char key[KEY_QUANTITY];
-    check = fscanf(F_IN, "%s", key);
+    check = fscanf(F_IN, "%s", key);  // Безопасности - нет. Страха - нет.
 
     if (check != 1)
     {

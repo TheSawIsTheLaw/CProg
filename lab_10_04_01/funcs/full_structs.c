@@ -22,6 +22,7 @@
 #define FS_DATE_ERROR 104
 #define FS_Q_MARKS_ERROR 105
 #define FS_NEW_MARK_ERROR 106
+#define FS_SURNAME_ERROR 107
 
 int full_structs(students **mas, FILE *f, int *out_quan)
 {
@@ -171,6 +172,15 @@ int full_structs(students **mas, FILE *f, int *out_quan)
 
             return FS_SCANF_ERROR;
         }
+        if ((cur_c < 65 || cur_c > 122) && cur_c != 10)
+        {
+            free(gr);
+            free(surn);
+            free(birth);
+            free(marks);
+
+            return FS_SURNAME_ERROR;
+        }
         cur_pos = 0;
 
         /// ! Работа с полем имени
@@ -210,6 +220,15 @@ int full_structs(students **mas, FILE *f, int *out_quan)
                 free(marks);
 
                 return FS_SCANF_ERROR;
+            }
+            if ((cur_c < 65 || cur_c > 122) && cur_c != 10)
+            {
+                free(gr);
+                free(surn);
+                free(birth);
+                free(marks);
+
+                return FS_SURNAME_ERROR;
             }
         }
         if (cur_pos == mq_surn - 1)
@@ -366,7 +385,7 @@ int full_structs(students **mas, FILE *f, int *out_quan)
 
                 return FS_SCANF_ERROR;
             }
-            if (new_marks <= 0 || new_marks > 5)
+            if (new_marks <= 0)
             {
                 free(gr);
                 free(surn);
