@@ -12,10 +12,6 @@
 #define MAX_BIRTH 3
 #define MAX_MARKS 10
 
-#define CURRENT_YEAR 2019
-#define CURRENT_MONTH 11
-#define CURRENT_DAY 1
-
 #define CODE_CHAR 48
 #define CODE_SPACE 38
 
@@ -273,25 +269,7 @@ int full_structs(students **mas, FILE *f, int *out_quan)
             return FS_SCANF_ERROR;
         }
 
-        if (*birth < 1 || *(birth + 1) < 1 || *(birth + 2) < 1 || *birth > CURRENT_YEAR)
-        {
-            free(gr);
-            free(surn);
-            free(birth);
-            free(marks);
-
-            return FS_DATE_ERROR;
-        }
-        if (*birth == CURRENT_YEAR && *(birth + 1) > CURRENT_MONTH)
-        {
-            free(gr);
-            free(surn);
-            free(birth);
-            free(marks);
-
-            return FS_DATE_ERROR;
-        }
-        if (*birth == CURRENT_YEAR && *(birth + 1) == CURRENT_MONTH && *(birth + 2) > CURRENT_DAY)
+        if (*birth < 1 || *(birth + 1) < 1 || *(birth + 2) < 1)
         {
             free(gr);
             free(surn);
