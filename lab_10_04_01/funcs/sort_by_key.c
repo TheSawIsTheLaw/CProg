@@ -152,7 +152,7 @@ int merge_sort_students(students **mas, int quan, int (*comp)(students *, studen
 
 int sort_by_key(char *key, students **mas, int quan)
 {
-    if (quan < 0)
+    if (quan <= 0)
         return SBK_DATA_ERROR;
     else if (quan <= 1)
         return SUCCESS;
