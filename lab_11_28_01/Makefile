@@ -2,7 +2,7 @@ app.exe: main.o my_snprintf.o
 	gcc -std=c99 -Wall -Werror -o app.exe main.o my_snprintf.o 
 
 test.exe: test.o my_snprintf.o
-	gcc -std=c99 -Wall -Werror -o test.exe test.o my_snprinf.o
+	gcc -std=c99 -Wall -Werror -o test.exe test.o my_snprintf.o
 	
 main.o: main.c
 	gcc -std=c99 -c -Wall -Werror -o main.o main.c
