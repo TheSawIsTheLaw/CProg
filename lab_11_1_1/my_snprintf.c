@@ -14,10 +14,12 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
     va_list argptr;
     va_start(argptr, format);
 
+    DEB("Заход")
     size_t i = 0, b_i = 0;
 
     while (*(format + i) != '\0' && b_i < n)
     {
+        DEB("Проход")
         if (*(format + i) == '%')
         {
             i++;
@@ -25,11 +27,13 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 continue;
             else if (*(format + i) == 'd')
             {
+                DEB("%d")
                 int num = va_arg(argptr, int);
                 if (num == 0)
                 {
                     *(buf + b_i) = '0';
                     b_i++;
+                    i++;
                     continue;
                 }
                 int mas_num[10], q_mas = 0;
@@ -41,6 +45,8 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                     if (b_i >= n)
                         continue;
                 }
+                if (num == 0)
+                    i++;
                 while (num != 0)
                 {
                     mas_num[q_mas] = num % 10;
@@ -48,7 +54,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                     num = num / 10;
                 }
                 q_mas--;
-                for (int j = q_mas; j >= 0; j++)
+                for (int j = q_mas; j >= 0; j--)
                 {
                     *(buf + b_i) = (char)(mas_num[j] + ZERO);
                     b_i++;
@@ -58,6 +64,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
             }
             else if (*(format + i) == 'i')
             {
+                DEB("%i")
                 int num = va_arg(argptr, int);
                 if (num == 0)
                 {
@@ -81,7 +88,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                     num = num / 10;
                 }
                 q_mas--;
-                for (int j = q_mas; j >= 0; j++)
+                for (int j = q_mas; j >= 0; j--)
                 {
                     *(buf + b_i) = (char)(mas_num[j] + ZERO);
                     b_i++;
@@ -91,6 +98,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
             }
             else if (*(format + i) == 'x')
             {
+                DEB("%x")
                 uint32_t num = va_arg(argptr, uint32_t);
                 uint32_t mas[8];
                 if (num == 0)
@@ -122,6 +130,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                     continue;
                 else if (*(format + i) == 'd')
                 {
+                    DEB("%ld")
                     long int num = va_arg(argptr, long int);
                     if (num == 0)
                     {
@@ -145,7 +154,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                         num = num / 10;
                     }
                     q_mas--;
-                    for (int j = q_mas; j >= 0; j++)
+                    for (int j = q_mas; j >= 0; j--)
                     {
                         *(buf + b_i) = (char)(mas_num[j] + ZERO);
                         b_i++;
@@ -155,6 +164,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 }
                 else if (*(format + i) == 'i')
                 {
+                    DEB("%li")
                     int num = va_arg(argptr, int);
                     if (num == 0)
                     {
@@ -178,7 +188,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                         num = num / 10;
                     }
                     q_mas--;
-                    for (int j = q_mas; j >= 0; j++)
+                    for (int j = q_mas; j >= 0; j--)
                     {
                         *(buf + b_i) = (char)(mas_num[j] + ZERO);
                         b_i++;
@@ -188,6 +198,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 }
                 else if (*(format + i) == 'x')
                 {
+                    DEB("%lx")
                     uint64_t num = va_arg(argptr, uint64_t);
                     uint64_t mas[20];
                     if (num == 0)
@@ -222,6 +233,11 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
             i++;
         }
     }
+
+    if (b_i < n)
+        *(buf + b_i) = '\0';
+    else
+        *(buf + b_i - 1) = '\0';
 
     va_end(argptr);
 
