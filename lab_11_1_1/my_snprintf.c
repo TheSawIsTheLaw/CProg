@@ -68,6 +68,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 int num = va_arg(argptr, int);
                 if (num == 0)
                 {
+                    i++;
                     *(buf + b_i) = '0';
                     b_i++;
                     continue;
@@ -114,8 +115,9 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                     num = num / 16;
                 }
                 q_mas--;
+
                 char hex_pudge[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
-                for (int j = q_mas; j >= 0; j++)
+                for (int j = q_mas; j >= 0; j--)
                 {
                     *(buf + b_i) = hex_pudge[mas[j]];
                     b_i++;
@@ -131,9 +133,10 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 else if (*(format + i) == 'd')
                 {
                     DEB("%ld")
-                    long int num = va_arg(argptr, long int);
+                    uint32_t num = va_arg(argptr, uint32_t);
                     if (num == 0)
                     {
+                        i++;
                         *(buf + b_i) = '0';
                         b_i++;
                         continue;
@@ -165,9 +168,10 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 else if (*(format + i) == 'i')
                 {
                     DEB("%li")
-                    int num = va_arg(argptr, int);
+                    uint32_t num = va_arg(argptr, uint32_t);
                     if (num == 0)
                     {
+                        i++;
                         *(buf + b_i) = '0';
                         b_i++;
                         continue;
@@ -199,8 +203,8 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 else if (*(format + i) == 'x')
                 {
                     DEB("%lx")
-                    uint64_t num = va_arg(argptr, uint64_t);
-                    uint64_t mas[20];
+                    uint32_t num = va_arg(argptr, uint32_t);
+                    uint32_t mas[20];
                     if (num == 0)
                     {
                         *(buf + b_i) = '0';
@@ -214,6 +218,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                         num = num / 16;
                     }
                     q_mas--;
+
                     char hex_pudge[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
                     for (int j = q_mas; j >= 0; j++)
                     {
