@@ -48,7 +48,10 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 }
                 if (num == 0)
                     i++;
-                if (num < 0)
+                // А теперь я хочу вот что сказать.
+                // Это ненормально.
+                // Спасибо за внимание.
+                if (num < 0) // ПЕРЕПОЛНЕНИЕ
                 {
                     mas_num[q_mas] = 8;
                     q_mas++;
@@ -76,10 +79,10 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 int num = va_arg(argptr, int);
                 if (num == 0)
                 {
-                    i++;
                     if (b_i < n && buf && n)
                         *(buf + b_i) = '0';
                     b_i++;
+                    i++;
                     continue;
                 }
                 int mas_num[10], q_mas = 0;
@@ -89,6 +92,19 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                     if (b_i < n && buf && n)
                         *(buf + b_i) = '-';
                     b_i++;
+                }
+                if (num == 0)
+                    i++;
+                // А теперь я хочу вот что сказать.
+                // Это ненормально.
+                // Спасибо за внимание.
+                if (num < 0) // ПЕРЕПОЛНЕНИЕ
+                {
+                    mas_num[q_mas] = 8;
+                    q_mas++;
+                    num++;
+                    num *= -1;
+                    num = num / 10;
                 }
                 while (num != 0)
                 {
