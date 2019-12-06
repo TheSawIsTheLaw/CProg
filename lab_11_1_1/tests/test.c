@@ -7,10 +7,13 @@
 int main(void)
 {
     char buf_f[30] = { 0 }, buf_s[30] = { 0 };
+    int check = 0;
 
-    snprintf(buf_f, 30, "death\n %d sounds like", 0);
+    check = snprintf(buf_f, 30, "death\n %d sounds like", 0);
+    printf("\\\\nCHEK = %d\n\\", check);
 
-    my_snprintf(buf_s, 30, "death\n %d sounds like", 0);
+    check = my_snprintf(buf_s, 30, "death\n %d sounds like", 0);
+    printf("\\\\nCHEK = %d\n\\", check);
 
     printf("%s %s\n", buf_f, buf_s);
 
@@ -24,9 +27,11 @@ int main(void)
 
     printf("strcmp %d\n", strcmp(buf_f, buf_s));
 
-    snprintf(buf_f, 30, "%d", 2147483647);
+    check = snprintf(buf_f, 30, "%d", 2147483647);
+    printf("\\\\nCHEK = %d\n\\", check);
 
-    my_snprintf(buf_s, 30, "%d", 2147483647);
+    check = my_snprintf(buf_s, 30, "%d", 2147483647);
+    printf("\\\\nCHEK = %d\n\\", check);
 
     printf("%s %s\n", buf_f, buf_s);
 

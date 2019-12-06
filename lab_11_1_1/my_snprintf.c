@@ -6,7 +6,7 @@
 #define ZERO 48
 #define NINE 57
 
-int my_snprintf(char *buf, size_t n, const char *format, ...)
+int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
 {
     if (!buf || !format || n <= 0)
         return 0;
@@ -246,6 +246,6 @@ int my_snprintf(char *buf, size_t n, const char *format, ...)
 
     va_end(argptr);
 
-    return 0;
+    return b_i;
 }
 
