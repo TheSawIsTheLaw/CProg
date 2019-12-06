@@ -1,150 +1,55 @@
-#include <stdio.h>
-#include <string.h>
-#include <inttypes.h>
-#include "../my_snprintf.h"
 #include "tests.h"
+
+#define POS_TESTS 4
+#define NEG_TESTS 3
 
 int main(void)
 {
-    char buf_f[30] = { 0 }, buf_s[30] = { 0 };
-    int check = 0;
-
-    check = snprintf(buf_f, 30, "death\n %d sounds like", 0);
-    printf("\\\\nCHEK = %d\n\\", check);
-
-    check = my_snprintf(buf_s, 30, "death\n %d sounds like", 0);
-    printf("\\\\nCHEK = %d\n\\", check);
-
-    printf("%s %s\n", buf_f, buf_s);
-
-    printf("strcmp %d\n", strcmp(buf_f, buf_s));
-
-    snprintf(buf_f, 30, "%dlel lel%d lel%dlel", 1, 2, 3);
-
-    my_snprintf(buf_s, 30, "%dlel lel%d lel%dlel", 1, 2, 3);
-
-    printf("%s %s\n", buf_f, buf_s);
-
-    printf("strcmp %d\n", strcmp(buf_f, buf_s));
-
-    check = snprintf(buf_f, 30, "%d", 2147483647);
-    printf("\\\\nCHEK = %d\n\\", check);
-
-    check = my_snprintf(buf_s, 30, "%d", 2147483647);
-    printf("\\\\nCHEK = %d\n\\", check);
-
-    printf("%s %s\n", buf_f, buf_s);
-
-    printf("strcmp %d\n", strcmp(buf_f, buf_s));
-
-    snprintf(buf_f, 30, "      %d %d", -2147483647, 2147483647);
-
-    my_snprintf(buf_s, 30, "      %d %d", -2147483647, 2147483647);
-
-    printf("%s %s\n", buf_f, buf_s);
-
-    printf("strcmp %d\n", strcmp(buf_f, buf_s));
-
-
-
-    /*snprintf(buf_f, 30, "%i %i", 500, 512);
-
-    my_snprintf(buf_s, 30, "%i %i", 500, 512);
-
-    printf("%s %s\n", buf_f, buf_s);
-
-    printf("strcmp %d\n", strcmp(buf_f, buf_s));
-
-
-    snprintf(buf_f, 30, "%i %i", 07771, 0777);
-
-    my_snprintf(buf_s, 30, "%i %i", 07771, 0777);
-
-    printf("%s %s\n", buf_f, buf_s);
-
-    printf("strcmp %d\n", strcmp(buf_f, buf_s));
-
-    snprintf(buf_f, 30, "%i", 0);
-
-    my_snprintf(buf_s, 30, "%i", 0);
-
-    printf("%s %s\n", buf_f, buf_s);
-
-    printf("strcmp %d\n", strcmp(buf_f, buf_s));
-
-
-    snprintf(buf_f, 30, "%i %i", 0xDEADBEEF, 0xDEADDEAD);
-
-    my_snprintf(buf_s, 30, "%i %i", 0xDEADBEEF, 0xDEADDEAD);
-
-    printf("%s %s\n", buf_f, buf_s);
-
-    printf("strcmp %d\n", strcmp(buf_f, buf_s));
-
-
-    snprintf(buf_f, 30, "%ld", 2147483648);
-
-    my_snprintf(buf_s, 30, "%ld", 2147483648);
-
-    printf("%s %s\n", buf_f, buf_s);
-
-    printf("strcmp %d\n", strcmp(buf_f, buf_s));
-
-
-    snprintf(buf_f, 30, "%ld", -2147483648);
-
-    my_snprintf(buf_s, 30, "%ld", -2147483648);
-
-    printf("%s %s\n", buf_f, buf_s);
-
-    printf("strcmp %d\n", strcmp(buf_f, buf_s));
-
-
-    long int a = 0;
-    snprintf(buf_f, 30, "%ld", a);
-
-    my_snprintf(buf_s, 30, "%ld", 0);
-
-    printf("%s %s\n", buf_f, buf_s);
-
-    printf("strcmp %d\n", strcmp(buf_f, buf_s));
-
-
-    snprintf(buf_f, 30, "%li", -2147483648);
-
-    my_snprintf(buf_s, 30, "%li", -2147483648);
-
-    printf("%s %s\n", buf_f, buf_s);
-
-    printf("strcmp %d\n", strcmp(buf_f, buf_s));
-
-
-    snprintf(buf_f, 30, "%li", 2147483648);
-
-    my_snprintf(buf_s, 30, "%li", 2147483648);
-
-    printf("%s %s\n", buf_f, buf_s);
-
-    printf("strcmp %d\n", strcmp(buf_f, buf_s));
-
-
-    a = 0xDEADBEEF;
-    snprintf(buf_f, 30, "%li", a);
-
-    my_snprintf(buf_s, 30, "%li", 0xDEADBEEF);
-
-    printf("%s %s\n", buf_f, buf_s);
-
-    printf("strcmp %d\n", strcmp(buf_f, buf_s));
-
-    a = 077777;
-    snprintf(buf_f, 30, "%li", a);
-
-    my_snprintf(buf_s, 30, "%li", 077777);
-
-    printf("%s %s\n", buf_f, buf_s);
-
-    printf("strcmp %d\n", strcmp(buf_f, buf_s));*/
-
-    return 0;
+    int neg = 0;
+
+    if (neg_d_buf())
+        neg++;
+    else
+        printf("Fault! 1\n\n");
+
+    if (neg_d_format())
+        neg++;
+    else
+        printf("Fault! 2\n\n");
+
+    if (neg_d_size())
+        neg++;
+    else
+        printf("Fault! 3\n\n");
+
+    int pos = 0;
+    if (pos_d_neg_num())
+        pos++;
+    else
+        printf("Fault! 4");
+
+    if (pos_d_normal())
+        pos++;
+    else
+        printf("Fault! 5");
+
+    if (pos_d_pos_num())
+        pos++;
+    else
+        printf("Fault! 6");
+
+    if (pos_d_text())
+        pos++;
+    else
+        printf("Fault! 7");
+
+    if (pos_d_zero_num())
+        pos++;
+    else
+        printf("Fault! 8");
+
+    if (pos == POS_TESTS && neg == NEG_TESTS)
+        return YAHOOO;
+    else
+        return FUUUUU;
 }

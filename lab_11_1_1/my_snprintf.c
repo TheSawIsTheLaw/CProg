@@ -6,10 +6,11 @@
 #define ZERO 48
 #define NINE 57
 
-int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
+int my_snprintf(char *restrict buf, size_t nu, const char *restrict format, ...)
 {
-    if (!buf || !format || n <= 0)
+    if (!format || nu <= 0 || !buf)
         return 0;
+    size_t n = nu;
 
     va_list argptr;
     va_start(argptr, format);
@@ -17,7 +18,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
     DEB("Заход")
     size_t i = 0, b_i = 0;
 
-    while (*(format + i) != '\0' && b_i < n)
+    while (*(format + i) != '\0')
     {
         DEB("Проход")
         if (*(format + i) == '%')
@@ -242,8 +243,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
     if (b_i < n)
         *(buf + b_i) = '\0';
     else
-        *(buf + b_i - 1) = '\0';
-
+        *(buf + n - 1) = '\0';
     va_end(argptr);
 
     return b_i;
