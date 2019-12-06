@@ -48,6 +48,14 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 }
                 if (num == 0)
                     i++;
+                if (num < 0)
+                {
+                    mas_num[q_mas] = 8;
+                    q_mas++;
+                    num++;
+                    num *= -1;
+                    num = num / 10;
+                }
                 while (num != 0)
                 {
                     mas_num[q_mas] = num % 10;
@@ -69,7 +77,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 if (num == 0)
                 {
                     i++;
-                    if (b_i < n)
+                    if (b_i < n && buf && n)
                         *(buf + b_i) = '0';
                     b_i++;
                     continue;
@@ -78,7 +86,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 if (num < q_mas)
                 {
                     num *= -1;
-                    if (b_i < n)
+                    if (b_i < n && buf && n)
                         *(buf + b_i) = '-';
                     b_i++;
                 }
@@ -91,7 +99,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 q_mas--;
                 for (int j = q_mas; j >= 0; j--)
                 {
-                    if (b_i < n)
+                    if (b_i < n && buf && n)
                         *(buf + b_i) = (char)(mas_num[j] + ZERO);
                     b_i++;
                 }
@@ -103,7 +111,8 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 uint32_t mas[8];
                 if (num == 0)
                 {
-                    *(buf + b_i) = '0';
+                    if (b_i < n && buf && n)
+                        *(buf + b_i) = '0';
                     b_i++;
                     continue;
                 }
@@ -118,7 +127,8 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 char hex_pudge[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
                 for (int j = q_mas; j >= 0; j--)
                 {
-                    *(buf + b_i) = hex_pudge[mas[j]];
+                    if (b_i < n && buf && n)
+                        *(buf + b_i) = hex_pudge[mas[j]];
                     b_i++;
                     if (b_i >= n)
                         continue;
@@ -136,7 +146,8 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                     if (num == 0)
                     {
                         i++;
-                        *(buf + b_i) = '0';
+                        if (b_i < n && buf && n)
+                            *(buf + b_i) = '0';
                         b_i++;
                         continue;
                     }
@@ -144,7 +155,8 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                     if (num < q_mas)
                     {
                         num *= -1;
-                        *(buf + b_i) = '-';
+                        if (b_i < n && buf && n)
+                            *(buf + b_i) = '-';
                         b_i++;
                         if (b_i >= n)
                             continue;
@@ -158,7 +170,8 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                     q_mas--;
                     for (int j = q_mas; j >= 0; j--)
                     {
-                        *(buf + b_i) = (char)(mas_num[j] + ZERO);
+                        if (b_i < n && buf && n)
+                            *(buf + b_i) = (char)(mas_num[j] + ZERO);
                         b_i++;
                         if (b_i >= n)
                             continue;
@@ -171,7 +184,8 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                     if (num == 0)
                     {
                         i++;
-                        *(buf + b_i) = '0';
+                        if (b_i < n && buf && n)
+                            *(buf + b_i) = '0';
                         b_i++;
                         continue;
                     }
@@ -179,7 +193,8 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                     if (num < q_mas)
                     {
                         num *= -1;
-                        *(buf + b_i) = '-';
+                        if (b_i < n && buf && n)
+                            *(buf + b_i) = '-';
                         b_i++;
                         if (b_i >= n)
                             continue;
@@ -193,7 +208,8 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                     q_mas--;
                     for (int j = q_mas; j >= 0; j--)
                     {
-                        *(buf + b_i) = (char)(mas_num[j] + ZERO);
+                        if (b_i < n && buf && n)
+                            *(buf + b_i) = (char)(mas_num[j] + ZERO);
                         b_i++;
                         if (b_i >= n)
                             continue;
@@ -206,7 +222,8 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                     uint32_t mas[20];
                     if (num == 0)
                     {
-                        *(buf + b_i) = '0';
+                        if (b_i < n && buf && n)
+                            *(buf + b_i) = '0';
                         b_i++;
                         continue;
                     }
@@ -221,7 +238,8 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                     char hex_pudge[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
                     for (int j = q_mas; j >= 0; j++)
                     {
-                        *(buf + b_i) = hex_pudge[mas[j]];
+                        if (b_i < n && buf && n)
+                            *(buf + b_i) = hex_pudge[mas[j]];
                         b_i++;
                         if (b_i >= n)
                             continue;
@@ -232,7 +250,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
         }
         else
         {
-            if (buf && n)
+            if (b_i < n && buf && n)
                 *(buf + b_i) = *(format + i);
             b_i++;
             i++;
