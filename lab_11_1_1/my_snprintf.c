@@ -116,7 +116,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 }
                 q_mas--;
 
-                char hex_pudge[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+                char hex_pudge[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
                 for (int j = q_mas; j >= 0; j--)
                 {
                     *(buf + b_i) = hex_pudge[mas[j]];
@@ -219,7 +219,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                     }
                     q_mas--;
 
-                    char hex_pudge[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+                    char hex_pudge[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
                     for (int j = q_mas; j >= 0; j++)
                     {
                         *(buf + b_i) = hex_pudge[mas[j]];
