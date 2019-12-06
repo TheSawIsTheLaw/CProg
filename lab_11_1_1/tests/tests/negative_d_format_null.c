@@ -6,8 +6,6 @@ int neg_d_format()
     int check_f = my_snprintf(buf_f, 30, NULL, 0);
     DEB(check_f)
 
-    DEB(strcmp(buf_f, buf_s))
-
     if (check_f == -1)
         return YAHOOO;
     else

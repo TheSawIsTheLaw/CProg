@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <inttypes.h>
 #include <stdarg.h>
+#include <limits.h>
 #include "my_snprintf.h"
 
 #define ZERO 48
@@ -8,7 +9,7 @@
 
 int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
 {
-    if (!format || !buf)
+    if (!format || n > INT_MAX)
         return -1;
 
     va_list argptr;
@@ -17,7 +18,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
     DEB("Заход")
     size_t i = 0, b_i = 0;
 
-    while (*(format + i) != '\0')
+    while (*(format + i))
     {
         DEB("Проход")
         if (*(format + i) == '%')
@@ -31,7 +32,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 int num = va_arg(argptr, int);
                 if (num == 0)
                 {
-                    if (b_i < n)
+                    if (b_i < n && buf && n)
                         *(buf + b_i) = '0';
                     b_i++;
                     i++;
@@ -41,7 +42,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 if (num < q_mas)
                 {
                     num *= -1;
-                    if (b_i < n)
+                    if (b_i < n && buf && n)
                         *(buf + b_i) = '-';
                     b_i++;
                 }
@@ -56,7 +57,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 q_mas--;
                 for (int j = q_mas; j >= 0; j--)
                 {
-                    if (b_i < n)
+                    if (b_i < n && buf && n)
                         *(buf + b_i) = (char)(mas_num[j] + ZERO);
                     b_i++;
                 }
@@ -231,15 +232,16 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
         }
         else
         {
-            *(buf + b_i) = *(format + i);
+            if (buf && n)
+                *(buf + b_i) = *(format + i);
             b_i++;
             i++;
         }
     }
 
-    if (b_i < n)
+    if (b_i < n && buf && n)
         *(buf + b_i) = '\0';
-    else
+    else if (buf && n)
         *(buf + n - 1) = '\0';
     va_end(argptr);
 
