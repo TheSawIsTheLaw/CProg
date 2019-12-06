@@ -32,7 +32,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 if (num == 0)
                 {
                     if (b_i < n)
-                    *(buf + b_i) = '0';
+                        *(buf + b_i) = '0';
                     b_i++;
                     i++;
                     continue;
