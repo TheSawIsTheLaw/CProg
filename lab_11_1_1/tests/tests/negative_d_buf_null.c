@@ -7,7 +7,7 @@ int neg_d_buf()
 
     DEB(strcmp(buf_f, buf_s))
 
-    if (!check_f)
+    if (check_f == -1)
         return YAHOOO;
     else
         return FUUUUU;

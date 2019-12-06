@@ -6,11 +6,10 @@
 #define ZERO 48
 #define NINE 57
 
-int my_snprintf(char *restrict buf, size_t nu, const char *restrict format, ...)
+int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
 {
-    if (!format || nu <= 0 || !buf)
-        return 0;
-    size_t n = nu;
+    if (!format || !buf)
+        return -1;
 
     va_list argptr;
     va_start(argptr, format);
@@ -32,6 +31,7 @@ int my_snprintf(char *restrict buf, size_t nu, const char *restrict format, ...)
                 int num = va_arg(argptr, int);
                 if (num == 0)
                 {
+                    if (b_i < n)
                     *(buf + b_i) = '0';
                     b_i++;
                     i++;
@@ -41,10 +41,9 @@ int my_snprintf(char *restrict buf, size_t nu, const char *restrict format, ...)
                 if (num < q_mas)
                 {
                     num *= -1;
-                    *(buf + b_i) = '-';
+                    if (b_i < n)
+                        *(buf + b_i) = '-';
                     b_i++;
-                    if (b_i >= n)
-                        continue;
                 }
                 if (num == 0)
                     i++;
@@ -57,10 +56,9 @@ int my_snprintf(char *restrict buf, size_t nu, const char *restrict format, ...)
                 q_mas--;
                 for (int j = q_mas; j >= 0; j--)
                 {
-                    *(buf + b_i) = (char)(mas_num[j] + ZERO);
+                    if (b_i < n)
+                        *(buf + b_i) = (char)(mas_num[j] + ZERO);
                     b_i++;
-                    if (b_i >= n)
-                        continue;
                 }
             }
             else if (*(format + i) == 'i')
@@ -70,7 +68,8 @@ int my_snprintf(char *restrict buf, size_t nu, const char *restrict format, ...)
                 if (num == 0)
                 {
                     i++;
-                    *(buf + b_i) = '0';
+                    if (b_i < n)
+                        *(buf + b_i) = '0';
                     b_i++;
                     continue;
                 }
@@ -78,10 +77,9 @@ int my_snprintf(char *restrict buf, size_t nu, const char *restrict format, ...)
                 if (num < q_mas)
                 {
                     num *= -1;
-                    *(buf + b_i) = '-';
+                    if (b_i < n)
+                        *(buf + b_i) = '-';
                     b_i++;
-                    if (b_i >= n)
-                        continue;
                 }
                 while (num != 0)
                 {
@@ -92,10 +90,9 @@ int my_snprintf(char *restrict buf, size_t nu, const char *restrict format, ...)
                 q_mas--;
                 for (int j = q_mas; j >= 0; j--)
                 {
-                    *(buf + b_i) = (char)(mas_num[j] + ZERO);
+                    if (b_i < n)
+                        *(buf + b_i) = (char)(mas_num[j] + ZERO);
                     b_i++;
-                    if (b_i >= n)
-                        continue;
                 }
             }
             else if (*(format + i) == 'x')

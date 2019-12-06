@@ -17,7 +17,7 @@ my_snprintf.o: my_snprintf.c
 	gcc -std=c99 -c -Wall -Werror -o my_snprintf.o my_snprintf.c
 	
 test.o: tests/test.c
-	gcc -std=c99 -c -Wall -Werror -o test.o tests/test.c
+	gcc -std=c99 -c -o test.o tests/test.c
 	
 negative_d_buf_null.o: tests/tests/negative_d_buf_null.c
 	gcc -std=c99 -c -Wall -Werror -o negative_d_buf_null.o tests/tests/negative_d_buf_null.c
