@@ -6,7 +6,7 @@
 #define ZERO 48
 #define NINE 57
 
-int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
+int my_snprintf(char *buf, size_t n, const char *format, ...)
 {
     if (!buf || !format || n <= 0)
         return 0;
