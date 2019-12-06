@@ -158,24 +158,35 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 else if (*(format + i) == 'd')
                 {
                     DEB("%ld")
-                    uint32_t num = va_arg(argptr, uint32_t);
+                    int64_t num = va_arg(argptr, int64_t);
                     if (num == 0)
                     {
-                        i++;
                         if (b_i < n && buf && n)
                             *(buf + b_i) = '0';
                         b_i++;
+                        i++;
                         continue;
                     }
-                    short mas_num[19], q_mas = 0;
+                    int mas_num[20], q_mas = 0;
                     if (num < q_mas)
                     {
                         num *= -1;
                         if (b_i < n && buf && n)
                             *(buf + b_i) = '-';
                         b_i++;
-                        if (b_i >= n)
-                            continue;
+                    }
+                    if (num == 0)
+                        i++;
+                    // А теперь я хочу вот что сказать.
+                    // Это ненормально.
+                    // Спасибо за внимание.
+                    if (num < 0) // ПЕРЕПОЛНЕНИЕ
+                    {
+                        mas_num[q_mas] = 8;
+                        q_mas++;
+                        num++;
+                        num *= -1;
+                        num = num / 10;
                     }
                     while (num != 0)
                     {
@@ -189,31 +200,40 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                         if (b_i < n && buf && n)
                             *(buf + b_i) = (char)(mas_num[j] + ZERO);
                         b_i++;
-                        if (b_i >= n)
-                            continue;
                     }
                 }
                 else if (*(format + i) == 'i')
                 {
                     DEB("%li")
-                    uint32_t num = va_arg(argptr, uint32_t);
+                    int64_t num = va_arg(argptr, int64_t);
                     if (num == 0)
                     {
-                        i++;
                         if (b_i < n && buf && n)
                             *(buf + b_i) = '0';
                         b_i++;
+                        i++;
                         continue;
                     }
-                    short mas_num[19], q_mas = 0;
+                    int mas_num[20], q_mas = 0;
                     if (num < q_mas)
                     {
                         num *= -1;
                         if (b_i < n && buf && n)
                             *(buf + b_i) = '-';
                         b_i++;
-                        if (b_i >= n)
-                            continue;
+                    }
+                    if (num == 0)
+                        i++;
+                    // А теперь я хочу вот что сказать.
+                    // Это ненормально.
+                    // Спасибо за внимание.
+                    if (num < 0) // ПЕРЕПОЛНЕНИЕ
+                    {
+                        mas_num[q_mas] = 8;
+                        q_mas++;
+                        num++;
+                        num *= -1;
+                        num = num / 10;
                     }
                     while (num != 0)
                     {
@@ -227,15 +247,13 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                         if (b_i < n && buf && n)
                             *(buf + b_i) = (char)(mas_num[j] + ZERO);
                         b_i++;
-                        if (b_i >= n)
-                            continue;
                     }
                 }
                 else if (*(format + i) == 'x')
                 {
                     DEB("%lx")
-                    uint32_t num = va_arg(argptr, uint32_t);
-                    uint32_t mas[20];
+                    uint64_t num = va_arg(argptr, uint64_t);
+                    int mas[20];
                     if (num == 0)
                     {
                         if (b_i < n && buf && n)
