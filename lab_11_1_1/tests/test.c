@@ -122,10 +122,10 @@ int main(void)
     if (check_f != check_s || strcmp(buf_f, buf_s))
         return FUUUUU;
 
-    check_s = my_snprintf(buf_s, 20, "%li", INT64_MAX + 1);
-    check_s = my_snprintf(buf_s, 20, "%ld", INT64_MAX + 1);
-    check_s = my_snprintf(buf_s, 20, "%i", INT32_MAX + 1);
-    check_s = my_snprintf(buf_s, 20, "%d", INT32_MAX + 1);
+    //check_s = my_snprintf(buf_s, 20, "%li", INT64_MAX + 1);
+    //check_s = my_snprintf(buf_s, 20, "%ld", INT64_MAX + 1);
+    //check_s = my_snprintf(buf_s, 20, "%i", INT32_MAX + 1);
+    //check_s = my_snprintf(buf_s, 20, "%d", INT32_MAX + 1);
 
     if (pos == POS_TESTS && neg == NEG_TESTS)
         return YAHOOO;
