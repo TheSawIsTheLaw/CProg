@@ -17,7 +17,7 @@ my_snprintf.o: my_snprintf.c
 	gcc -std=c99 -c -Wall -Werror -o my_snprintf.o my_snprintf.c
 	
 test.o: tests/test.c
-	gcc -std=c99 -c -Wall -Werror -o test.o tests/test.c
+	gcc -std=c99 -c -o test.o tests/test.c
 	
 negative_d_buf_null.o: tests/tests/negative_d_buf_null.c
 	gcc -std=c99 -c -Wall -Werror -o negative_d_buf_null.o tests/tests/negative_d_buf_null.c
@@ -32,7 +32,7 @@ positive_d_negative_num.o: tests/tests/positive_d_negative_num.c
 	gcc -std=c99 -c -Wall -Werror -o positive_d_negative_num.o tests/tests/positive_d_negative_num.c
 	
 positive_d_normal.o: tests/tests/positive_d_normal.c
-	gcc -std=c99 -c -Wall -Werror -o positive_d_normal.o tests/tests/positive_d_normal.c
+	gcc -std=c99 -c -o positive_d_normal.o tests/tests/positive_d_normal.c
 	
 positive_d_positive_num.o: tests/tests/positive_d_positive_num.c
 	gcc -std=c99 -c -Wall -Werror -o positive_d_positive_num.o tests/tests/positive_d_positive_num.c

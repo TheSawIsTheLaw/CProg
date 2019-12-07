@@ -126,7 +126,6 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
             {
                 DEB("%x")
                 uint32_t num = va_arg(argptr, uint32_t);
-                printf("!%u!", num);
                 uint32_t mas[8];
                 if (num == 0)
                 {
