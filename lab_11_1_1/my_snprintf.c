@@ -51,7 +51,8 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 // А теперь я хочу вот что сказать.
                 // Это ненормально.
                 // Спасибо за внимание.
-                if (num < 0) // ПЕРЕПОЛНЕНИЕ
+                // ПЕРЕПОЛНЕНИЕ
+                if (num < 0)
                 {
                     mas_num[q_mas] = 8;
                     q_mas++;
@@ -98,7 +99,8 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 // А теперь я хочу вот что сказать.
                 // Это ненормально.
                 // Спасибо за внимание.
-                if (num < 0) // ПЕРЕПОЛНЕНИЕ
+                // ПЕРЕПОЛНЕНИЕ
+                if (num < 0)
                 {
                     mas_num[q_mas] = 8;
                     q_mas++;
@@ -124,10 +126,11 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
             {
                 DEB("%x")
                 uint32_t num = va_arg(argptr, uint32_t);
+                printf("!%u!", num);
                 uint32_t mas[8];
                 if (num == 0)
                 {
-                    i--;
+                    i++;
                     if (b_i < n && buf && n)
                         *(buf + b_i) = '0';
                     b_i++;
@@ -182,7 +185,8 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                     // А теперь я хочу вот что сказать.
                     // Это ненормально.
                     // Спасибо за внимание.
-                    if (num < 0) // ПЕРЕПОЛНЕНИЕ
+                    // ПЕРЕПОЛНЕНИЕ
+                    if (num < 0)
                     {
                         mas_num[q_mas] = 8;
                         q_mas++;
@@ -229,7 +233,8 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                     // А теперь я хочу вот что сказать.
                     // Это ненормально.
                     // Спасибо за внимание.
-                    if (num < 0) // ПЕРЕПОЛНЕНИЕ
+                    // ПЕРЕПОЛНЕНИЕ
+                    if (num < 0)
                     {
                         mas_num[q_mas] = 8;
                         q_mas++;
@@ -258,7 +263,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                     uint64_t mas[16];
                     if (num == 0)
                     {
-                        i--;
+                        i++;
                         if (b_i < n && buf && n)
                             *(buf + b_i) = '0';
                         b_i++;
