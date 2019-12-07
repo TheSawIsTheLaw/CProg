@@ -127,6 +127,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 uint32_t mas[8];
                 if (num == 0)
                 {
+                    i--;
                     if (b_i < n && buf && n)
                         *(buf + b_i) = '0';
                     b_i++;
@@ -137,6 +138,7 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 {
                     mas[q_mas] = num % 16;
                     num = num / 16;
+                    q_mas++;
                 }
                 q_mas--;
 
@@ -253,24 +255,26 @@ int my_snprintf(char *restrict buf, size_t n, const char *restrict format, ...)
                 {
                     DEB("%lx")
                     uint64_t num = va_arg(argptr, uint64_t);
-                    int mas[20];
+                    uint64_t mas[16];
                     if (num == 0)
                     {
+                        i--;
                         if (b_i < n && buf && n)
                             *(buf + b_i) = '0';
                         b_i++;
                         continue;
                     }
                     short q_mas = 0;
-                    while (num != 0 && q_mas < 20)
+                    while (num != 0 && q_mas < 16)
                     {
                         mas[q_mas] = num % 16;
                         num = num / 16;
+                        q_mas++;
                     }
                     q_mas--;
 
                     char hex_pudge[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
-                    for (int j = q_mas; j >= 0; j++)
+                    for (int j = q_mas; j >= 0; j--)
                     {
                         if (b_i < n && buf && n)
                             *(buf + b_i) = hex_pudge[mas[j]];
