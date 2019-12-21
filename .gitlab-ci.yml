@@ -7,3 +7,12 @@ test:
   artifacts:
     paths: [report.txt.enc]
     when: always
+    
+RK_32:
+    image: gcc
+    stage: build
+    only:
+        - RK_32
+    script:
+         - cd RK_32_BB
+         - make build
