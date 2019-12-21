@@ -4,7 +4,8 @@
 typedef struct
 {
 	char word[11];
-	struct node_t *next;
+	struct node_t *before;
+	struct node_t *after;
 }node_t;
 
 #endif
