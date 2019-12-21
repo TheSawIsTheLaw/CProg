@@ -23,12 +23,11 @@ node_t *full_from_file(FILE *f)
 
 int reverse(FILE *f, node_t *node)
 {
-	while (node->before)
+	while (node)
 	{
 		fprintf(f, "%s\n", node->word);
 		node = node->before;
 	}
-	fprintf(f, "%s\n", node->word);
 	
 	return 0;
 }
@@ -45,6 +44,7 @@ int main()
 	fclose(file);
 	
 	file = fopen("out.txt", "w");
+	
 	
 	reverse(file, node);
 	
