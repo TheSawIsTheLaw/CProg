@@ -41,8 +41,6 @@ int sqr(void)
 
     print_list(new);
 
-    new = NULL;
-
     free_list(new);
 
     return SUCCESS;
