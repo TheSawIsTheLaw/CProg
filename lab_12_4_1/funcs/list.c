@@ -89,7 +89,7 @@ node_t *out_list(int num)
 
     node_t *list = NULL;
 
-    for (int i = new_size - 1; i >= 0; i--)
+    for (int i = 0; i < new_size; i++)
     {
         if (!(num % prime_array[i]))
         {
@@ -130,7 +130,7 @@ node_t *mult_list(node_t *first, node_t *second)
             first = (node_t *)first->next;
             second = (node_t *)second->next;
         }
-        else if (first->prime > second->prime)
+        else if (first->prime < second->prime)
         {
             new->prime = second->prime;
             new->degree = second->degree;
