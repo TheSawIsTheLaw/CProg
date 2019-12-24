@@ -28,7 +28,7 @@ int my_div(void)
     if (!num.quot)
         return NUM_ERROR;
 
-    if(num.quot == 1)
+    if (num.quot == 1)
     {
         fprintf(F_OUT, "1");
         return SUCCESS;

@@ -5,9 +5,9 @@
 void free_list(node_t *node)
 {
     if (!node)
-        return ;
+        return;
     node_t *cur_node = node;
-    while(cur_node->next)
+    while (cur_node->next)
     {
         node = (node_t *)node->next;
         free(cur_node);
@@ -19,10 +19,10 @@ void free_list(node_t *node)
 void print_list(node_t *node)
 {
     if (!node || !F_OUT)
-        return ;
+        return;
 
     node_t *node_x = node;
-    while(node_x)
+    while (node_x)
     {
         fprintf(F_OUT, "%d %d ", node_x->prime, node_x->degree);
         node_x = (node_t *)node_x->next;
@@ -213,6 +213,5 @@ node_t *mult_list(node_t *first, node_t *second)
 
         sec_cur = (node_t *)sec_cur->next;
     }*/
-
 }
 
