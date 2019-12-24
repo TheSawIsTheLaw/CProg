@@ -29,5 +29,8 @@ int out(void);
 
 int mul(void);
 
+int my_div(void);
+
+int sqr(void);
 
 #endif

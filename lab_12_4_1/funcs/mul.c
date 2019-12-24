@@ -29,7 +29,10 @@ int mul(void)
 
 
     if (num_f == 1 && num_s == 1)
+    {
         fprintf(F_OUT, "1");
+        return SUCCESS;
+    }
     else if (num_f == 1)
         print_list(second);
     else if (num_s == 1)
