@@ -63,7 +63,7 @@ int main(void)
     }
     else if (!strcmp(key, "sqr"))
     {
-        check = sqr();
+        //check = sqr();
         if (check)
             return check;
     }
