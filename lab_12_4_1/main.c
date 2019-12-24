@@ -51,19 +51,19 @@ int main(void)
     }
     else if (!strcmp(key, "div"))
     {
-        check = my_div();
+        //check = my_div();
         if (check)
             return check;
     }
     else if (!strcmp(key, "mul"))
     {
-        check = mul();
+        //check = mul();
         if (check)
             return check;
     }
     else if (!strcmp(key, "sqr"))
     {
-        check = sqr();
+        //check = sqr();
         if (check)
             return check;
     }
