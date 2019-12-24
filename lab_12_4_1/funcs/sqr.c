@@ -20,7 +20,7 @@ int sqr(void)
         return READ_ERROR;
 
     if (num <= 0)
-        return NUM_ERROR;
+        num *= -1;
 
     if (num == 1)
     {
