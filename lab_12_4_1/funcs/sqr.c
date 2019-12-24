@@ -20,7 +20,7 @@ int sqr(void)
         return READ_ERROR;
 
     if (num <= 0)
-        num *= -1;
+        return NUM_ERROR;
 
     if (num == 1)
     {
@@ -28,10 +28,8 @@ int sqr(void)
         return SUCCESS;
     }
 
-    num *= num;
-
     node_t *new = out_list(num);
-/*
+
     node_t *cur = new;
 
     while (cur->next)
@@ -40,7 +38,7 @@ int sqr(void)
         cur = (node_t *)cur->next;
     }
     cur->degree *= 2;
-*/
+
     print_list(new);
 
     free_list(new);

@@ -51,7 +51,7 @@ int main(void)
     }
     else if (!strcmp(key, "div"))
     {
-        check = my_div();
+        //check = my_div();
         if (check)
             return check;
     }
