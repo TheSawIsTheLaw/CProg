@@ -172,46 +172,5 @@ node_t *mult_list(node_t *first, node_t *second)
     pre->next = NULL;
 
     return start_l;
-
-    /* Вы только гляньте, меня б в дурку с такими идеями...
-    while (first->next)
-    {
-        new->prime = first->prime;
-        new->degree = first->degree;
-        new->next = calloc(1, sizeof(node_t));
-        new = (node_t *)new->next;
-        first = (node_t *)first->next;
-    }
-    new->next = NULL;
-    new->prime = first->prime;
-    new->degree = first->degree;
-
-    node_t *sec_cur = second;
-
-    new = list;
-    while (sec_cur)
-    {
-        while (new)
-        {
-            if (new->prime < sec_cur->prime)
-            {
-                new = (node_t *)new->next;
-            }
-            else if (new->prime == sec_cur->prime)
-            {
-                new->degree += sec_cur->degree;
-            }
-            else
-            {
-                node_t *n_n = calloc(1, sizeof(node_t *));
-                n_n->prime = sec_cur->prime;
-                n_n->degree = sec_cur->degree;
-                n_n->next = new->next;
-                new->next = (struct node_t *)n_n;
-            }
-        }
-
-        sec_cur = (node_t *)sec_cur->next;
-    }*/
 }
 

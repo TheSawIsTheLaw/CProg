@@ -70,7 +70,5 @@ int main(void)
     else
         return UNKNOWN_KEY;
 
-
-
     return 0;
 }
