@@ -40,13 +40,14 @@ int mul(void)
     else
     {
         /// DEBAG
-        print_list(first);
-        printf("\n\n");
-        print_list(second);
-        printf("\n\n");
+        ///print_list(first);
+        ///printf("\n\n");
+        ///print_list(second);
+        ///printf("\n\n");
         ///
         node_t *total = mult_list(first, second);
         print_list(total);
+        free_list(total);
     }
 
 

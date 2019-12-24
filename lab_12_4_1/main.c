@@ -45,7 +45,7 @@ int main(void)
 
     if (!strcmp(key, "out"))
     {
-        //check = out();
+        check = out();
         if (check)
             return check;
     }
