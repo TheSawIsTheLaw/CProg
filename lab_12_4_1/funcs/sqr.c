@@ -28,8 +28,10 @@ int sqr(void)
         return SUCCESS;
     }
 
-    node_t *new = out_list(num);
+    num *= num;
 
+    node_t *new = out_list(num);
+/*
     node_t *cur = new;
 
     while (cur->next)
@@ -38,7 +40,7 @@ int sqr(void)
         cur = (node_t *)cur->next;
     }
     cur->degree *= 2;
-
+*/
     print_list(new);
 
     free_list(new);
